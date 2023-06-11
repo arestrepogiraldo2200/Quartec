@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir cliente</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <div class = "logoutcontainer">
+    <a href="/logout">
+        <div class="log-in">
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </div>
+    </a>
+    </div>
+
+    <img src="/images/logo.png" alt="logo">
+
+    <h1 class = "title">Datos del cliente</h1>
+
+    <div class="formcontainer">
+        <form action="" method ="">
+
+            <div class="inputcontainer">
+                <label for="cliente">Cliente</label>
+                <input type="text" id="cliente" name="cliente" placeholder="Nombre completo del cliente">
+            </div>
+
+            <div class="inputcontainer">
+                <label for="cliente">Nombre de contacto</label>
+                <input type="text" id="clientealt" name="clientealt" placeholder="Nombre completo del contacto">
+            </div>
+
+            <div class="inputcontainer">
+                <label for="cliente">Nombre de contacto alternativo</label>
+                <input type="text" id="clientealt1" name="clientealt1" placeholder="Nombre completo del contacto alternativo">
+            </div>
+
+            <div class="inputcontainer">
+                <label for="nit_cc">NIT o CC</label>
+
+                <div class="radiocontainer">
+                    <div>
+                      <input type="radio" id="NIT" name="nitorcc" value="NIT" checked>
+                      <label for="huey">NIT</label>
+                    </div>
+                
+                    <div>
+                      <input type="radio" id="CC" name="nitorcc" value="CC">
+                      <label for="dewey">CC</label>
+                    </div>
+                </div>
+
+                <input type="number" id="nit_cc" name="nit_cc" placeholder="NIT o CC">
+            </div>
+
+            <div class="inputcontainer">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion" placeholder="Dirección">
+            </div>   
+
+            <div class="inputcontainer">
+                <label for="direccionenvio">Dirección de envío</label>
+                <input type="text" id="direccionenvio" name="direccionenvio" placeholder="Dirección de envío">
+            </div>    
+
+            <div class="inputcontainer">
+                <label for="telefono1">Teléfono 1</label>
+                <input type="tel" id="telefono1" name="telefono1" placeholder="Tel. 1">
+            </div>    
+
+            <div class="inputcontainer">
+                <label for="telefono2">Teléfono 2</label>
+                <input type="tel" id="telefono2" name="telefono2" placeholder="Tel. 2">
+            </div>     
+
+            <div class="inputcontainer">
+                <label for="telefono3">Teléfono 3</label>
+                <input type="tel" id="telefono3" name="telefono3" placeholder="Tel. 3">
+            </div>   
+
+            <div class="inputcontainer">
+                <label for="emailfacturacion">Correo de facturación</label>
+                <input type="email" id="emailfacturacion" name="emailfacturacion" placeholder="e-mail de facturación" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" >
+            </div>
+
+            <div class="inputcontainer">
+                <label for="email1">Correo 1</label>
+                <input type="email" id="email1" name="direccionenvio" placeholder="e-mail 1" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" >
+            </div>   
+
+            <div class="inputcontainer">
+                <label for="email2">Correo 2</label>
+                <input type="email" id="email2" name="direccionenvio" placeholder="e-mail 2" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" >
+            </div>   
+
+            <div class="inputcontainer">
+                <label for="email3">Correo 3</label>
+                <input type="email" id="email3" name="direccionenvio" placeholder="e-mail 3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" >
+            </div>   
+
+            <div class="inputcontainer">
+                <label for="email4">Correo 4</label>
+                <input type="email" id="email4" name="direccionenvio" placeholder="e-mail 4" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" >
+            </div>  
+
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</body>
+</html>

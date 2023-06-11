@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizar cotización</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+    <div class = "logoutcontainer">
+        <a href="/logout">
+            <div class="log-in">
+                <i class="fa-solid fa-right-to-bracket"></i>
+            </div>
+        </a>
+        </div>
+    <img src="/images/logo.png" alt="logo">
+
+    <h1 class = "title">Datos de cotización</h1>
+
+    <div class="formcontainer">
+        <form action="" method ="">
+            <div class="inputcontainer">
+                <label for="num">Número de cotización</label>
+                <input type="number" id="num" name="num" placeholder="Número de cotización">
+            </div>
+
+            <div class="inputcontainer">
+                <label for="text">Cliente</label>
+                <select name="select">
+                    <option value="-" selected>-</option>
+                    <% for (let i = 0; i< clientes.length; i++){ %>
+                        <option value="<%= clientes[i].client %>"><%= clientes[i].client %></option>
+                    <% } %>
+                </select>
+           </div>
+
+            <div class="inputcontainer">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha"/>
+            </div> 
+            <div class="inputcontainer">
+                <label for="validez">Validez de la oferta</label>
+                <input type="text" id="validez" name="validez" placeholder="Validez de la oferta">
+            </div>    
+            <div class="inputcontainer">
+                <label for="entrega">Tiempo de entrega</label>
+                <input type="text" id="entrega" name="entrega" placeholder="Tiempo de entrega">
+            </div>       
+            <div class="inputcontainer">
+                <label for="condiciones">Condiciones de pago</label>
+                <select name="select">
+                    <option value="-" selected>-</option>
+                    <option value="Contado">Contado</option>
+                    <option value="Crédito">Crédito</option>
+                </select>
+<!-- 
+                <label for="condiciones">Condiciones de pago</label>
+                <input type="text" id="condiciones" name="condiciones" placeholder="Condiciones de pago">
+-->
+            </div>    
+            <div class="inputcontainer">
+                <label for="asesor">Asesor</label>
+                <select name="select">
+                    <option value="-" selected>-</option>
+                    <% for (let i = 0; i< asesores.length; i++){ %>
+                        <option value="<%= asesores[i].name %>"><%= asesores[i].name %></option>
+                    <% } %>
+                </select>
+<!-- 
+                <label for="asesor">Asesor</label>
+                <input type="text" id="asesor" name="asesor" placeholder="Asesor">
+ -->
+            </div>   
+            <div class="inputcontainer">
+                <label for="estado">Estado</label>
+                <select name="select">
+                    <option value="-" selected>-</option>
+                    <option value="Aprobado">Aprobado</option>
+                    <option value="En trámite">En trámite</option>
+                    <option value="Desaprobado">No aprobado</option>
+                </select>
+            </div>    
+            <div class="inputcontainer">
+                <label for="fecha_aprobacion">Fecha de aprobación</label>
+                <input type="date" id="fecha_aprobacion" name="fecha_aprobacion"/>
+            </div>   
+
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</body>
+</html>

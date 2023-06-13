@@ -51,19 +51,19 @@ CREATE TABLE `clientes` (
   `id` int(11) NOT NULL,
   `client` varchar(200) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `name2` varchar(200) DEFAULT NULL,
-  `NIT` varchar(200) DEFAULT NULL,
-  `CC` varchar(200) DEFAULT NULL,
-  `direction` varchar(200) DEFAULT NULL,
-  `direction_send` varchar(200) DEFAULT NULL,
-  `telefono1` varchar(200) DEFAULT NULL,
-  `telefono2` varchar(200) DEFAULT NULL,
-  `telefono3` varchar(200) DEFAULT NULL,
-  `billing_email` varchar(200) DEFAULT NULL,
-  `email1` varchar(200) DEFAULT NULL,
-  `email2` varchar(200) DEFAULT NULL,
-  `email3` varchar(200) DEFAULT NULL,
-  `email4` varchar(200) DEFAULT NULL
+  `name2` varchar(200),
+  `NIT` varchar(200),
+  `CC` varchar(200),
+  `direction` varchar(200),
+  `direction_send` varchar(200),
+  `telefono1` varchar(200),
+  `telefono2` varchar(200),
+  `telefono3` varchar(200),
+  `billing_email` varchar(200),
+  `email1` varchar(200),
+  `email2` varchar(200),
+  `email3` varchar(200),
+  `email4` varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ----------------------------------------------------------
@@ -71,9 +71,14 @@ CREATE TABLE `clientes` (
 ALTER TABLE `asesores`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `asesores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+  ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ----------------------------------------------------------
 

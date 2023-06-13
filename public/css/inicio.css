@@ -34,5 +34,7 @@ img{
   .logoutcontainer{
     align-items: right;
     padding-left: 90%;
-
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
+  

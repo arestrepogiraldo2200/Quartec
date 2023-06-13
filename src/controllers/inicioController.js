@@ -1,5 +1,7 @@
 
 const path = require('path');
+const db = require('../database/models');
+
 
 let inicioController = {
 
@@ -11,6 +13,5 @@ let inicioController = {
 
     }
 }
-
 
 module.exports = inicioController;

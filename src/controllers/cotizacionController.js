@@ -14,7 +14,7 @@ let cotizacionController = {
 
             db.asesores.findAll({raw: true}).then((listadeasesores) => {
 
-                res.render(path.join(__dirname, '../views/cotizacion'), {clientes : listadeclientes, asesores : listadeasesores});    
+                res.render(path.join(__dirname, '../views/cotizacion'), {clientes : listadeclientes, asesor : req.session.name});    
 
             }).catch((err)=>console.log(err));
 

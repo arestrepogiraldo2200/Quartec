@@ -26,6 +26,7 @@ let indexController = {
             }
 
             req.session.isAuthenticated = true; 
+            req.session.name = asesor;
             res.redirect("/inicio");
 
         }).catch((err)=>console.log(err));

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="/css/inicio.css">
+    <title>Cotizar cotización</title>
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -29,13 +29,27 @@
         </div>
     </div>
 
-    <img src="/images/logo.png" alt="logo"><br>
-    <a href="/crear-cliente"><button>Añadir cliente nuevo</button></a><br>
-    <a href="/editar-cliente"><button>Editar datos de cliente</button></a><br>
-    <a href="/eliminar-cliente"><button>Eliminar cliente</button></a><br>
-    <a href="/crear-asesor"><button>Añadir asesor</button></a><br>
-    <a href="/editar-asesor"><button>Editar datos de asesor</button></a><br>
-    <a href="/cotizacion"><button>Iniciar cotización</button></a><br>
+    <img src="/images/logo.png" alt="logo">
 
+    <h1 class = "title">Eliminar cliente</h1>
+
+    <div class="formcontainer">
+
+        <form action="eliminar-cliente" method ="post">
+
+            <div class="inputcontainer">
+                <label for="text">Cliente</label>
+                <select name="select">
+
+                    <% for (let i = 0; i< clientes.length; i++){ %>
+                        <option value="<%= clientes[i].client %>" name = "cliente_a_editar"><%= clientes[i].client %></option>
+                    <% } %>
+
+                </select>
+           </div>
+
+            <input type="submit" value="Eliminar">
+        </form>
+    </div>
 </body>
 </html>

@@ -8,6 +8,7 @@ const clients = require('./src/routers/clients.js');
 const cotizaciones = require('./src/routers/cotizacion.js');
 const inicio = require('./src/routers/inicio.js');
 const index = require('./src/routers/index.js');
+const user = require('./src/routers/user.js');
 const session = require('express-session')
 
 const app = express();
@@ -35,6 +36,7 @@ app.use(inicio);
 app.use(clients);
 app.use(cotizaciones);
 app.use(index);
+app.use(user);
 
 
 app.listen(PORT, () => {

@@ -32,9 +32,14 @@
     <img src="/images/logo.png" alt="logo"><br>
     <a href="/crear-cliente"><button>Añadir cliente nuevo</button></a><br>
     <a href="/editar-cliente"><button>Editar datos de cliente</button></a><br>
+
+    <% if (isAdmin == 1) { %>
     <a href="/eliminar-cliente"><button>Eliminar cliente</button></a><br>
     <a href="/crear-asesor"><button>Añadir asesor</button></a><br>
     <a href="/editar-asesor"><button>Editar datos de asesor</button></a><br>
+    <a href="/eliminar-asesor"><button>Eliminar asesor</button></a><br>
+    <% } %>
+    
     <a href="/cotizacion"><button>Iniciar cotización</button></a><br>
 
 </body>

@@ -9,7 +9,7 @@ let inicioController = {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
 
-        res.render(path.join(__dirname,'../views/inicio.ejs'));
+        res.render(path.join(__dirname,'../views/inicio.ejs'),{isAdmin: req.session.isAdmin} );
 
     }
 }

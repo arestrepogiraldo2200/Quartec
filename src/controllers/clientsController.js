@@ -124,6 +124,7 @@ let clientsController = {
     deleteClient: (req,res) => {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
+        if (!req.session.isAdmin) return res.redirect('/');
         
         db.clientes.findAll({raw: true}).then((listadeclientes) => {
 
@@ -134,6 +135,8 @@ let clientsController = {
     },
 
     deleteClientPost: (req,res) => {
+
+        if (!req.session.isAdmin) return res.redirect('/');
 
         db.clientes.destroy({
           where :{
@@ -146,8 +149,6 @@ let clientsController = {
         }).catch((err) => console.log(err));
         
     },
-
-
 }
 
 

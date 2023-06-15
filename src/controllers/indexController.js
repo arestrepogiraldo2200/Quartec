@@ -27,6 +27,8 @@ let indexController = {
 
             req.session.isAuthenticated = true; 
             req.session.name = asesor;
+            req.session.isAdmin = user.is_admin;
+
             res.redirect("/inicio");
 
         }).catch((err)=>console.log(err));
@@ -38,8 +40,6 @@ let indexController = {
         res.redirect('/');
 
     }
-
-
 }
 
 

@@ -28,6 +28,60 @@ let userController = {
           where:{id: req.body.id}
         }).then( () => {res.redirect('/inicio');}).catch((err) => console.log(err));
 
+    },
+
+    createUser: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+        if (!req.session.isAdmin) return res.redirect('/');
+
+        res.render(path.join(__dirname, '../views/crear_asesor'));    
+
+    },
+
+    createUserPost:  (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+        if (!req.session.isAdmin) return res.redirect('/');
+
+
+        db.asesores.create({
+
+            name: req.body.usuario,
+            password: req.body.contrasena,
+            is_admin: 0,
+
+        }).then( () => {res.redirect('/inicio');}).catch((err) => console.log(err));
+
+    },
+
+    deleteUser: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+        if (!req.session.isAdmin) return res.redirect('/');
+
+        db.asesores.findAll({raw: true}).then((asesores) => {
+
+            res.render(path.join(__dirname, '../views/eliminar_asesor'), {Asesores: asesores});    
+
+        }).catch((err)=>console.log(err));
+    },
+
+    deleteUserPost: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+        if (!req.session.isAdmin) return res.redirect('/');
+
+        db.asesores.destroy({
+            where :{
+              name : req.body.select
+            }
+          }).then( () => {
+  
+              res.redirect('/inicio');
+  
+          }).catch((err) => console.log(err));
+
     }
 }
 

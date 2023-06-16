@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar cliente</title>
+    <title>Crear asesor</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
@@ -31,24 +31,23 @@
 
     <img src="/images/logo.png" alt="logo">
 
-    <h1 class = "title">Eliminar cliente</h1>
+    <h1 class = "title">Datos del asesor </h1>
 
     <div class="formcontainer">
 
-        <form action="eliminar-cliente" method ="post">
+        <form action="/crear-asesor" method ="post">
 
             <div class="inputcontainer">
-                <label for="text">Cliente</label>
-                <select name="select">
+                <label for="usuario">Nombre del asesor</label>
+                <input type="text" id="usuario" name="usuario" required minlength="6">
+            </div>
 
-                    <% for (let i = 0; i< clientes.length; i++){ %>
-                        <option value="<%= clientes[i].client %>" name = "cliente_a_editar"><%= clientes[i].client %></option>
-                    <% } %>
+            <div class="inputcontainer">
+                <label for="contrasena">Contraseña</label>
+                <input type="text" id="contrasena" name="contrasena" required minlength="6">
+            </div>
 
-                </select>
-           </div>
-
-            <input type="submit" value="Eliminar cliente">
+            <input type="submit" value="Añadir asesor">
         </form>
     </div>
 </body>

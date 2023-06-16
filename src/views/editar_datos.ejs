@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Añadir cliente</title>
+    <title>Editar mis datos</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
@@ -37,12 +37,12 @@
 
             <div class="inputcontainer">
                 <label for="usuario">Usuario</label>
-                <input type="text" id="usuario" name="usuario" value = "<%= asesorData.name %>" required>
+                <input type="text" id="usuario" name="usuario" value = "<%= asesorData.name %>" required minlength="6">
             </div>
 
             <div class="inputcontainer">
                 <label for="contrasena">Contraseña</label>
-                <input type="text" id="contrasena" name="contrasena" value = "<%= asesorData.password %>" required>
+                <input type="text" id="contrasena" name="contrasena" value = "<%= asesorData.password %>" required minlength="6">
             </div>
 
             <input type="submit" value="Editar mis datos">

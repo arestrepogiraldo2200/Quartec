@@ -22,6 +22,7 @@ let cotizacionController = {
 
     createFile: (req,res) => {
 
+        if (!req.session.isAuthenticated) return res.redirect('/');
       
         db.clientes.findOne({raw: true, where: { client: req.body.selectclient } }).then((clientFound) => {
 
@@ -63,11 +64,11 @@ let cotizacionController = {
                 worksheet.getCell('L12').value = req.body.validez;
                 worksheet.getCell('L13').value = req.body.entrega;
                 worksheet.getCell('L14').value = req.body.selectcondiciones;
-                worksheet.getCell('L15').value = req.body.selectasesor;
+                worksheet.getCell('L15').value = req.session.name;
                 worksheet.getCell('J16').value = req.body.selectestado;
                 worksheet.getCell('N16').value = fecha_aprobacion;
 
-                return workbook.xlsx.writeFile( "./" + req.body.num + "_" + req.body.proyecto + ".xlsx");
+                return workbook.xlsx.writeFile( "./" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx");
 
             });
 

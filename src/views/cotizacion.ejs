@@ -44,13 +44,14 @@
 
             <div class="inputcontainer">
                 <label for="text">Cliente</label>
-                <select name="selectclient">
+                <input type="text" list = "cl" name="selectclient">
+                    <datalist id="cl">
                     <% for (let i = 0; i< clientes.length; i++){ %>
                         <option value="<%= clientes[i].client %>"><%= clientes[i].client %></option>
                     <% } %>
-                </select>
+                    </datalist>
            </div>
-
+           
             <div class="inputcontainer">
                 <label for="fecha">Fecha</label>
                 <input type="date" id="fecha" name="fecha"/>

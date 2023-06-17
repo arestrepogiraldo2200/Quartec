@@ -39,13 +39,12 @@
 
             <div class="inputcontainer">
                 <label for="text">Cliente</label>
-                <select name="select">
-
+                <input type="text" list = "cl" name="select">
+                    <datalist id="cl">
                     <% for (let i = 0; i< clientes.length; i++){ %>
                         <option value="<%= clientes[i].client %>" name = "cliente_a_editar"><%= clientes[i].client %></option>
                     <% } %>
-
-                </select>
+                    </datalist>
            </div>
 
             <input type="submit" value="Consultar">

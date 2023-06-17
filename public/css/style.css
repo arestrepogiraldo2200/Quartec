@@ -113,7 +113,10 @@ img{
   display: none;
 }
 
+option{
+  width:200%;
+}
 
-
-
-
+*{
+  font-family: Arial, Helvetica, sans-serif;
+}

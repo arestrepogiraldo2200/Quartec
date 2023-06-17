@@ -34,15 +34,17 @@
     <h1 class = "title">Datos de cotización</h1>
 
     <div class="formcontainer">
-        <form action="" method ="">
+
+        <form action="/cotizacion" method ="post">
+
             <div class="inputcontainer">
                 <label for="num">Número de cotización</label>
-                <input type="number" id="num" name="num" placeholder="Número de cotización">
+                <input type="number" id="num" name="num" placeholder="Número de cotización" required>
             </div>
 
             <div class="inputcontainer">
                 <label for="text">Cliente</label>
-                <select name="select">
+                <select name="selectclient">
                     <% for (let i = 0; i< clientes.length; i++){ %>
                         <option value="<%= clientes[i].client %>"><%= clientes[i].client %></option>
                     <% } %>
@@ -53,17 +55,20 @@
                 <label for="fecha">Fecha</label>
                 <input type="date" id="fecha" name="fecha"/>
             </div> 
+
             <div class="inputcontainer">
                 <label for="validez">Validez de la oferta</label>
                 <input type="text" id="validez" name="validez" placeholder="Validez de la oferta">
             </div>    
+
             <div class="inputcontainer">
                 <label for="entrega">Tiempo de entrega</label>
                 <input type="text" id="entrega" name="entrega" placeholder="Tiempo de entrega">
             </div>       
+
             <div class="inputcontainer">
                 <label for="condiciones">Condiciones de pago</label>
-                <select name="select">
+                <select name="selectcondiciones">
                     <option value="-" selected>-</option>
                     <option value="Contado">Contado</option>
                     <option value="Crédito">Crédito</option>
@@ -73,30 +78,38 @@
                 <input type="text" id="condiciones" name="condiciones" placeholder="Condiciones de pago">
 -->
             </div>    
+            
             <div class="inputcontainer">
                 <label for="asesor">Asesor</label>
-                <select name="select">
+                <select name="selectasesor">
                     <option value="-" selected>-</option>
-                        <option value="<%= asesor %>"><%= asesor %></option>
+                    <option value="<%= asesor %>"><%= asesor %></option>
                 </select>
 <!-- 
                 <label for="asesor">Asesor</label>
                 <input type="text" id="asesor" name="asesor" placeholder="Asesor">
  -->
             </div>   
+
             <div class="inputcontainer">
                 <label for="estado">Estado</label>
-                <select name="select">
+                <select name="selectestado">
                     <option value="-" selected>-</option>
                     <option value="Aprobado">Aprobado</option>
                     <option value="En trámite">En trámite</option>
                     <option value="Desaprobado">No aprobado</option>
                 </select>
             </div>    
+
             <div class="inputcontainer">
                 <label for="fecha_aprobacion">Fecha de aprobación</label>
                 <input type="date" id="fecha_aprobacion" name="fecha_aprobacion"/>
             </div>   
+
+            <div class="inputcontainer">
+                <label for="proyecto">Proyecto</label>
+                <input type="text" id="proyecto" name="proyecto" placeholder="Nombre del proyecto" required>
+            </div>  
 
             <input type="submit" value="Enviar">
         </form>

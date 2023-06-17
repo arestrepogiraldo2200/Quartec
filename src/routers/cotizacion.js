@@ -5,5 +5,6 @@ const path = require('path');
 const cotizacionController = require('../controllers/cotizacionController');
 
 router.get('/cotizacion', cotizacionController.main);
+router.post('/cotizacion', cotizacionController.createFile);
 
 module.exports = router;

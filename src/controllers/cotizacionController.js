@@ -68,13 +68,14 @@ let cotizacionController = {
                 worksheet.getCell('J16').value = req.body.selectestado;
                 worksheet.getCell('N16').value = fecha_aprobacion;
 
-                return workbook.xlsx.writeFile( "./" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx");
-
+                workbook.xlsx.writeFile( "./" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx").then(
+                    res.download(path.join(__dirname, "../../" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx")) 
+                );
             });
 
-        }).catch((err)=>console.log(err));
+            res.redirect('/inicio');
 
-        res.redirect('/inicio');
+        }).catch((err)=>console.log(err));
 
     }
 }

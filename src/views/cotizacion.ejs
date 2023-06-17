@@ -45,13 +45,13 @@
             <div class="inputcontainer">
                 <label for="text">Cliente</label>
                 <input type="text" list = "cl" name="selectclient">
-                    <datalist id="cl">
+                    <datalist id="cl" class = "datalist">
                     <% for (let i = 0; i< clientes.length; i++){ %>
                         <option value="<%= clientes[i].client %>"><%= clientes[i].client %></option>
                     <% } %>
                     </datalist>
            </div>
-           
+
             <div class="inputcontainer">
                 <label for="fecha">Fecha</label>
                 <input type="date" id="fecha" name="fecha"/>
@@ -69,11 +69,11 @@
 
             <div class="inputcontainer">
                 <label for="condiciones">Condiciones de pago</label>
-                <select name="selectcondiciones">
-                    <option value="-" selected>-</option>
+                <input type="text" list = "cond" name="selectcondiciones">
+                <datalist id="cond">
                     <option value="Contado">Contado</option>
                     <option value="Crédito">Crédito</option>
-                </select>
+                </datalist>
             </div>    
             
             <!-- <div class="inputcontainer">

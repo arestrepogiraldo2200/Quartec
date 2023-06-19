@@ -67,16 +67,24 @@ let cotizacionController = {
                 worksheet.getCell('L15').value = req.session.name;
                 worksheet.getCell('J16').value = req.body.selectestado;
                 worksheet.getCell('N16').value = fecha_aprobacion;
+                worksheet.getCell('C24').value = req.body.proyecto;
+
+                worksheet.getCell('A19').value = req.body.forma_pago;
+                worksheet.getCell('A20').value = req.body.transporte;
+                worksheet.getCell('A21').value = req.body.materiales;
+
 
                 workbook.xlsx.writeFile( "./" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx").then(
-                    res.download(path.join(__dirname, "../../" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx")) 
+
+                    res.download(path.join(__dirname, "../../" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx"), {dotfiles: "deny"}, function(err) {
+                        console.log(err);          
+                     })
                 );
             });
 
             res.redirect('/inicio');
 
         }).catch((err)=>console.log(err));
-
     }
 }
 

@@ -44,7 +44,7 @@
 
             <div class="inputcontainer">
                 <label for="text">Cliente</label>
-                <input type="text" list = "cl" name="selectclient">
+                <input type="text" list = "cl" name="selectclient" required>
                     <datalist id="cl" class = "datalist">
                     <% for (let i = 0; i< clientes.length; i++){ %>
                         <option value="<%= clientes[i].client %>"><%= clientes[i].client %></option>
@@ -54,39 +54,51 @@
 
             <div class="inputcontainer">
                 <label for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha"/>
+                <input type="date" id="fecha" name="fecha" onkeydown="return false" required />
             </div> 
 
             <div class="inputcontainer">
                 <label for="validez">Validez de la oferta</label>
-                <input type="text" id="validez" name="validez" placeholder="Validez de la oferta">
+                <input type="text" id="validez" name="validez" placeholder="Validez de la oferta" list = "valid" required>
+                <datalist id="valid">
+                    <option value="5 días">5 días</option>
+                    <option value="10 días">10 días</option>
+                    <option value="15 días">15 días</option>
+                    <option value="20 días">20 días</option>
+                    <option value="30 días">30 días</option>
+                </datalist>
             </div>    
 
             <div class="inputcontainer">
                 <label for="entrega">Tiempo de entrega</label>
-                <input type="text" id="entrega" name="entrega" placeholder="Tiempo de entrega">
+                <input type="text" id="entrega" name="entrega" placeholder="Tiempo de entrega" list = "deliv" required>
+                <datalist id="deliv">
+                    <option value="1 día hábil">1 día hábil</option>
+                    <option value="2 días hábiles">2 días hábiles</option>
+                    <option value="3 días hábiles">3 días hábiles</option>
+                    <option value="4 días hábiles">4 días hábiles</option>
+                    <option value="5 días hábiles">5 días hábiles</option>
+                    <option value="10 días hábiles">10 días hábiles</option>
+                    <option value="15 días hábiles">15 días hábiles</option>
+                    <option value="20 días hábiles">20 días hábiles</option>
+                    <option value="30 días hábiles">30 días hábiles</option>
+                </datalist>
             </div>       
 
             <div class="inputcontainer">
                 <label for="condiciones">Condiciones de pago</label>
-                <input type="text" list = "cond" name="selectcondiciones">
+                <input type="text" list = "cond" name="selectcondiciones" required>
                 <datalist id="cond">
                     <option value="Contado">Contado</option>
-                    <option value="Crédito">Crédito</option>
+                    <option value="Crédito a 15 días">Crédito a 15 días</option>
+                    <option value="Crédito a 30 días">Crédito a 30 días</option>
+                    <option value="Contra entrega">Contra entrega</option>
                 </datalist>
             </div>    
             
-            <!-- <div class="inputcontainer">
-                <label for="asesor">Asesor</label>
-                <select name="selectasesor">
-                    <option value="-" selected>-</option>
-                    <option value="<%= asesor %>"><%= asesor %></option>
-                </select>
-            </div>    -->
-
             <div class="inputcontainer">
                 <label for="estado">Estado</label>
-                <select name="selectestado">
+                <select name="selectestado" required>
                     <option value="-" selected>-</option>
                     <option value="Aprobado">Aprobado</option>
                     <option value="En trámite">En trámite</option>
@@ -96,13 +108,47 @@
 
             <div class="inputcontainer">
                 <label for="fecha_aprobacion">Fecha de aprobación</label>
-                <input type="date" id="fecha_aprobacion" name="fecha_aprobacion"/>
+                <input type="date" id="fecha_aprobacion" name="fecha_aprobacion" onkeydown="return false" required />
             </div>   
 
             <div class="inputcontainer">
                 <label for="proyecto">Proyecto</label>
                 <input type="text" id="proyecto" name="proyecto" placeholder="Nombre del proyecto" required>
             </div>  
+
+            <div class="inputcontainer">
+
+                <label for="condiciones_com">Forma de pago</label>
+                <input type="text" list = "payment" name="forma_pago" required>
+                <datalist id="payment">
+                    <option value="Forma de Pago: Contra Entrega.">Forma de Pago: Contra Entrega.</option>
+                    <option value="Forma de Pago: 50% Anticipo y 50% Contra Entrega.">Forma de Pago: 50% Anticipo y 50% Contra Entrega.</option>
+                    <option value="Forma de Pago: 100% de Anticipo.">Forma de Pago: 100% de Anticipo.</option>
+                    <option value="Forma de Pago: Crédito a 15 días.">Forma de Pago: Crédito a 15 días.</option>
+                    <option value="Forma de Pago: Crédito a 30 días.">Forma de Pago: Crédito a 30 días.</option>
+                </datalist>
+            </div>    
+
+            <div class="inputcontainer">
+
+                <label for="transport">Transporte</label>
+                <input type="text" list = "trans" name="transporte" required>
+                <datalist id="trans">
+                    <option value="El servicio no incluye transporte.">El servicio no incluye transporte.</option>
+                    <option value="El servicio si incluye transporte.">El servicio si incluye transporte.</option>
+                </datalist>
+            </div>    
+
+            <div class="inputcontainer">
+
+                <label for="materiales">Materiales</label>
+                <input type="text" list = "mat" name="materiales" required>
+                <datalist id="mat">
+                    <option value="El servicio no incluye materiales.">El servicio no incluye materiales.</option>
+                    <option value="El servicio si incluye materiales.">El servicio si incluye materiales.</option>
+                    <option value="El servicio incluye algunos materiales.">El servicio incluye algunos materiales.</option>
+                </datalist>
+            </div>    
 
             <input type="submit" value="Enviar">
         </form>

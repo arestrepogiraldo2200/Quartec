@@ -73,18 +73,30 @@ let cotizacionController = {
                 worksheet.getCell('A20').value = req.body.transporte;
                 worksheet.getCell('A21').value = req.body.materiales;
 
+                let filename = req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx";
 
-                workbook.xlsx.writeFile( "./" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx").then(
-
-                    res.download(path.join(__dirname, "../../" + req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx"), {dotfiles: "deny"}, function(err) {
-                        console.log(err);          
-                     })
-                );
+                workbook.xlsx.writeFile( "./" + filename);
             });
 
-            res.redirect('/inicio');
+            res.redirect('/downloadfile/'+req.body.num+'/' + clientFound.client.replaceAll(" ","_") + "/" +  req.body.proyecto.replaceAll(" ","_"));
 
         }).catch((err)=>console.log(err));
+    },
+
+    downloadfile: (req,res) => {
+
+        let filename = req.params.num + "_" + req.params.cliente +  "_" +  req.params.proyecto + ".xlsx";
+
+        let filePath = path.join(__dirname, "../../" + filename)
+        let resolvedPath = path.resolve(filePath);
+
+        res.sendFile(resolvedPath);
+        res.redirect('/inicio');   
+
+        // res.download(resolvedPath, {root: __dirname }, function(err) {
+        //     console.log(err); 
+        //     res.redirect('/inicio');         
+        //  });
     }
 }
 

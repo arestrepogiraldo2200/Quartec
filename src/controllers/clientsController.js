@@ -65,6 +65,8 @@ let clientsController = {
 
     selectClientPost: (req,res) => {
 
+        if (!req.body.select) return res.redirect('/editar-cliente');
+
         sessionStorage.setItem("clientToEdit", req.body.select);
         res.redirect("/editar-cliente-form");
     },
@@ -137,6 +139,8 @@ let clientsController = {
     deleteClientPost: (req,res) => {
 
         if (!req.session.isAdmin) return res.redirect('/');
+        if (!req.body.select) return res.redirect('/eliminar-cliente');
+
 
         db.clientes.destroy({
           where :{

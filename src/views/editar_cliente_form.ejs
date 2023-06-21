@@ -126,27 +126,57 @@
 
             <div class="inputcontainer">
                 <label for="emailfacturacion">Correo de facturación</label>
-                <input type="email" id="emailfacturacion" name="emailfacturacion" placeholder="e-mail de facturación" value = "<%= cliente.billing_email %>">
+                <input type="email" id="emailfacturacion" name="emailfacturacion" placeholder="e-mail de facturación"
+                <% if (cliente.billing_email == "-"){%>
+                    value = "";
+                <%} else { %>
+                    value = "<%= cliente.billing_email %>"
+                <% }%>
+                >
             </div>
 
             <div class="inputcontainer">
                 <label for="email1">Correo 1</label>
-                <input type="email" id="email1" name="email1" placeholder="e-mail 1" value = "<%= cliente.email1 %>" >
+                <input type="email" id="email1" name="email1" placeholder="e-mail 1"
+                <% if (cliente.email1 == "-"){%>
+                    value = "";
+                <%} else { %>
+                    value = "<%= cliente.billing_email %>"
+                <% }%>
+                >
             </div>   
 
             <div class="inputcontainer">
                 <label for="email2">Correo 2</label>
-                <input type="email" id="email2" name="email2" placeholder="e-mail 2" value = "<%= cliente.email2 %>" >
+                <input type="email" id="email2" name="email2" placeholder="e-mail 2"          
+                <% if (cliente.email2 == "-"){%>
+                    value = "";
+                <%} else { %>
+                    value = "<%= cliente.billing_email %>"
+                <% }%>
+                >
             </div>   
 
             <div class="inputcontainer">
                 <label for="email3">Correo 3</label>
-                <input type="email" id="email3" name="email3" placeholder="e-mail 3" value = "<%= cliente.email3 %>" >
+                <input type="email" id="email3" name="email3" placeholder="e-mail 3"     
+                <% if (cliente.email3 == "-"){%>
+                    value = "";
+                <%} else { %>
+                    value = "<%= cliente.billing_email %>"
+                <% }%>
+                >
             </div>   
 
             <div class="inputcontainer">
                 <label for="email4">Correo 4</label>
-                <input type="email" id="email4" name="email4" placeholder="e-mail 4" value = "<%= cliente.email4 %>" >
+                <input type="email" id="email4" name="email4" placeholder="e-mail 4"            
+                <% if (cliente.email4 == "-"){%>
+                    value = "";
+                <%} else { %>
+                    value = "<%= cliente.billing_email %>"
+                <% }%>
+                >
             </div>  
 
             <input type="submit" value="Editar datos">

@@ -125,3 +125,8 @@ option{
   background-color: yellow;
 
 }
+
+#cli::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: 0.7; /* Firefox */
+}

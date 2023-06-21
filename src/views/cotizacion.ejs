@@ -44,7 +44,7 @@
 
             <div class="inputcontainer">
                 <label for="text">Cliente</label>
-                <input type="text" list = "cl" name="selectclient" required>
+                <input type="text" list = "cl" id="cli" name="selectclient" placeholder = "Seleccionar el cliente de la lista, si no se encuentra debe añadirlo" required>
                     <datalist id="cl" class = "datalist">
                     <% for (let i = 0; i< clientes.length; i++){ %>
                         <option value="<%= clientes[i].client %>"><%= clientes[i].client %></option>
@@ -99,10 +99,10 @@
             <div class="inputcontainer">
                 <label for="estado">Estado</label>
                 <select name="selectestado" required>
-                    <option value="-" selected>-</option>
+                    <option value="" selected></option>
                     <option value="Aprobado">Aprobado</option>
                     <option value="En trámite">En trámite</option>
-                    <option value="Desaprobado">No aprobado</option>
+                    <option value="No aprobado">No aprobado</option>
                 </select>
             </div>    
 
@@ -149,6 +149,120 @@
                     <option value="El servicio incluye algunos materiales.">El servicio incluye algunos materiales.</option>
                 </datalist>
             </div>    
+
+            <div class="inputcontainer">
+                <label for="forma">Forma</label>
+                <select name="forma" required>
+                    <option value=""></option>
+                    <option value="Platina">Platina</option>
+                    <option value="Disco">Disco</option>
+                    <option value="Flange">Flange</option>
+                    <option value="Figura">Figura</option>
+                </select>
+            </div>   
+
+            <div class="inputcontainer">
+                <label for="material">Material</label>
+                <select name="material" required>
+                    <option value=""></option>
+                    <option value="Ac. Inox.">Ac. Inox.</option>
+                    <option value="Ac. H.R">Ac. H.R</option>
+                    <option value="Ac. C.R">Ac. C.R</option>
+                    <option value="Galv.">Galv.</option>
+                    <option value="Alum.">Alum.</option>
+                </select>
+            </div> 
+
+            <div class="inputcontainer">
+                <label for="espesor">Espesor</label>
+                <select name="espesor" required>
+                    <option value=""></option>
+                    <option value="Cal. 20 (0.9 mm)">Cal. 20 (0.9 mm)</option>
+                    <option value="Cal. 19 (1 mm)">Cal. 19 (1 mm)</option>
+                    <option value="Cal. 18 (1.2 mm)">Cal. 18 (1.2 mm)</option>
+                    <option value="Cal. 16 (1.5 mm)">Cal. 16 (1.5 mm)</option>
+                    <option value="Cal. 14 (1.9 mm)">Cal. 14 (1.9 mm)</option>
+                    <option value="Cal. 13 (2.2 mm)">Cal. 13 (2.2 mm)</option>
+                    <option value="Cal. 12 (2.6 mm)">Cal. 12 (2.6 mm)</option>
+                    <option value="Cal. 11 (3.0 mm)">Cal. 11 (3.0 mm)</option>
+                    <option value="Cal. 10 (3.4 mm)">Cal. 10 (3.4 mm)</option>
+                    <option value="Cal. 9 (3.8 mm)">Cal. 9 (3.8 mm)</option>
+                    <option value="Cal. 8 (4.2 mm)">Cal. 8 (4.2 mm)</option>
+                    <option value="Cal. 7 (4.5 mm)">Cal. 7 (4.5 mm)</option>
+                    <option value="Cal. 6 (4.9 mm)">Cal. 6 (4.9 mm)</option>
+                    <option value="Cal. 5 (5.3 mm)">Cal. 5 (5.3 mm)</option>
+                    <option value="Cal. 4 (5.7 mm)">Cal. 4 (5.7 mm)</option>
+                    <option value="Cal. 3 (6.0 mm)">Cal. 3 (6.0 mm)</option>
+                    <option value="Cal. 3/4" (19 mm)">Cal. 3/4" (19 mm)</option>
+                    <option value="Cal. 5/8"">Cal. 5/8"</option>
+                    <option value="Cal. 1/2"">Cal. 1/2"</option>
+                    <option value="Cal. 3/8"">Cal. 3/8"</option>
+                    <option value="Cal. 5/16"">Cal. 5/16"</option>
+                    <option value="Cal. 1/4"">Cal. 1/4"</option>
+                    <option value="Cal. 3/16"">Cal. 3/16"</option>
+                    <option value="Cal. 1/8"">Cal. 1/8"</option>
+                    <option value="Cal. 1/16"">Cal. 1/16"</option>
+                </select>
+            </div> 
+
+            <div class="inputcontainer">
+                <label for="largo">Largo (mm)</label>
+                <input type="number" id="largo" name="largo" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="ancho">Ancho (mm)</label>
+                <input type="number" id="ancho" name="ancho" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="D">D (mm)</label>
+                <input type="number" id="D" name="D" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="d">d (mm)</label>
+                <input type="number" id="d" name="d" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="diam_agujeros">Diám. Agujeros (mm)</label>
+                <input type="number" id="diam_agujeros" name="diam_agujeros" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="cant_agujeros">Cant. Agujeros</label>
+                <input type="number" id="cant_agujeros" name="cant_agujeros" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="perimetro">Perímetro (mm)</label>
+                <input type="number" id="perimetro" name="perimetro" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="area">Área (mm^2)</label>
+                <input type="number" id="area" name="area" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="dobleces">Dobleces por pieza</label>
+                <input type="number" id="dobleces" name="dobleces" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="longitud_doblez">Longitud doblez (mm)</label>
+                <input type="number" id="longitud_doblez" name="longitud_doblez" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="con_material">Con material</label>
+                <select name="con_material" required>
+                    <option value=""></option>
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                </select>
+            </div> 
 
             <input type="submit" value="Enviar">
         </form>

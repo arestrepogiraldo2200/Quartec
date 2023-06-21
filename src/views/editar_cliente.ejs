@@ -39,10 +39,10 @@
 
             <div class="inputcontainer">
                 <label for="text">Cliente</label>
-                <input type="text" list = "cl" name="select">
+                <input type="text" list = "cl"  id="cli" name="select" placeholder = "Seleccionar el cliente de la lista, si no se encuentra debe añadirlo">
                     <datalist id="cl">
                     <% for (let i = 0; i< clientes.length; i++){ %>
-                        <option value="<%= clientes[i].client %>" name = "cliente_a_editar"><%= clientes[i].client %></option>
+                        <option value="<%= clientes[i].client %>" name = "cliente_a_editar" ><%= clientes[i].client %></option>
                     <% } %>
                     </datalist>
            </div>

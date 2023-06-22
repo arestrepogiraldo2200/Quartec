@@ -9,6 +9,29 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script type="text/javascript">
+        
+        function changeCutValue(){
+
+            let perimetroautocad = parseFloat(document.getElementById('perimetro_autocad').value) || 0;
+            let factorcorte = parseFloat(document.getElementById('factor_corte').value) || 0;
+            let perimetro = perimetroautocad*factorcorte;
+
+            let perimetroxfactor = document.getElementById('perimetro');
+            perimetroxfactor.value = perimetro;
+        }
+
+        function changeAreaValue(){
+
+            let areaautocad = parseFloat(document.getElementById('area_autocad').value) || 0;
+            let factorarea = parseFloat(document.getElementById('factor_area').value) || 0;
+            let area = areaautocad*factorarea;
+
+            let areaxfactor = document.getElementById('area');
+            areaxfactor.value = area;
+        }
+
+    </script>
 </head>
 <body>
     <div class = "logoutcontainer">
@@ -31,7 +54,7 @@
 
     <img src="/images/logo.png" alt="logo">
 
-    <h1 class = "title">Cotización</h1>
+    <h1 class = "title" style="margin:0px;">Cotización</h1>
 
     <div class="formcontainer">
 
@@ -158,7 +181,7 @@
                 </datalist>
             </div>    
 
-            <div class="inputcontainer">
+            <!-- <div class="inputcontainer">
                 <h2>Datos</h2>
             </div>  
 
@@ -223,42 +246,32 @@
 
             <div class="inputcontainer">
                 <label for="perimetro_autocad">Perímetro AutoCad (mm)</label>
-                <input type="number" id="perimetro_autocad" name="perimetro_autocad" value="0" required>
+                <input type="number" step="0.0001" id="perimetro_autocad" name="perimetro_autocad" onchange="changeCutValue()" required>
             </div>
 
             <div class="inputcontainer">
                 <label for="factor_corte">Factor de corte</label>
-                <input type="number" id="factor_corte" name="factor_corte" value="0" required>
+                <input type="number" step="0.0001" id="factor_corte" name="factor_corte" onchange="changeCutValue()" required>
             </div>
-
-            <script language="JavaScript"  type="module">
-                let perimetro = parseFloat(document.getElementById('perimetro_autocad').value)*parseFloat(document.getElementById('factor_corte').value);
-                console.log(perimetro)
-            </script>
 
             <div class="inputcontainer">
                 <label for="perimetro">Perímetro (mm)</label>
-                <input type="text" id="perimetro" name="perimetro" value="<%= 10 %>" required onkeydown="return false;">
+                <input type="text" id="perimetro" name="perimetro" required onkeydown="return false;">
             </div>
 
             <div class="inputcontainer">
-                <label for="area_autocad">Área AutoCad (mm^2)</label>
-                <input type="number" id="area_autocad" name="area_autocad" value="0" required>
+                <label for="area_autocad">Área AutoCad (mm²)</label>
+                <input type="number" step="0.0001" id="area_autocad" name="area_autocad" onchange="changeAreaValue()" required>
             </div>
 
             <div class="inputcontainer">
                 <label for="factor_area">Factor de área</label>
-                <input type="number" id="factor_area" name="factor_area" value="0" required>
+                <input type="number" step="0.0001" id="factor_area" name="factor_area" onchange="changeAreaValue()" required>
             </div>
 
-            <script language="JavaScript" type="module">
-                let area = parseFloat(document.getElementById('perimetro_autocad').value)*parseFloat(document.getElementById('factor_corte').value);
-                console.log(area)
-            </script>
-
             <div class="inputcontainer">
-                <label for="area">Área (mm^2)</label>
-                <input type="text" id="area" name="area" value ="<%=  %>" required onkeydown="return false;">
+                <label for="area">Área (mm²)</label>
+                <input type="text" id="area" name="area" required onkeydown="return false;">
             </div>
 
             <div class="inputcontainer">
@@ -273,7 +286,7 @@
 
             <div class="inputcontainer">
                 <label for="longitud_doblez">Longitud doblez (mm)</label>
-                <input type="number" id="longitud_doblez" name="longitud_doblez" required>
+                <input type="number" step="0.0001" id="longitud_doblez" name="longitud_doblez" required>
             </div>
 
             <div class="inputcontainer">
@@ -283,8 +296,100 @@
                     <option value="Sí">Sí</option>
                     <option value="No">No</option>
                 </select>
-            </div> 
+            </div>  -->
 
+            <div class="inputcontainer">
+                <h2>Datos</h2>
+            </div>  
+
+            <div class="inputcontainer tabladatos">
+                    
+                <table>
+                    <tr>
+                    <th class="item">Item</th>
+                    <th>Cantidad</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Material</th>
+                    <th>Espesor</th>
+                    <th>Perímetro AutoCad (mm)</th>
+                    <th>Factor de corte</th>
+                    <th>Perímetro (mm)</th>
+                    <th>Área AutoCad (mm²)</th>
+                    <th>Factor de área</th>
+                    <th>Área (mm²)</th>
+                    <th>Cantidad de piercings por peza</th>
+                    <th>Dobleces por pieza</th>
+                    <th>Longitud doblez (mm)</th>
+                    <th>Con material</th>
+                    </tr>
+
+                    <% for (let i = 1; i <= 500; i++){ %>
+                        <tr>
+                        <td class="item"><%= i %></td>
+                        <td width = "50px"><input type="number" id="cantidad" name="cantidad"></td>
+                        <td width = "220px"><input type="text" id="descrip" name="descrip"></td>
+                        <td width = "80px"><input type="number" id="precio" name="precio"></td>
+                        <td width = "110px"><select name="material">
+                            <option value=""></option>
+                            <option value="Ac. Inox. 304">Ac. Inox. 304</option>
+                            <option value="Ac. Inox. 316">Ac. Inox. 316</option>
+                            <option value="Ac. Inox. 430">Ac. Inox. 430</option>
+                            <option value="Ac. H.R">Ac. H.R</option>
+                            <option value="Ac. C.R">Ac. C.R</option>
+                            <option value="Galv.">Galv.</option>
+                            <option value="Alum.">Alum.</option>
+                            <option value="Bronce">Bronce</option>
+                            <option value="Cobre">Cobre</option>
+                            <option value="Latón">Latón</option>
+                        </select></td>
+                        <td width = "120px"><select name="espesor">
+                            <option value=""></option>
+                            <option value="Cal. 20 (0.9 mm)">Cal. 20 (0.9 mm)</option>
+                            <option value="Cal. 19 (1 mm)">Cal. 19 (1 mm)</option>
+                            <option value="Cal. 18 (1.2 mm)">Cal. 18 (1.2 mm)</option>
+                            <option value="Cal. 16 (1.5 mm)">Cal. 16 (1.5 mm)</option>
+                            <option value="Cal. 14 (1.9 mm)">Cal. 14 (1.9 mm)</option>
+                            <option value="Cal. 13 (2.2 mm)">Cal. 13 (2.2 mm)</option>
+                            <option value="Cal. 12 (2.6 mm)">Cal. 12 (2.6 mm)</option>
+                            <option value="Cal. 11 (3.0 mm)">Cal. 11 (3.0 mm)</option>
+                            <option value="Cal. 10 (3.4 mm)">Cal. 10 (3.4 mm)</option>
+                            <option value="Cal. 9 (3.8 mm)">Cal. 9 (3.8 mm)</option>
+                            <option value="Cal. 8 (4.2 mm)">Cal. 8 (4.2 mm)</option>
+                            <option value="Cal. 7 (4.5 mm)">Cal. 7 (4.5 mm)</option>
+                            <option value="Cal. 6 (4.9 mm)">Cal. 6 (4.9 mm)</option>
+                            <option value="Cal. 5 (5.3 mm)">Cal. 5 (5.3 mm)</option>
+                            <option value="Cal. 4 (5.7 mm)">Cal. 4 (5.7 mm)</option>
+                            <option value="Cal. 3 (6.0 mm)">Cal. 3 (6.0 mm)</option>
+                            <option value="Cal. 3/4" (19 mm)">Cal. 3/4" (19 mm)</option>
+                            <option value="Cal. 5/8"">Cal. 5/8"</option>
+                            <option value="Cal. 1/2"">Cal. 1/2"</option>
+                            <option value="Cal. 3/8"">Cal. 3/8"</option>
+                            <option value="Cal. 5/16"">Cal. 5/16"</option>
+                            <option value="Cal. 1/4"">Cal. 1/4"</option>
+                            <option value="Cal. 3/16"">Cal. 3/16"</option>
+                            <option value="Cal. 1/8"">Cal. 1/8"</option>
+                            <option value="Cal. 1/16"">Cal. 1/16"</option>
+                        </select></td>
+                        <td><input type="number" step="0.0001" id="perimetro_autocad" name="perimetro_autocad" onchange="changeCutValue()"></td>
+                        <td><input type="number" step="0.0001" id="factor_corte" name="factor_corte" onchange="changeCutValue()"></td>
+                        <td><input type="text" id="perimetro" name="perimetro" required onkeydown="return false;"></td>
+                        <td><input type="number" step="0.0001" id="area_autocad" name="area_autocad" onchange="changeAreaValue()"></td>
+                        <td><input type="number" step="0.0001" id="factor_area" name="factor_area" onchange="changeAreaValue()"></td>
+                        <td><input type="text" id="area" name="area" onkeydown="return false;"></td>
+                        <td><input type="number" id="piercings" name="piercings"></td>
+                        <td><input type="number" id="dobleces" name="dobleces"></td>
+                        <td><input type="number" step="0.0001" id="longitud_doblez" name="longitud_doblez"></td>
+                        <td><select name="con_material">
+                            <option value=""></option>
+                            <option value="Sí">Sí</option>
+                            <option value="No">No</option>
+                        </select></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>             
+              
             <input type="submit" value="Enviar">
         </form>
     </div>

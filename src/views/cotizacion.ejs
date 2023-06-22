@@ -31,11 +31,16 @@
 
     <img src="/images/logo.png" alt="logo">
 
-    <h1 class = "title">Datos de cotización</h1>
+    <h1 class = "title">Cotización</h1>
 
     <div class="formcontainer">
 
         <form action="/cotizacion" method ="post">
+
+
+            <div class="inputcontainer">
+                <h2>Datos de cotización y cliente</h2>
+            </div>  
 
             <div class="inputcontainer">
                 <label for="num">Número de cotización</label>
@@ -117,7 +122,10 @@
             </div>  
 
             <div class="inputcontainer">
+                <h2>Condiciones comerciales</h2>
+            </div>  
 
+            <div class="inputcontainer">
                 <label for="condiciones_com">Forma de pago</label>
                 <input type="text" list = "payment" name="forma_pago" required>
                 <datalist id="payment">
@@ -151,25 +159,33 @@
             </div>    
 
             <div class="inputcontainer">
-                <label for="forma">Forma</label>
-                <select name="forma" required>
-                    <option value=""></option>
-                    <option value="Platina">Platina</option>
-                    <option value="Disco">Disco</option>
-                    <option value="Flange">Flange</option>
-                    <option value="Figura">Figura</option>
-                </select>
-            </div>   
+                <h2>Datos</h2>
+            </div>  
+
+            <div class="inputcontainer">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" name="cantidad" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="descrip">Descripción</label>
+                <input type="text" id="descrip" name="descrip" required>
+            </div>
 
             <div class="inputcontainer">
                 <label for="material">Material</label>
                 <select name="material" required>
                     <option value=""></option>
-                    <option value="Ac. Inox.">Ac. Inox.</option>
+                    <option value="Ac. Inox. 304">Ac. Inox. 304</option>
+                    <option value="Ac. Inox. 316">Ac. Inox. 316</option>
+                    <option value="Ac. Inox. 430">Ac. Inox. 430</option>
                     <option value="Ac. H.R">Ac. H.R</option>
                     <option value="Ac. C.R">Ac. C.R</option>
                     <option value="Galv.">Galv.</option>
                     <option value="Alum.">Alum.</option>
+                    <option value="Bronce">Bronce</option>
+                    <option value="Cobre">Cobre</option>
+                    <option value="Latón">Latón</option>
                 </select>
             </div> 
 
@@ -206,43 +222,48 @@
             </div> 
 
             <div class="inputcontainer">
-                <label for="largo">Largo (mm)</label>
-                <input type="number" id="largo" name="largo" required>
+                <label for="perimetro_autocad">Perímetro AutoCad (mm)</label>
+                <input type="number" id="perimetro_autocad" name="perimetro_autocad" value="0" required>
             </div>
 
             <div class="inputcontainer">
-                <label for="ancho">Ancho (mm)</label>
-                <input type="number" id="ancho" name="ancho" required>
+                <label for="factor_corte">Factor de corte</label>
+                <input type="number" id="factor_corte" name="factor_corte" value="0" required>
             </div>
 
-            <div class="inputcontainer">
-                <label for="D">D (mm)</label>
-                <input type="number" id="D" name="D" required>
-            </div>
-
-            <div class="inputcontainer">
-                <label for="d">d (mm)</label>
-                <input type="number" id="d" name="d" required>
-            </div>
-
-            <div class="inputcontainer">
-                <label for="diam_agujeros">Diám. Agujeros (mm)</label>
-                <input type="number" id="diam_agujeros" name="diam_agujeros" required>
-            </div>
-
-            <div class="inputcontainer">
-                <label for="cant_agujeros">Cant. Agujeros</label>
-                <input type="number" id="cant_agujeros" name="cant_agujeros" required>
-            </div>
+            <script language="JavaScript"  type="module">
+                let perimetro = parseFloat(document.getElementById('perimetro_autocad').value)*parseFloat(document.getElementById('factor_corte').value);
+                console.log(perimetro)
+            </script>
 
             <div class="inputcontainer">
                 <label for="perimetro">Perímetro (mm)</label>
-                <input type="number" id="perimetro" name="perimetro" required>
+                <input type="text" id="perimetro" name="perimetro" value="<%= 10 %>" required onkeydown="return false;">
             </div>
 
             <div class="inputcontainer">
+                <label for="area_autocad">Área AutoCad (mm^2)</label>
+                <input type="number" id="area_autocad" name="area_autocad" value="0" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="factor_area">Factor de área</label>
+                <input type="number" id="factor_area" name="factor_area" value="0" required>
+            </div>
+
+            <script language="JavaScript" type="module">
+                let area = parseFloat(document.getElementById('perimetro_autocad').value)*parseFloat(document.getElementById('factor_corte').value);
+                console.log(area)
+            </script>
+
+            <div class="inputcontainer">
                 <label for="area">Área (mm^2)</label>
-                <input type="number" id="area" name="area" required>
+                <input type="text" id="area" name="area" value ="<%=  %>" required onkeydown="return false;">
+            </div>
+
+            <div class="inputcontainer">
+                <label for="piercings">Cantidad de piercings por peza</label>
+                <input type="number" id="piercings" name="piercings" required>
             </div>
 
             <div class="inputcontainer">

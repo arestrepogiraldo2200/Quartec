@@ -79,10 +79,16 @@ let clientsController = {
 
         db.clientes.findOne({raw: true, where: { client: clientToEdit } }).then((clientFound) => {
 
-            sessionStorage.removeItem("clientToEdit");
-            res.render(path.join(__dirname, '../views/editar_cliente_form'), {cliente : clientFound});    
+            if (clientFound){
+                sessionStorage.removeItem("clientToEdit");
+                res.render(path.join(__dirname, '../views/editar_cliente_form'), {cliente : clientFound}); 
+            } else {
+                res.redirect('/editar-cliente');
+            }
 
-        }).catch((err)=>console.log(err));
+        }).catch((err)=>{
+            console.log(err)
+        });
     },
 
     editClientPostForm: (req,res) => {

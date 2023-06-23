@@ -77,6 +77,7 @@ let cotizacionController = {
 
                     let filename = req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx";
 
+                    // console.log(req.body)
                     workbook.xlsx.writeFile( "./" + filename);
                 });
 

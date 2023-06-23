@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
 
 const clients = require('./src/routers/clients.js');
 const cotizaciones = require('./src/routers/cotizacion.js');
@@ -29,7 +31,10 @@ app.use(
 );
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+
+app.use(express.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 500000}));
+
 app.use(methodOverride('_method'));
 
 app.use(inicio);
@@ -37,7 +42,6 @@ app.use(clients);
 app.use(cotizaciones);
 app.use(index);
 app.use(user);
-
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

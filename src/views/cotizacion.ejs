@@ -210,7 +210,7 @@
                     <th>Con material</th>
                     </tr>
 
-                    <% for (let i = 1; i <= 500; i++){ %>
+                    <% for (let i = 1; i <= 50; i++){ %>
                         <tr>
                         <td class="item"><%= i %></td>
                         <td width = "50px" style="display: none;"><input type="number" id= "<%= "item" + String(i) %>" name= "<%= "item" + String(i) %>"  value = "<%= i %>"></td>
@@ -248,19 +248,17 @@
                             <option value="Cal. 5 (5.3 mm)">Cal. 5 (5.3 mm)</option>
                             <option value="Cal. 4 (5.7 mm)">Cal. 4 (5.7 mm)</option>
                             <option value="Cal. 3 (6.0 mm)">Cal. 3 (6.0 mm)</option>
-                            <option value="Cal. 3/4" (19 mm)">Cal. 3/4" (19 mm)</option>
-                            <option value="Cal. 5/8"">Cal. 5/8"</option>
-                            <option value="Cal. 1/2"">Cal. 1/2"</option>
-                            <option value="Cal. 3/8"">Cal. 3/8"</option>
-                            <option value="Cal. 5/16"">Cal. 5/16"</option>
-                            <option value="Cal. 1/4"">Cal. 1/4"</option>
-                            <option value="Cal. 3/16"">Cal. 3/16"</option>
-                            <option value="Cal. 1/8"">Cal. 1/8"</option>
-                            <option value="Cal. 1/16"">Cal. 1/16"</option>
+                            <option value="Cal. 1/2">Cal. 1/2"</option>
+                            <option value="Cal. 3/8">Cal. 3/8"</option>
+                            <option value="Cal. 5/16">Cal. 5/16"</option>
+                            <option value="Cal. 1/4">Cal. 1/4"</option>
+                            <option value="Cal. 3/16">Cal. 3/16"</option>
+                            <option value="Cal. 1/8">Cal. 1/8"</option>
+                            <option value="Cal. 1/16">Cal. 1/16"</option>
                         </select></td>
                         <td><input type="number" step="0.0001" id="<%= "perimetro_autocad" + String(i) %>" name="<%= "perimetro_autocad" + String(i) %>" onchange="changeCutValue(<%= String(i) %>)"></td>
                         <td><input type="number" step="0.0001" id="<%= "factor_corte" + String(i) %>" name="<%= "factor_corte" + String(i) %>" onchange="changeCutValue(<%= String(i) %>)"></td>
-                        <td><input type="text" id="<%= "perimetro" + String(i) %>" name="<%= "perimetro" + String(i) %>" required onkeydown="return false;"></td>
+                        <td><input type="text" id="<%= "perimetro" + String(i) %>" name="<%= "perimetro" + String(i) %>" onkeydown="return false;"></td>
                         <td><input type="number" step="0.0001" id="<%= "largo_autocad" + String(i) %>" name="<%= "largo_autocad" + String(i) %>" onchange="changeAreaValue(<%= String(i) %>)"></td>
                         <td><input type="number" step="0.0001" id="<%= "ancho_autocad" + String(i) %>" name="<%= "ancho_autocad" + String(i) %>" onchange="changeAreaValue(<%= String(i) %>)"></td>
                         <td><input type="number" step="0.0001" id="<%= "factor_area" + String(i) %>" name="<%= "factor_area" + String(i) %>" onchange="changeAreaValue(<%= String(i) %>)"></td>

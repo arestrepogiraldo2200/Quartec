@@ -191,7 +191,7 @@
                 <table>
                     <tr>
                     <th class="item">Item</th>
-                    <th style="display: none;">Id</th>
+                    <!-- <th style="display: none;">Id</th> -->
                     <th>Cantidad</th>
                     <th>Descripción</th>
                     <th>Precio</th>
@@ -210,10 +210,10 @@
                     <th>Con material</th>
                     </tr>
 
-                    <% for (let i = 1; i <= 50; i++){ %>
+                    <% for (let i = 1; i <= 60; i++){ %>
                         <tr>
                         <td class="item"><%= i %></td>
-                        <td width = "50px" style="display: none;"><input type="number" id= "<%= "item" + String(i) %>" name= "<%= "item" + String(i) %>"  value = "<%= i %>"></td>
+                        <!-- <td width = "50px" style="display: none;"><input type="number" id= "<%= "item" + String(i) %>" name= "<%= "item" + String(i) %>"  value = "<%= i %>"></td> -->
                         <td width = "50px"><input type="number" id="<%= "cantidad" + String(i) %>" name="<%= "cantidad" + String(i) %>"></td>
                         <td width = "220px"><input type="text" id="<%= "descrip" + String(i) %>" name="<%= "descrip" + String(i) %>"></td>
                         <td width = "80px"><input type="number" id="<%= "precio" + String(i) %>" name="<%= "precio" + String(i) %>"></td>

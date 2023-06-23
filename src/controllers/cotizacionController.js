@@ -75,9 +75,16 @@ let cotizacionController = {
                     worksheet.getCell('A20').value = req.body.transporte;
                     worksheet.getCell('A21').value = req.body.materiales;
 
+                    for(let i = 1; i <= 60; i++){
+
+                        console.log(req.body["cantidad".concat(String(i))]);
+                        worksheet.getCell('A'.concat(String(26+i))).value = "zzzzzzzz";
+
+                    }
+
+                    // console.log(req.body);
                     let filename = req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx";
 
-                    // console.log(req.body)
                     workbook.xlsx.writeFile( "./" + filename);
                 });
 

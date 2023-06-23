@@ -176,11 +176,16 @@ tr:nth-child(even) {
   width:100%
 }
 
+/* To hide arrows in numeric output ---------------------------------------- */
 
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-
-
+/* ------------------------------------------------------------------------ */
 
 
 

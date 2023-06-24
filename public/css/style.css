@@ -158,6 +158,8 @@ tr:nth-child(even) {
 
   overflow-y: auto;
   max-height: 500px;
+
+  overflow-x: auto;
 }
 
 .tabladatos input, .tabladatos select{

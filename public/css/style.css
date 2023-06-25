@@ -155,10 +155,8 @@ tr:nth-child(even) {
 }
 
 .tabladatos{
-
   overflow-y: auto;
   max-height: 500px;
-
   overflow-x: auto;
 }
 
@@ -189,6 +187,56 @@ input::-webkit-inner-spin-button {
 
 /* ------------------------------------------------------------------------ */
 
+/* Estilos de datos de precios */
+
+.precios_title_title{
+  padding-left: 10%;
+}
+
+.precios_title{
+  padding-left: 15%;
+}
+
+.precios{
+  width: 50%;
+  padding-left: 20%;
+}
+
+.precios_corte, .precios_area{
+  width: 90%;
+  padding-left: 5%;
+}
+
+.datos_corte, .datos_material{
+  width: 80%;
+}
+
+.datos_piercing, .datos_doblez{
+  width: 50%;
+}
+
+.datos_corte, .datos_piercing, .datos_doblez{
+  margin-bottom: 50px;
+}
+
+.datos_material{
+  margin-bottom: 20px;
+}
+
+.cell{
+  height: 5px;
+}
+
+.precios input{
+  padding: 3px 3px 3px 3px;
+  text-align: center;
+  width: 98%;
+  height: 98%;
+}
+
+.send_precios{
+  margin-left: 40%;
+}
 
 
 

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar precios</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+    <div class = "logoutcontainer">
+
+        <div class = "iconcontainer">
+
+            <a href="/editar-datos">
+                <div class="editar-datos">
+                    <i class='fas fa-edit'></i>
+                </div>
+            </a>
+
+            <a href="/logout">
+                <div class="log-in">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <img src="/images/logo.png" alt="logo">
+
+    <h1 class = "title precios_title_title">Precios</h1>
+
+    <div class="formcontainer">
+        <form action="/editar-precios" method ="post">
+
+<!-- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" -->
+
+            <div class="inputcontainer precios_title">
+                <h2>Precios de corte</h2>
+            </div>  
+
+            <div class="inputcontainer precios precios_corte">
+                    
+                <table class="datos_corte">
+                    <tr>
+                        <th style="display: none;">Id</th>
+                        <th>Calibre</th>
+                        <th>$ COP/mm Ac. H.R.</th>
+                        <th>$ COP/mm Ac. C.R.</th>
+                        <th>$ COP/mm Ac. Inox. 304</th>
+                        <th>$ COP/mm Ac. Inox. 316</th>
+                        <th>$ COP/mm Ac. Inox. 430</th>
+                        <th>$ COP/mm Galv.</th>
+                        <th>$ COP/mm Alum.</th>
+                        <th>$ COP/mm Bronce</th>
+                        <th>$ COP/mm Cobre</th>
+                        <th>$ COP/mm Latón</th>
+                        </tr>
+    
+                        <% for (let i = 1; i < listaDeCorte.length; i++){ %>
+                            <tr>
+                                <td class="cell" style="display: none;"><input type="number" name="<%= "corte_id" + String(i) %>" value="<%= listaDeCorte[i].id %>" required></td>
+                                <td class="cell"><input type="text" value="<%= listaDeCorte[i].width %>"  onkeydown="return false;"></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_HR" + String(i) %>" name="<%= "corte_precio_HR" + String(i) %>" value="<%= listaDeCorte[i]['Ac. H.R'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_CR" + String(i) %>" name="<%= "corte_precio_CR" + String(i) %>" value="<%= listaDeCorte[i]['Ac. C.R'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_304" + String(i) %>" name="<%= "corte_precio_304" + String(i) %>" value="<%= listaDeCorte[i]['Ac. Inox. 304'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_316" + String(i) %>" name="<%= "corte_precio_316" + String(i) %>" value="<%= listaDeCorte[i]['Ac. Inox. 316'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_430" + String(i) %>" name="<%= "corte_precio_430" + String(i) %>" value="<%= listaDeCorte[i]['Ac. Inox. 430'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_Galv" + String(i) %>" name="<%= "corte_precio_Galv" + String(i) %>" value="<%= listaDeCorte[i]['Galv.'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_Alum" + String(i) %>" name="<%= "corte_precio_Alum" + String(i) %>" value="<%= listaDeCorte[i]['Alum.'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_Bronce" + String(i) %>" name="<%= "corte_precio_Bronce" + String(i) %>" value="<%= listaDeCorte[i]['Bronce'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_Cobre" + String(i) %>" name="<%= "corte_precio_Cobre" + String(i) %>" value="<%= listaDeCorte[i]['Cobre'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "corte_precio_Laton" + String(i) %>" name="<%= "corte_precio_Laton" + String(i) %>" value="<%= listaDeCorte[i]['Latón'] %>" required></td>
+                            </tr>
+                        <% } %>
+                    </table>
+            </div>        
+<!-- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" -->
+
+            <div class="inputcontainer precios_title">
+                <h2>Precios de doblez</h2>
+            </div>  
+
+            <div class="inputcontainer precios">
+                    
+                <table class="datos_doblez">
+                    <tr>
+                    <th style="display: none;">Id</th>
+                    <th>Calibre</th>
+                    <th>$ COP/Doblez</th>
+                    </tr>
+
+                    <% for (let i = 1; i < listaDeDoblez.length; i++){ %>
+                        <tr>
+                            <td class="cell" style="display: none;"><input type="number" name="<%= "doblez_id" + String(i) %>" value="<%= listaDeDoblez[i].id %>"  required></td>
+                            <td class="cell"><input type="text" value="<%= listaDeDoblez[i].width %>"  onkeydown="return false;"></td>
+                            <td class="cell"><input type="number" step="0.0001" id="<%= "doblez_precio" + String(i) %>" name="<%= "doblez_precio" + String(i) %>" value="<%= listaDeDoblez[i].fold %>" required></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>    
+
+<!-- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" -->
+
+            <div class="inputcontainer precios_title">
+                <h2>Precios de piercing</h2>
+            </div>
+
+            <div class="inputcontainer precios">
+                <table class="datos_piercing">
+                    <tr>
+                    <th style="display: none;">Id</th>
+                    <th>Calibre</th>
+                    <th>$ COP/piercing</th>
+                    </tr>
+
+                    <% for (let i = 1; i < listaDePiercing.length; i++){ %>
+                        <tr>
+                            <td class="cell" style="display: none;"><input type="number" name="<%= "piercing_id" + String(i) %>" value="<%= listaDePiercing[i].id %>" required></td>
+                            <td class="cell"><input type="text" value="<%= listaDePiercing[i].width %>"  onkeydown="return false;"></td>
+                            <td class="cell"><input type="number" step="0.0001" id="<%= "piercing_precio" + String(i) %>" name="<%= "piercing_precio" + String(i) %>" value="<%= listaDePiercing[i].piercing %>" required></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>    
+
+<!-- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" -->
+
+            <div class="inputcontainer precios_title">
+                <h2>Precios de material</h2>
+            </div>
+
+            <div class="inputcontainer precios precios_area">
+                    
+                <table class="datos_material">
+                    <tr>
+                        <th style="display: none;">Id</th>
+                        <th>Calibre</th>
+                        <th>$ COP/mm² Ac. H.R.</th>
+                        <th>$ COP/mm² Ac. C.R.</th>
+                        <th>$ COP/mm² Ac. Inox. 304</th>
+                        <th>$ COP/mm² Ac. Inox. 316</th>
+                        <th>$ COP/mm² Ac. Inox. 430</th>
+                        <th>$ COP/mm² Galv.</th>
+                        <th>$ COP/mm² Alum.</th>
+                        <th>$ COP/mm² Bronce</th>
+                        <th>$ COP/mm² Cobre</th>
+                        <th>$ COP/mm² Latón</th>
+                        </tr>
+    
+                        <% for (let i = 1; i < listaDeMaterial.length; i++){ %>
+                            <tr>
+                                <td class="cell" style="display: none;"><input type="number" name="<%= "material_id" + String(i) %>" value="<%= listaDeMaterial[i].id %>" required></td>
+                                <td class="cell"><input type="text" value="<%= listaDeMaterial[i].width %>"  onkeydown="return false;"></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_HR" + String(i) %>" name="<%= "material_precio_HR" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. H.R'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_CR" + String(i) %>" name="<%= "material_precio_CR" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. C.R'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_304" + String(i) %>" name="<%= "material_precio_304" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 304'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_316" + String(i) %>" name="<%= "material_precio_316" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 316'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_430" + String(i) %>" name="<%= "material_precio_430" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 430'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Galv" + String(i) %>" name="<%= "material_precio_Galv" + String(i) %>" value="<%= listaDeMaterial[i]['Galv.'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Alum" + String(i) %>" name="<%= "material_precio_Alum" + String(i) %>" value="<%= listaDeMaterial[i]['Alum.'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Bronce" + String(i) %>" name="<%= "material_precio_Bronce" + String(i) %>" value="<%= listaDeMaterial[i]['Bronce'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Cobre" + String(i) %>" name="<%= "material_precio_Cobre" + String(i) %>" value="<%= listaDeMaterial[i]['Cobre'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Laton" + String(i) %>" name="<%= "material_precio_Laton" + String(i) %>" value="<%= listaDeMaterial[i]['Latón'] %>" required></td>
+                            </tr>
+                        <% } %>
+                    </table>
+            </div>    
+
+            <input type="submit" value="Editar" class="send_precios">
+
+        </form>
+    </div>
+<!-- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" -->
+
+</body>
+</html>

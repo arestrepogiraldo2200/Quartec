@@ -76,12 +76,7 @@ let cotizacionController = {
                                     worksheet.getCell('A19').value = req.body.forma_pago;
                                     worksheet.getCell('A20').value = req.body.transporte;
                                     worksheet.getCell('A21').value = req.body.materiales;
-                
-                                    // console.log(listadecorte)
-                                    // console.log(listadedoblez)
-                                    // console.log(listadepiercing)
-                                    // console.log(listadematerial)
-                
+                        
                                     for(let i = 1; i <= 60; i++){
 
                                         // Caso interpretado como fila vacía
@@ -165,7 +160,35 @@ let cotizacionController = {
         //     console.log(err); 
         //     res.redirect('/inicio');         
         //  });
-    }
+    },
+
+    selectCotizacion: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+        
+
+    },
+
+    selectCotizacionPost: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+
+
+    },
+
+    editCotizacionGetForm: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+
+
+    },
+
+    editCotizacionPostForm: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+
+
+    },
 }
 
 module.exports = cotizacionController;

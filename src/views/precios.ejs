@@ -60,7 +60,7 @@
                         <th>$ COP/mm Latón</th>
                         </tr>
     
-                        <% for (let i = 1; i < listaDeCorte.length; i++){ %>
+                        <% for (let i = 0; i < listaDeCorte.length; i++){ %>
                             <tr>
                                 <td class="cell" style="display: none;"><input type="number" name="<%= "corte_id" + String(i) %>" value="<%= listaDeCorte[i].id %>" required></td>
                                 <td class="cell"><input type="text" value="<%= listaDeCorte[i].width %>"  onkeydown="return false;"></td>
@@ -93,7 +93,7 @@
                     <th>$ COP/Doblez</th>
                     </tr>
 
-                    <% for (let i = 1; i < listaDeDoblez.length; i++){ %>
+                    <% for (let i = 0; i < listaDeDoblez.length; i++){ %>
                         <tr>
                             <td class="cell" style="display: none;"><input type="number" name="<%= "doblez_id" + String(i) %>" value="<%= listaDeDoblez[i].id %>"  required></td>
                             <td class="cell"><input type="text" value="<%= listaDeDoblez[i].width %>"  onkeydown="return false;"></td>
@@ -117,7 +117,7 @@
                     <th>$ COP/piercing</th>
                     </tr>
 
-                    <% for (let i = 1; i < listaDePiercing.length; i++){ %>
+                    <% for (let i = 0; i < listaDePiercing.length; i++){ %>
                         <tr>
                             <td class="cell" style="display: none;"><input type="number" name="<%= "piercing_id" + String(i) %>" value="<%= listaDePiercing[i].id %>" required></td>
                             <td class="cell"><input type="text" value="<%= listaDePiercing[i].width %>"  onkeydown="return false;"></td>
@@ -151,7 +151,7 @@
                         <th>$ COP/mm² Latón</th>
                         </tr>
     
-                        <% for (let i = 1; i < listaDeMaterial.length; i++){ %>
+                        <% for (let i = 0; i < listaDeMaterial.length; i++){ %>
                             <tr>
                                 <td class="cell" style="display: none;"><input type="number" name="<%= "material_id" + String(i) %>" value="<%= listaDeMaterial[i].id %>" required></td>
                                 <td class="cell"><input type="text" value="<%= listaDeMaterial[i].width %>"  onkeydown="return false;"></td>
@@ -171,7 +171,6 @@
             </div>    
 
             <input type="submit" value="Editar" class="send_precios">
-
         </form>
     </div>
 <!-- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" -->

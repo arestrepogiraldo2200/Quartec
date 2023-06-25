@@ -40,6 +40,9 @@
     <a href="/editar-precios"><button>Editar precios</button></a><br>
     <% } %>
     
+    <% if (isAdmin == 0) { %>
+    <a href="/editar-precios"><button>Tablas de precios</button></a><br>
+    <% } %>
     <a href="/cotizacion"><button>Iniciar cotización</button></a><br>
     <a href="/edit-cotizacion"><button>Editar cotización</button></a><br>
 

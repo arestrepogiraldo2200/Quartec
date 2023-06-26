@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categories`
+-- Estructura de tabla para la tabla `asesores`
 --
 
 CREATE TABLE `asesores` (
@@ -131,6 +131,57 @@ CREATE TABLE `material` (
 
 -- --------------------------------------------------------
 
+
+-- Estructura de tabla para la tabla `cotizacion`
+--
+
+CREATE TABLE `cotizacion` (
+  `id` int(10) NOT NULL,
+  `num`  INT(10) NOT NULL,
+  `client` varchar(100),
+  `fecha` varchar(20),
+  `validez` varchar(100),
+  `entrega` varchar(100),
+  `condiciones` varchar(100),
+  `estado` varchar(100),
+  `aprobacion` varchar(30),
+  `proyecto` varchar(100),
+  `pago` varchar(100),
+  `transporte` varchar(100),
+  `materiales` varchar(100)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+-- Estructura de tabla para la tabla `cotizacion_datos`
+--
+
+CREATE TABLE `cotizacion_datos` (
+  `id` int(10) NOT NULL,
+  `num`  INT(10) NOT NULL,
+  `cantidad` INT(10),
+  `descripcion` TEXT,
+  `precio` FLOAT,
+  `materiales` TEXT,
+  `espesor` TEXT,
+  `perimetroautocad` FLOAT,
+  `factorcorte` FLOAT,
+  `perimetro` FLOAT,
+  `largoautocad` FLOAT,
+  `anchoautocad` FLOAT,
+  `factorarea` FLOAT,
+  `area` FLOAT,
+  `piercings` FLOAT,
+  `dobleces` INT(10),
+  `longdoblez` FLOAT,
+  `conmaterial` varchar(10)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
 ALTER TABLE `asesores`
   ADD PRIMARY KEY (`id`);
 
@@ -166,6 +217,19 @@ ALTER TABLE `material`
 
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+  ALTER TABLE `cotizacion`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `cotizacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `cotizacion_datos`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `cotizacion_datos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 ----------------------------------------------------------
 
 INSERT INTO asesores(id, name, is_admin, password) VALUES (1,'Diego Alberto Restrepo', 1, '123456');

@@ -112,11 +112,13 @@ let cotizacionController = {
                                             worksheet.getCell(`H${26+i}`).value = req.body[`cantidad${i}`];
                                             worksheet.getCell(`L${26+i}`).value = req.body[`precio${i}`];
                                             worksheet.getCell(`N${26+i}`).value = parseFloat(req.body[`cantidad${i}`])*parseFloat(req.body[`precio${i}`]);
+                                            worksheet.getCell(`J${26+i}`).value = "Und";
                                         } else {
                                             // Llenado de filas caso cobro corte/doblez
                                             worksheet.getCell(`A${26+i}`).value = i;
                                             worksheet.getCell(`B${26+i}`).value = req.body[`descrip${i}`] + ". Material: " + req.body[`material${i}`] + ". Espesor: " + req.body[`espesor${i}`] + ".";
                                             worksheet.getCell(`H${26+i}`).value = req.body[`cantidad${i}`];
+                                            worksheet.getCell(`J${26+i}`).value = "Und";
 
                                             // Costos
                                             let corte_por_mm = listadecorte.filter(element => element.width == req.body[`espesor${i}`])[0][req.body[`material${i}`]];

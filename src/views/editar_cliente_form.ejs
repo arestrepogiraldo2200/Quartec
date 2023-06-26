@@ -29,13 +29,13 @@
         </div>
     </div>
 
-    <img src="/images/logo.png" alt="logo">
+    <a href="/inicio"><img src="/images/logo.png" alt="logo"></a>
 
     <h1 class = "title">Datos del cliente</h1>
 
     <div class="formcontainer">
 
-        <form action="/editar-cliente-form" method ="post">
+        <form action="/editar-cliente-form" method ="post" onkeydown="return event.key != 'Enter';">
 
             <div class="inputcontainer">
                 <input type="number" id="id" name="id" value = "<%= cliente.id %>">

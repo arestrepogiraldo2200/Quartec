@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar mis datos</title>
+    <title>Editar cliente</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
@@ -14,6 +14,12 @@
     <div class = "logoutcontainer">
 
         <div class = "iconcontainer">
+
+            <a href="/editar-datos">
+                <div class="editar-datos">
+                    <i class='fas fa-edit'></i>
+                </div>
+            </a>
 
             <a href="/logout">
                 <div class="log-in">
@@ -25,27 +31,23 @@
 
     <a href="/inicio"><img src="/images/logo.png" alt="logo"></a>
 
-    <h1 class = "title">Mis datos </h1>
+    <h1 class = "title">Editar cotización</h1>
 
     <div class="formcontainer">
 
-        <form action="/editar-datos" method ="post" onkeydown="return event.key != 'Enter';">
+        <form action="/edit-cotizacion" method ="post">
 
             <div class="inputcontainer">
-                <input type="text" id="id" name="id" value = "<%= asesorData.id %>">
-            </div>
+                <label for="text">Cotizacion</label>
+                <input type="text" list = "cot"  id="cotizacionlist" name="select" placeholder = "Seleccionar cotización de la lista.">
+                    <datalist id="cot">
+                    <% for (let i = 0; i< cotizaciones.length; i++){ %>
+                        <option value="<%= cotizaciones[i].num %>" name = "cotizacion_a_editar" ><%= String(cotizaciones[i].client) + "   " + String(cotizaciones[i].proyecto) %></option>
+                    <% } %>
+                    </datalist>
+           </div>
 
-            <div class="inputcontainer">
-                <label for="usuario">Usuario</label>
-                <input type="text" id="usuario" name="usuario" value = "<%= asesorData.name %>" required minlength="6">
-            </div>
-
-            <div class="inputcontainer">
-                <label for="contrasena">Contraseña</label>
-                <input type="text" id="contrasena" name="contrasena" value = "<%= asesorData.password %>" required minlength="6">
-            </div>
-
-            <input type="submit" value="Editar mis datos">
+            <input type="submit" value="Consultar">
         </form>
     </div>
 </body>

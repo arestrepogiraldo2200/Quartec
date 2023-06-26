@@ -137,7 +137,7 @@ CREATE TABLE `material` (
 
 CREATE TABLE `cotizacion` (
   `id` int(10) NOT NULL,
-  `num`  INT(10) NOT NULL,
+  `num`  INT(10) NOT NULL UNIQUE,
   `client` varchar(100),
   `fecha` varchar(20),
   `validez` varchar(100),
@@ -148,8 +148,8 @@ CREATE TABLE `cotizacion` (
   `proyecto` varchar(100),
   `pago` varchar(100),
   `transporte` varchar(100),
-  `materiales` varchar(100)
-
+  `materiales` varchar(100),
+  `asesor` varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -164,7 +164,7 @@ CREATE TABLE `cotizacion_datos` (
   `cantidad` INT(10),
   `descripcion` TEXT,
   `precio` FLOAT,
-  `materiales` TEXT,
+  `material` TEXT,
   `espesor` TEXT,
   `perimetroautocad` FLOAT,
   `factorcorte` FLOAT,
@@ -173,7 +173,7 @@ CREATE TABLE `cotizacion_datos` (
   `anchoautocad` FLOAT,
   `factorarea` FLOAT,
   `area` FLOAT,
-  `piercings` FLOAT,
+  `piercings` INT(10),
   `dobleces` INT(10),
   `longdoblez` FLOAT,
   `conmaterial` varchar(10)

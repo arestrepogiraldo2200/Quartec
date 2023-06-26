@@ -2,6 +2,7 @@
 const path = require('path');
 const db = require('../database/models');
 var Excel = require('exceljs');
+var sessionStorage = require('sessionstorage');
 
 let cotizacionController = {
 
@@ -63,6 +64,7 @@ let cotizacionController = {
                                     let fecha_aprobacionsplit = req.body.fecha_aprobacion.split("-");
                                     let fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
                         
+                                    // Datos generales
                                     worksheet.getCell('L9').value = req.body.num;
                                     worksheet.getCell('L11').value = fecha;
                                     worksheet.getCell('L12').value = req.body.validez;
@@ -73,10 +75,31 @@ let cotizacionController = {
                                     worksheet.getCell('N16').value = fecha_aprobacion;
                                     worksheet.getCell('C24').value = req.body.proyecto;
                 
+                                    // Condiciones comerciales
                                     worksheet.getCell('A19').value = req.body.forma_pago;
                                     worksheet.getCell('A20').value = req.body.transporte;
                                     worksheet.getCell('A21').value = req.body.materiales;
-                        
+
+                                    // Se escriben los datos en la base de datos
+                                    db.cotizacion.create(
+                                        {        
+                                            num: req.body.num,
+                                            client: req.body.selectclient,
+                                            fecha: req.body.fecha,
+                                            validez: req.body.validez,
+                                            entrega: req.body.entrega,
+                                            condiciones: req.body.selectcondiciones,
+                                            estado: req.body.selectestado,
+                                            aprobacion: req.body.fecha_aprobacion,
+                                            proyecto: req.body.proyecto,
+                                            pago: req.body.forma_pago,
+                                            transporte: req.body.transporte,
+                                            materiales: req.body.materiales,
+                                            asesor: req.session.name,
+
+                                        }).then(() => {}).catch((err) => console.log(err));
+                                        
+                                    // Información del formulario
                                     for(let i = 1; i <= 60; i++){
 
                                         // Caso interpretado como fila vacía
@@ -123,6 +146,29 @@ let cotizacionController = {
                                             worksheet.getCell(`L${26+i}`).value = costo_unidad;
                                             worksheet.getCell(`N${26+i}`).value = parseFloat(req.body[`cantidad${i}`])*costo_unidad;
                                         }
+                                        
+                                        // Se escriben los datos en la base de datos
+                                        db.cotizacion_datos.create(
+                                            {        
+                                                num: req.body.num,
+                                                cantidad: req.body[`cantidad${i}`],
+                                                descripcion: req.body[`descrip${i}`],
+                                                precio: req.body[`precio${i}`],
+                                                material: req.body[`material${i}`],
+                                                espesor: req.body[`espesor${i}`],
+                                                perimetroautocad:  req.body[`perimetro_autocad${i}`],
+                                                factorcorte: req.body[`factor_corte${i}`],
+                                                perimetro: req.body[`perimetro${i}`],
+                                                largoautocad: req.body[`largo_autocad${i}`],                        
+                                                anchoautocad: req.body[`ancho_autocad${i}`],
+                                                factorarea: req.body[`factor_area${i}`],
+                                                area:  req.body[`area${i}`],
+                                                piercings: req.body[`piercings${i}`],
+                                                dobleces: req.body[`dobleces${i}`],
+                                                longdoblez: req.body[`longitud_doblez${i}`],
+                                                conmaterial: req.body[`con_material${i}`]
+
+                                            }).then(() => {}).catch((err) => console.log(err));
                                     }
                 
                                     let filename = req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx";
@@ -165,30 +211,43 @@ let cotizacionController = {
     selectCotizacion: (req,res) => {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
-        
 
+        db.cotizacion.findAll({raw: true}).then((listadecotizaciones)=>{
+                res.render(path.join(__dirname, '../views/select_cotizacion'), {cotizaciones : listadecotizaciones});    
+        }).catch((err)=>console.log(err));
+        
     },
 
     selectCotizacionPost: (req,res) => {
 
-        if (!req.session.isAuthenticated) return res.redirect('/');
-
-
+        if (!req.body.select) return res.redirect('/edit-cotizacion');
+        
+        sessionStorage.setItem("cotizacionToEdit", req.body.select);
+        res.redirect("/edit-cotizacion-form");
     },
 
     editCotizacionGetForm: (req,res) => {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
 
+        let cotizacionToEdit = sessionStorage.getItem("cotizacionToEdit");
 
-    },
+        db.cotizacion.findOne({raw: true, where: { num: cotizacionToEdit } }).then((cotizacionFound) => {
+            db.cotizacion_datos.findAll({raw: true, where: { num: cotizacionToEdit } }).then((rowsFound) => {
+                db.clientes.findAll({raw: true}).then((listadeclientes)=>{
 
-    editCotizacionPostForm: (req,res) => {
+                    if (cotizacionFound){
+                        sessionStorage.removeItem("cotizacionToEdit");
+                        //console.log(rowsFound)
+                        res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes}); 
+                    } else {
+                        res.redirect('/edit-cotizacion');
+                    }
 
-        if (!req.session.isAuthenticated) return res.redirect('/');
-
-
-    },
+                }).catch((err)=>console.log(err));
+            }).catch((err)=>console.log(err));
+         }).catch((err)=>console.log(err));
+    }
 }
 
 module.exports = cotizacionController;

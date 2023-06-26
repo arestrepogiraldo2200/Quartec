@@ -29,13 +29,13 @@
         </div>
     </div>
 
-    <img src="/images/logo.png" alt="logo">
+    <a href="/inicio"><img src="/images/logo.png" alt="logo"></a>
 
     <h1 class = "title">Eliminar asesor</h1>
 
     <div class="formcontainer">
 
-        <form action="eliminar-asesor" method ="post">
+        <form action="eliminar-asesor" method ="post" onkeydown="return event.key != 'Enter';">
 
             <div class="inputcontainer">
                 <label for="text">Asesor</label>

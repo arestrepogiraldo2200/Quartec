@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script type="text/javascript">
+        
+        function changeCutValue(item){
+
+            let perimetroautocad = parseFloat(document.getElementById('perimetro_autocad'+item).value) || 0;
+            let factorcorte = parseFloat(document.getElementById('factor_corte'+item).value) || 0;
+            let perimetro = perimetroautocad*factorcorte;
+
+            let perimetroxfactor = document.getElementById('perimetro'+item);
+            perimetroxfactor.value = perimetro.toFixed(3);
+        }
+
+        function changeAreaValue(item){
+
+            let largoautocad = parseFloat(document.getElementById('largo_autocad'+item).value) || 0;
+            let anchoautocad = parseFloat(document.getElementById('ancho_autocad'+item).value) || 0;
+            let factorarea = parseFloat(document.getElementById('factor_area'+item).value) || 0;
+            let area = largoautocad*anchoautocad*factorarea;
+
+            let areaxfactor = document.getElementById('area'+item);
+            areaxfactor.value = area.toFixed(3);
+        }
+
+    </script>
+</head>
+<body>
+    <div class = "logoutcontainer">
+
+        <div class = "iconcontainer">
+
+            <a href="/editar-datos">
+                <div class="editar-datos">
+                    <i class='fas fa-edit'></i>
+                </div>
+            </a>
+
+            <a href="/logout">
+                <div class="log-in">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <a href="/inicio"><img src="/images/logo.png" alt="logo"></a>
+
+    <h1 class = "title" style="margin:0px;">Cotización</h1>
+
+    <div class="formcontainer">
+
+        <form action="/cotizacion" method ="post" onkeydown="return event.key != 'Enter';">
+
+
+            <div class="inputcontainer">
+                <h2>Datos de cotización y cliente</h2>
+            </div>  
+
+            <div class="inputcontainer">
+                <label for="num">Número de cotización</label>
+                <input inputmode="numeric" type="number" id="num" name="num" placeholder = "Ediciones requieren un nuevo número de cotización" required>
+            </div>
+
+            <div class="inputcontainer">
+                <label for="text">Cliente</label>
+                <input type="text" list = "cl" id="cli" name="selectclient" placeholder = "Seleccionar el cliente de la lista, si no se encuentra debe añadirlo" required value = "<%=cotizaciongeneral.client %>" >
+                    <datalist id="cl" class = "datalist">
+                    <% for (let i = 0; i< clientes.length; i++){ %>
+                        <option value="<%= clientes[i].client %>"><%= clientes[i].client %></option>
+                    <% } %>
+                    </datalist>
+           </div>
+
+            <div class="inputcontainer">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha" onkeydown="return false" required value = "<%=cotizaciongeneral.fecha %>"/>
+            </div> 
+
+            <div class="inputcontainer">
+                <label for="validez">Validez de la oferta</label>
+                <input type="text" id="validez" name="validez" list = "valid" required value = "<%=cotizaciongeneral.validez %>">
+                <datalist id="valid">
+                    <option value="5 días">5 días</option>
+                    <option value="10 días">10 días</option>
+                    <option value="15 días">15 días</option>
+                    <option value="20 días">20 días</option>
+                    <option value="30 días">30 días</option>
+                </datalist>
+            </div>    
+
+            <div class="inputcontainer">
+                <label for="entrega">Tiempo de entrega</label>
+                <input type="text" id="entrega" name="entrega" list = "deliv" required value = "<%=cotizaciongeneral.entrega %>">
+                <datalist id="deliv">
+                    <option value="1 día hábil">1 día hábil</option>
+                    <option value="2 días hábiles">2 días hábiles</option>
+                    <option value="3 días hábiles">3 días hábiles</option>
+                    <option value="4 días hábiles">4 días hábiles</option>
+                    <option value="5 días hábiles">5 días hábiles</option>
+                    <option value="10 días hábiles">10 días hábiles</option>
+                    <option value="15 días hábiles">15 días hábiles</option>
+                    <option value="20 días hábiles">20 días hábiles</option>
+                    <option value="30 días hábiles">30 días hábiles</option>
+                </datalist>
+            </div>       
+
+            <div class="inputcontainer">
+                <label for="condiciones">Condiciones de pago</label>
+                <input type="text" list = "cond" name="selectcondiciones" required value = "<%=cotizaciongeneral.condiciones %>">
+                <datalist id="cond">
+                    <option value="Contado">Contado</option>
+                    <option value="Crédito a 15 días">Crédito a 15 días</option>
+                    <option value="Crédito a 30 días">Crédito a 30 días</option>
+                    <option value="Contra entrega">Contra entrega</option>
+                </datalist>
+            </div>    
+            
+            <div class="inputcontainer">
+                <label for="estado">Estado</label>
+                <select name="selectestado" required>
+                    <option value = "<%= cotizaciongeneral.estado %>" selected><%= cotizaciongeneral.estado %></option>
+                    <option value="Aprobado">Aprobado</option>
+                    <option value="En trámite">En trámite</option>
+                    <option value="No aprobado">No aprobado</option>
+                </select>
+            </div>    
+
+            <div class="inputcontainer">
+                <label for="fecha_aprobacion">Fecha de aprobación</label>
+                <input type="date" id="fecha_aprobacion" name="fecha_aprobacion" onkeydown="return false" required value = "<%=cotizaciongeneral.aprobacion %>"/>
+            </div>   
+
+            <div class="inputcontainer">
+                <label for="proyecto">Proyecto</label>
+                <input type="text" id="proyecto" name="proyecto" required value = "<%=cotizaciongeneral.proyecto %>">
+            </div>  
+
+            <div class="inputcontainer">
+                <h2>Condiciones comerciales</h2>
+            </div>  
+
+            <div class="inputcontainer">
+                <label for="condiciones_com">Forma de pago</label>
+                <input type="text" list = "payment" name="forma_pago" required value = "<%=cotizaciongeneral.pago %>">
+                <datalist id="payment">
+                    <option value="Forma de Pago: Contra Entrega.">Forma de Pago: Contra Entrega.</option>
+                    <option value="Forma de Pago: 50% Anticipo y 50% Contra Entrega.">Forma de Pago: 50% Anticipo y 50% Contra Entrega.</option>
+                    <option value="Forma de Pago: 100% de Anticipo.">Forma de Pago: 100% de Anticipo.</option>
+                    <option value="Forma de Pago: Crédito a 15 días.">Forma de Pago: Crédito a 15 días.</option>
+                    <option value="Forma de Pago: Crédito a 30 días.">Forma de Pago: Crédito a 30 días.</option>
+                </datalist>
+            </div>    
+
+            <div class="inputcontainer">
+
+                <label for="transport">Transporte</label>
+                <input type="text" list = "trans" name="transporte" required  value = "<%=cotizaciongeneral.transporte %>">
+                <datalist id="trans">
+                    <option value="El servicio no incluye transporte.">El servicio no incluye transporte.</option>
+                    <option value="El servicio si incluye transporte.">El servicio si incluye transporte.</option>
+                </datalist>
+            </div>    
+
+            <div class="inputcontainer">
+
+                <label for="materiales">Materiales</label>
+                <input type="text" list = "mat" name="materiales" required  value = "<%=cotizaciongeneral.materiales %>">
+                <datalist id="mat">
+                    <option value="El servicio no incluye materiales.">El servicio no incluye materiales.</option>
+                    <option value="El servicio si incluye materiales.">El servicio si incluye materiales.</option>
+                    <option value="El servicio incluye algunos materiales.">El servicio incluye algunos materiales.</option>
+                </datalist>
+            </div>   
+
+            <div class="inputcontainer">
+                <h2>Datos</h2>
+            </div>  
+
+            <div class="inputcontainer tabladatos">
+                    
+                <table>
+                    <tr>
+                    <th class="item">Item</th>
+                    <th>Cantidad</th>
+                    <th>Descripción</th>
+                    <th>Precio unitario</th>
+                    <th>Material</th>
+                    <th>Espesor</th>
+                    <th>Perímetro AutoCad (mm)</th>
+                    <th>Factor de corte</th>
+                    <th>Perímetro (mm)</th>
+                    <th>Largo AutoCad (mm)</th>
+                    <th>Ancho AutoCad (mm)</th>
+                    <th>Factor de área</th>
+                    <th>Área (mm²)</th>
+                    <th>Cantidad de piercings por peza</th>
+                    <th>Dobleces por pieza</th>
+                    <th>Longitud doblez (mm)</th>
+                    <th>Con material</th>
+                    </tr>
+
+                    <% for (let i = 1; i <= filas.length ; i++){ %>
+                        <tr>
+                        <td class="item"><%= i %></td>
+                        <td width = "50px"><input type="number" id="<%= "cantidad" + String(i) %>" name="<%= "cantidad" + String(i) %>" value = "<%= filas[i-1].cantidad %>"></td>
+                        <td width = "220px"><input type="text" id="<%= "descrip" + String(i) %>" name="<%= "descrip" + String(i) %>" value = "<%= filas[i-1].descripcion %>"></td>
+                        <td width = "80px"><input type="number" id="<%= "precio" + String(i) %>" name="<%= "precio" + String(i) %>"
+                            <% if (filas[i-1].precio == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].precio %>"
+                            <% } %>
+                            ></td>
+                        <td width = "110px"><select name="<%= "material" + String(i) %>">
+                            <option value = "<%= filas[i-1].material %>" selected><%= filas[i-1].material %></option>
+                            <option value="Ac. Inox. 304">Ac. Inox. 304</option>
+                            <option value="Ac. Inox. 316">Ac. Inox. 316</option>
+                            <option value="Ac. Inox. 430">Ac. Inox. 430</option>
+                            <option value="Ac. H.R">Ac. H.R</option>
+                            <option value="Ac. C.R">Ac. C.R</option>
+                            <option value="Galv.">Galv.</option>
+                            <option value="Alum.">Alum.</option>
+                            <option value="Bronce">Bronce</option>
+                            <option value="Cobre">Cobre</option>
+                            <option value="Latón">Latón</option>
+                        </select></td>
+                        <td width = "120px"><select name="<%= "espesor" + String(i) %>">
+                            <option value = "<%= filas[i-1].espesor %>" selected><%= filas[i-1].espesor %></option>
+                            <option value="Cal. 20 (0.9 mm)">Cal. 20 (0.9 mm)</option>
+                            <option value="Cal. 19 (1 mm)">Cal. 19 (1 mm)</option>
+                            <option value="Cal. 18 (1.2 mm)">Cal. 18 (1.2 mm)</option>
+                            <option value="Cal. 16 (1.5 mm)">Cal. 16 (1.5 mm)</option>
+                            <option value="Cal. 14 (1.9 mm)">Cal. 14 (1.9 mm)</option>
+                            <option value="Cal. 13 (2.2 mm)">Cal. 13 (2.2 mm)</option>
+                            <option value="Cal. 12 (2.6 mm)">Cal. 12 (2.6 mm)</option>
+                            <option value="Cal. 11 (3.0 mm)">Cal. 11 (3.0 mm)</option>
+                            <option value="Cal. 10 (3.4 mm)">Cal. 10 (3.4 mm)</option>
+                            <option value="Cal. 9 (3.8 mm)">Cal. 9 (3.8 mm)</option>
+                            <option value="Cal. 8 (4.2 mm)">Cal. 8 (4.2 mm)</option>
+                            <option value="Cal. 7 (4.5 mm)">Cal. 7 (4.5 mm)</option>
+                            <option value="Cal. 6 (4.9 mm)">Cal. 6 (4.9 mm)</option>
+                            <option value="Cal. 5 (5.3 mm)">Cal. 5 (5.3 mm)</option>
+                            <option value="Cal. 4 (5.7 mm)">Cal. 4 (5.7 mm)</option>
+                            <option value="Cal. 3 (6.0 mm)">Cal. 3 (6.0 mm)</option>
+                            <option value="Cal. 1/2">Cal. 1/2"</option>
+                            <option value="Cal. 3/8">Cal. 3/8"</option>
+                            <option value="Cal. 5/16">Cal. 5/16"</option>
+                            <option value="Cal. 1/4">Cal. 1/4"</option>
+                            <option value="Cal. 3/16">Cal. 3/16"</option>
+                            <option value="Cal. 1/8">Cal. 1/8"</option>
+                            <option value="Cal. 1/16">Cal. 1/16"</option>
+                        </select></td>
+                        <td><input type="number" step="0.0001" id="<%= "perimetro_autocad" + String(i) %>" name="<%= "perimetro_autocad" + String(i) %>" onchange="changeCutValue(<%= String(i) %>)" 
+                            <% if (filas[i-1].perimetroautocad == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].perimetroautocad %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="number" step="0.0001" id="<%= "factor_corte" + String(i) %>" name="<%= "factor_corte" + String(i) %>" onchange="changeCutValue(<%= String(i) %>)" 
+                            <% if (filas[i-1].factorcorte == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].factorcorte %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="text" id="<%= "perimetro" + String(i) %>" name="<%= "perimetro" + String(i) %>" onkeydown="return false;" 
+                            <% if (filas[i-1].perimetro == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].perimetro %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="number" step="0.0001" id="<%= "largo_autocad" + String(i) %>" name="<%= "largo_autocad" + String(i) %>" onchange="changeAreaValue(<%= String(i) %>)" 
+                            <% if (filas[i-1].largoautocad == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].largoautocad %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="number" step="0.0001" id="<%= "ancho_autocad" + String(i) %>" name="<%= "ancho_autocad" + String(i) %>" onchange="changeAreaValue(<%= String(i) %>)" 
+                            <% if (filas[i-1].anchoautocad == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].anchoautocad %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="number" step="0.0001" id="<%= "factor_area" + String(i) %>" name="<%= "factor_area" + String(i) %>" onchange="changeAreaValue(<%= String(i) %>)"
+                            <% if (filas[i-1].factorarea == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].factorarea %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="text" id="<%= "area" + String(i) %>" name="<%= "area" + String(i) %>" onkeydown="return false;"
+                            <% if (filas[i-1].area == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].area %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="number" id="<%= "piercings" + String(i) %>" name="<%= "piercings" + String(i) %>" 
+                            <% if (filas[i-1].piercings == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].piercings %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="number" id="<%= "dobleces" + String(i) %>" name="<%= "dobleces" + String(i) %>" 
+                            <% if (filas[i-1].dobleces == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].dobleces %>"
+                            <% } %>
+                            ></td>
+                        <td><input type="number" step="0.0001" id="<%= "longitud_doblez" + String(i) %>" name="<%= "longitud_doblez" + String(i) %>"
+                            <% if (filas[i-1].longdoblez == 0) {%>
+                                value = ""
+                            <% } else {%>
+                                value = "<%= filas[i-1].longdoblez %>"
+                            <% } %>
+                            ></td>
+                        <td><select name="<%= "con_material" + String(i) %>">
+                            <option value = "<%= filas[i-1].conmaterial %>"><%= filas[i-1].conmaterial %></option>
+                            <option value="Sí">Sí</option>
+                            <option value="No">No</option>
+                        </select></td>
+                        </tr>
+                    <% } %>
+
+                    <% for (let j = filas.length + 1; j <= 60; j++){ %>
+                        <tr>
+                        <td class="item"><%= j %></td>
+                        <td width = "50px"><input type="number" id="<%= "cantidad" + String(j) %>" name="<%= "cantidad" + String(j) %>"></td>
+                        <td width = "220px"><input type="text" id="<%= "descrip" + String(j) %>" name="<%= "descrip" + String(j) %>"></td>
+                        <td width = "80px"><input type="number" id="<%= "precio" + String(j) %>" name="<%= "precio" + String(j) %>"></td>
+                        <td width = "110px"><select name="<%= "material" + String(j) %>">
+                            <option value=""></option>
+                            <option value="Ac. Inox. 304">Ac. Inox. 304</option>
+                            <option value="Ac. Inox. 316">Ac. Inox. 316</option>
+                            <option value="Ac. Inox. 430">Ac. Inox. 430</option>
+                            <option value="Ac. H.R">Ac. H.R</option>
+                            <option value="Ac. C.R">Ac. C.R</option>
+                            <option value="Galv.">Galv.</option>
+                            <option value="Alum.">Alum.</option>
+                            <option value="Bronce">Bronce</option>
+                            <option value="Cobre">Cobre</option>
+                            <option value="Latón">Latón</option>
+                        </select></td>
+                        <td width = "120px"><select name="<%= "espesor" + String(j) %>">
+                            <option value=""></option>
+                            <option value="Cal. 20 (0.9 mm)">Cal. 20 (0.9 mm)</option>
+                            <option value="Cal. 19 (1 mm)">Cal. 19 (1 mm)</option>
+                            <option value="Cal. 18 (1.2 mm)">Cal. 18 (1.2 mm)</option>
+                            <option value="Cal. 16 (1.5 mm)">Cal. 16 (1.5 mm)</option>
+                            <option value="Cal. 14 (1.9 mm)">Cal. 14 (1.9 mm)</option>
+                            <option value="Cal. 13 (2.2 mm)">Cal. 13 (2.2 mm)</option>
+                            <option value="Cal. 12 (2.6 mm)">Cal. 12 (2.6 mm)</option>
+                            <option value="Cal. 11 (3.0 mm)">Cal. 11 (3.0 mm)</option>
+                            <option value="Cal. 10 (3.4 mm)">Cal. 10 (3.4 mm)</option>
+                            <option value="Cal. 9 (3.8 mm)">Cal. 9 (3.8 mm)</option>
+                            <option value="Cal. 8 (4.2 mm)">Cal. 8 (4.2 mm)</option>
+                            <option value="Cal. 7 (4.5 mm)">Cal. 7 (4.5 mm)</option>
+                            <option value="Cal. 6 (4.9 mm)">Cal. 6 (4.9 mm)</option>
+                            <option value="Cal. 5 (5.3 mm)">Cal. 5 (5.3 mm)</option>
+                            <option value="Cal. 4 (5.7 mm)">Cal. 4 (5.7 mm)</option>
+                            <option value="Cal. 3 (6.0 mm)">Cal. 3 (6.0 mm)</option>
+                            <option value="Cal. 1/2">Cal. 1/2"</option>
+                            <option value="Cal. 3/8">Cal. 3/8"</option>
+                            <option value="Cal. 5/16">Cal. 5/16"</option>
+                            <option value="Cal. 1/4">Cal. 1/4"</option>
+                            <option value="Cal. 3/16">Cal. 3/16"</option>
+                            <option value="Cal. 1/8">Cal. 1/8"</option>
+                            <option value="Cal. 1/16">Cal. 1/16"</option>
+                        </select></td>
+                        <td><input type="number" step="0.0001" id="<%= "perimetro_autocad" + String(j) %>" name="<%= "perimetro_autocad" + String(j) %>" onchange="changeCutValue(<%= String(j) %>)"></td>
+                        <td><input type="number" step="0.0001" id="<%= "factor_corte" + String(j) %>" name="<%= "factor_corte" + String(j) %>" onchange="changeCutValue(<%= String(j) %>)"></td>
+                        <td><input type="text" id="<%= "perimetro" + String(j) %>" name="<%= "perimetro" + String(j) %>" onkeydown="return false;"></td>
+                        <td><input type="number" step="0.0001" id="<%= "largo_autocad" + String(j) %>" name="<%= "largo_autocad" + String(j) %>" onchange="changeAreaValue(<%= String(j) %>)"></td>
+                        <td><input type="number" step="0.0001" id="<%= "ancho_autocad" + String(j) %>" name="<%= "ancho_autocad" + String(j) %>" onchange="changeAreaValue(<%= String(j) %>)"></td>
+                        <td><input type="number" step="0.0001" id="<%= "factor_area" + String(j) %>" name="<%= "factor_area" + String(j) %>" onchange="changeAreaValue(<%= String(j) %>)"></td>
+                        <td><input type="text" id="<%= "area" + String(j) %>" name="<%= "area" + String(j) %>" onkeydown="return false;"></td>
+                        <td><input type="number" id="<%= "piercings" + String(j) %>" name="<%= "piercings" + String(j) %>"></td>
+                        <td><input type="number" id="<%= "dobleces" + String(j) %>" name="<%= "dobleces" + String(j) %>"></td>
+                        <td><input type="number" step="0.0001" id="<%= "longitud_doblez" + String(j) %>" name="<%= "longitud_doblez" + String(j) %>"></td>
+                        <td><select name="<%= "con_material" + String(j) %>">
+                            <option value=""></option>
+                            <option value="Sí">Sí</option>
+                            <option value="No">No</option>
+                        </select></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>             
+              
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</body>
+</html>

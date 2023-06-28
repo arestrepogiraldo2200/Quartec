@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         transporte: {type: DataTypes.TEXT},
         materiales: {type: DataTypes.TEXT},
         asesor: {type: DataTypes.TEXT},
+        observ1:{type: DataTypes.TEXT},
+        observ2: {type: DataTypes.TEXT},
+        aprob: {type: DataTypes.INTEGER},
     };
 
     let config = {

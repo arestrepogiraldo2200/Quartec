@@ -62,7 +62,12 @@ let cotizacionController = {
                                     let fecha = fechasplit[2]+"/"+fechasplit[1]+"/"+fechasplit[0];
                         
                                     let fecha_aprobacionsplit = req.body.fecha_aprobacion.split("-");
-                                    let fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
+                                    let fecha_aprobacion;
+                                    if (fecha_aprobacionsplit != ""){
+                                        fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
+                                    } else {
+                                        fecha_aprobacion = "";
+                                    }
                         
                                     // Datos generales
                                     worksheet.getCell('L9').value = req.body.num;
@@ -80,6 +85,10 @@ let cotizacionController = {
                                     worksheet.getCell('A20').value = req.body.transporte;
                                     worksheet.getCell('A21').value = req.body.materiales;
 
+                                    // Condiciones comerciales
+                                    worksheet.getCell('D22').value = req.body.observ1;
+                                    worksheet.getCell('D23').value = req.body.observ2;
+
                                     // Se escriben los datos en la base de datos
                                     db.cotizacion.create(
                                         {        
@@ -96,7 +105,9 @@ let cotizacionController = {
                                             transporte: req.body.transporte,
                                             materiales: req.body.materiales,
                                             asesor: req.session.name,
-
+                                            observ1: req.body.observ1,
+                                            observ2: req.body.observ2,
+                                            aprob: 0,
                                         }).then(() => {}).catch((err) => console.log(err));
                                         
                                     // Información del formulario
@@ -128,9 +139,9 @@ let cotizacionController = {
 
                                             // Variables
                                             let perimetro = parseFloat(req.body[`perimetro${i}`]) || 0;
-                                            let piercings = parseFloat(req.body[`piercings${i}`]) || 0;
+                                            let piercings = parseFloat(req.body[`piercings${i}`]) || 1;
                                             let numdoblez = parseFloat(req.body[`dobleces${i}`]) || 0;
-                                            let longdobleces = parseFloat(req.body[`longitud_doblez${i}`]) || 0;
+                                            let longdobleces = parseFloat(req.body[`longitud_doblez${i}`]) || 1;
 
                                             let longdoblezfactor = 1;
                                             if (longdobleces >= 1500) {
@@ -138,7 +149,7 @@ let cotizacionController = {
                                             } 
 
                                             let area = parseFloat(req.body[`area${i}`]) || 0;
-                                            if (req.body[`con_material${i}`] == "No") {
+                                            if (req.body[`con_material${i}`] == "No" || req.body[`con_material${i}`] == "") {
                                                 area = 0;
                                             } 
 
@@ -176,8 +187,8 @@ let cotizacionController = {
                                     let filename = req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx";
                                     workbook.xlsx.writeFile( "./" + filename);
                                 });
-                
-                                res.redirect('/downloadfile/'+req.body.num+'/' + clientFound.client.replaceAll(" ","_") + "/" +  req.body.proyecto.replaceAll(" ","_"));
+               
+                                res.redirect('/downloadfile/'+req.body.num + '-' + clientFound.client.replaceAll(" ","_") + "-" +  req.body.proyecto.replaceAll(" ","_"));
 
                             }).catch((err)=>console.log(err));
                         }).catch((err)=>console.log(err));
@@ -196,12 +207,19 @@ let cotizacionController = {
 
     downloadfile: (req,res) => {
 
-        let filename = req.params.num + "_" + req.params.cliente +  "_" +  req.params.proyecto + ".xlsx";
+        let param = req.params.nombrearchivo;
+        param = param.split('-');
+        let filename = param[0] + "_" + param[1] +  "_" +  param[2] + ".xlsx";
+        console.log(filename, ".....................................................................")
+
+        // let filename = req.params.num + "_" + req.params.cliente +  "_" +  req.params.proyecto + ".xlsx";
 
         let filePath = path.join(__dirname, "../../" + filename)
         let resolvedPath = path.resolve(filePath);
 
         res.sendFile(resolvedPath);
+        res.sendFile(resolvedPath);
+
         res.redirect('/inicio');   
 
         // res.download(resolvedPath, {root: __dirname }, function(err) {
@@ -215,7 +233,7 @@ let cotizacionController = {
         if (!req.session.isAuthenticated) return res.redirect('/');
 
         db.cotizacion.findAll({raw: true}).then((listadecotizaciones)=>{
-                res.render(path.join(__dirname, '../views/select_cotizacion'), {cotizaciones : listadecotizaciones});    
+            res.render(path.join(__dirname, '../views/select_cotizacion'), {cotizaciones : listadecotizaciones});    
         }).catch((err)=>console.log(err));
         
     },
@@ -249,6 +267,29 @@ let cotizacionController = {
                 }).catch((err)=>console.log(err));
             }).catch((err)=>console.log(err));
          }).catch((err)=>console.log(err));
+    },
+
+    registerGet: (req,res) => {
+        
+        if (!req.session.isAuthenticated) return res.redirect('/');
+
+        db.cotizacion.findAll({raw: true}).then((listadecotizaciones)=>{
+            res.render(path.join(__dirname, '../views/aprobacion_cotizacion'), {cotizaciones : listadecotizaciones});    
+        }).catch((err)=>console.log(err));
+
+    },
+
+    registerPost: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+
+        db.cotizacion.update({
+            aprob: 1,
+            aprobacion: req.body.fecha_aprobacion,
+        },
+        {
+          where:{num: req.body.select}
+        }).then( () => {res.redirect('/inicio');}).catch((err) => console.log(err));        
     }
 }
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar cliente</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+    <div class = "logoutcontainer">
+
+        <div class = "iconcontainer">
+
+            <a href="/editar-datos">
+                <div class="editar-datos">
+                    <i class='fas fa-edit'></i>
+                </div>
+            </a>
+
+            <a href="/logout">
+                <div class="log-in">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <a href="/inicio"><img src="/images/logo.png" alt="logo"></a>
+
+    <h1 class = "title">Registrar aprobación de cotización</h1>
+
+    <div class="formcontainer">
+
+        <form action="/register-cotizacion" method ="post">
+
+            <div class="inputcontainer">
+                <label for="text">Cotizacion</label>
+                <input type="text" list = "cot"  id="cotizacionlist" name="select" placeholder = "Seleccionar cotización de la lista.">
+                    <datalist id="cot">
+                    <% for (let i = 0; i< cotizaciones.length; i++){ %>
+                        <option value="<%= cotizaciones[i].num %>" name = "cotizacion_a_editar" ><%= String(cotizaciones[i].client) + "   " + String(cotizaciones[i].proyecto) %></option>
+                    <% } %>
+                    </datalist>
+           </div>
+
+           <div class="inputcontainer">
+                <label for="fecha_aprobacion">Fecha de aprobación</label>
+                <input type="date" id="fecha_aprobacion" name="fecha_aprobacion" onkeydown="return false" required/>
+            </div>   
+
+            <input type="submit" value="Registrar">
+        </form>
+    </div>
+</body>
+</html>

@@ -3,6 +3,9 @@ const path = require('path');
 const db = require('../database/models');
 var Excel = require('exceljs');
 var sessionStorage = require('sessionstorage');
+const JSZip = require("jszip");
+const fs = require('fs');
+
 
 let cotizacionController = {
 
@@ -452,7 +455,6 @@ let cotizacionController = {
                                      workbook4.xlsx.writeFile( "./" + filename);
                                  })
 
-
 // -------------------------------------------------------------------------------------------------------------------------------------
 
                                 res.redirect('/downloadfile/'+req.body.num + '-' + clientFound.client.replaceAll(" ","_") + "-" +  req.body.proyecto.replaceAll(" ","_"));
@@ -476,16 +478,64 @@ let cotizacionController = {
 
         let param = req.params.nombrearchivo;
         param = param.split('-');
-        let filename = param[0] + "_" + param[1] +  "_" +  param[2] + ".xlsx";
-        console.log(filename, ".....................................................................")
 
-        // let filename = req.params.num + "_" + req.params.cliente +  "_" +  req.params.proyecto + ".xlsx";
+        let filenamecotizacion = param[0] + "_" + param[1] +  "_" +  param[2] + ".xlsx";
+        let filenamedatos = param[0] + "_" + param[2] + "_Datos.xlsx";
+        let filenameremision = param[0] + "_" + param[2] + "_Remision.xlsx";
+        let filenamedoblez = param[0] + "_" + param[2] + "_OrdenDoblez.xlsx";
+        let filenamecorte = param[0] + "_" + param[2] + "_OrdenCorte.xlsx";
+    
+        let filenamecotizacionPath = path.join(__dirname, "../../" + filenamecotizacion)
+        let filenamedatosPath = path.join(__dirname, "../../" + filenamedatos)
+        let filenameremisionPath = path.join(__dirname, "../../" + filenameremision)
+        let filenamedoblezPath = path.join(__dirname, "../../" + filenamedoblez)
+        let filenamecortePath = path.join(__dirname, "../../" + filenamecorte)
 
-        let filePath = path.join(__dirname, "../../" + filename)
-        let resolvedPath = path.resolve(filePath);
+        let filenamecotizacionresolvedPath = path.resolve(filenamecotizacionPath);
+        let filenamedatosresolvedPath = path.resolve(filenamedatosPath);
+        let filenameremisionresolvedPath = path.resolve(filenameremisionPath);
+        let filenamedoblezresolvedPath = path.resolve(filenamedoblezPath);
+        let filenamecorteresolvedPath = path.resolve(filenamecortePath);
 
-        res.sendFile(resolvedPath);
-        res.sendFile(resolvedPath);
+        // res.sendFile(resolvedPath);
+
+        const filePaths = [
+            filenamecotizacionPath,
+            filenamedatosPath,
+            filenameremisionPath,
+            filenamedoblezPath,
+            filenamecortePath
+        ];
+
+        // // Create a new instance of JSZip
+        // const zip = new JSZip();
+
+        // // Add each file to the zip
+        // filePaths.forEach(filePath => {
+        //     const fileName = path.basename(filePath);
+        //     const fileContent = fs.readFileSync(filePath);
+        //     zip.file(fileName, fileContent);
+        // });
+
+        // // Generate the zip file asynchronously
+        // zip.generateNodeStream({ type: "nodebuffer", streamFiles: true })
+        //     .pipe(fs.createWriteStream("/path/to/compressed_files.zip"))
+        //     .on("finish", () => {
+        //     // Set the appropriate headers for the response
+        //     res.setHeader("Content-Disposition", "attachment; filename=compressed_files.zip");
+        //     res.setHeader("Content-Type", "application/zip");
+
+        //     // Send the zip file as a response
+        //     res.sendFile("/path/to/compressed_files.zip", (err) => {
+        //         // Clean up the zip file after sending
+        //         fs.unlink("/path/to/compressed_files.zip", (unlinkErr) => {
+        //         if (err || unlinkErr) {
+        //             console.error("Failed to send or delete the zip file:", err || unlinkErr);
+        //         }
+        //         });
+        //     });
+        // });
+
 
         res.redirect('/inicio');   
 

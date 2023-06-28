@@ -34,6 +34,8 @@ let cotizacionController = {
                         db.piercing.findAll({raw: true}).then((listadepiercing)=>{
                             db.material.findAll({raw: true}).then((listadematerial)=>{
 
+// ----------------------------- Se escribe el archivo de cotización de cliente ------------------------------------------------------------------
+
                                 var workbook = new Excel.Workbook();
                                 workbook.xlsx.readFile('./PlantillaCotizaciones.xlsm').then(  function() {
                                 
@@ -85,7 +87,7 @@ let cotizacionController = {
                                     worksheet.getCell('A20').value = req.body.transporte;
                                     worksheet.getCell('A21').value = req.body.materiales;
 
-                                    // Condiciones comerciales
+                                    // Observaciones
                                     worksheet.getCell('D22').value = req.body.observ1;
                                     worksheet.getCell('D23').value = req.body.observ2;
 
@@ -187,7 +189,272 @@ let cotizacionController = {
                                     let filename = req.body.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  req.body.proyecto.replaceAll(" ","_") + ".xlsx";
                                     workbook.xlsx.writeFile( "./" + filename);
                                 });
-               
+
+// ----------------------------- Se escribe el archivo de cotización de datos ------------------------------------------------------------------
+                                
+                                var workbook1 = new Excel.Workbook();
+                                workbook1.xlsx.readFile('./PlantillaDatos.xlsm').then(  function() {
+
+                                    let worksheet1 = workbook1.getWorksheet('Cotizacion');
+
+                                     // Datos cliente
+                                     let NITorCC;
+                
+                                     if (clientFound.NIT == "-"){
+                                         NITorCC = clientFound.CC;
+                                     } else {
+                                         NITorCC = clientFound.NIT;
+                                     }
+                 
+                                     worksheet1.getCell('D9').value = clientFound.client;
+                                     worksheet1.getCell('D10').value = NITorCC;
+                                     worksheet1.getCell('D11').value = clientFound.direction;
+                                     worksheet1.getCell('D12').value = clientFound.direction_send;
+                                     worksheet1.getCell('D13').value = clientFound.telefono1;
+                                     worksheet1.getCell('D14').value = clientFound.name;
+                                     worksheet1.getCell('D15').value = clientFound.email1;
+                                     worksheet1.getCell('D16').value = clientFound.billing_email;
+                 
+                                     // Datos cotización
+                                     let fechasplit = req.body.fecha.split("-");
+                                     let fecha = fechasplit[2]+"/"+fechasplit[1]+"/"+fechasplit[0];
+                         
+                                     let fecha_aprobacionsplit = req.body.fecha_aprobacion.split("-");
+                                     let fecha_aprobacion;
+                                     if (fecha_aprobacionsplit != ""){
+                                         fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
+                                     } else {
+                                         fecha_aprobacion = "";
+                                     }
+                         
+                                     // Datos generales
+                                     worksheet1.getCell('M9').value = req.body.num;
+                                     worksheet1.getCell('M11').value = fecha;
+                                     worksheet1.getCell('M12').value = req.body.validez;
+                                     worksheet1.getCell('M13').value = req.body.entrega;
+                                     worksheet1.getCell('M14').value = req.body.selectcondiciones;
+                                     worksheet1.getCell('M15').value = req.session.name;
+                                     worksheet1.getCell('J16').value = req.body.selectestado;
+                                     worksheet1.getCell('O16').value = fecha_aprobacion;
+                                     worksheet1.getCell('C24').value = req.body.proyecto;
+                 
+                                     // Condiciones comerciales
+                                     worksheet1.getCell('A19').value = req.body.forma_pago;
+                                     worksheet1.getCell('A20').value = req.body.transporte;
+                                     worksheet1.getCell('A21').value = req.body.materiales;
+ 
+                                     // Observaciones
+                                     worksheet1.getCell('D22').value = req.body.observ1;
+                                     worksheet1.getCell('D23').value = req.body.observ2;
+ 
+                                    // Información del formulario
+                                    for(let i = 1; i <= 60; i++){
+
+                                        // Caso interpretado como fila vacía
+                                        if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''){
+                                            break;
+                                        } else if (req.body[`material${i}`] == '' && req.body[`espesor${i}`] == '' && req.body[`perimetro${i}`] == '' && req.body[`area${i}`] == ''){
+                                            // Llenado de filas de caso cobro diferente a corte/doblez
+                                            worksheet1.getCell(`A${26+i}`).value = i;
+                                            worksheet1.getCell(`B${26+i}`).value = req.body[`descrip${i}`] + ".";
+                                            worksheet1.getCell(`E${26+i}`).value = req.body[`cantidad${i}`];
+                                            worksheet1.getCell(`F${26+i}`).value = "Und";
+                                            worksheet1.getCell(`H${26+i}`).value = req.body[`precio${i}`];
+                                            worksheet1.getCell(`P${26+i}`).value = parseFloat(req.body[`cantidad${i}`])*parseFloat(req.body[`precio${i}`]);
+                                        } else {
+                                            // Llenado de filas caso cobro corte/doblez
+                                            worksheet1.getCell(`A${26+i}`).value = i;
+                                            worksheet1.getCell(`B${26+i}`).value = req.body[`descrip${i}`] + ". Material: " + req.body[`material${i}`] + ". Espesor: " + req.body[`espesor${i}`] + ".";
+                                            worksheet1.getCell(`E${26+i}`).value = req.body[`cantidad${i}`];
+                                            worksheet1.getCell(`F${26+i}`).value = "Und";
+
+                                            // Costos
+                                            let corte_por_mm = listadecorte.filter(element => element.width == req.body[`espesor${i}`])[0][req.body[`material${i}`]];
+                                            let piercing_por_pieza = listadepiercing.filter(element => element.width == req.body[`espesor${i}`])[0]["piercing"];
+                                            let doblez = listadedoblez.filter(element => element.width == req.body[`espesor${i}`])[0]["fold"];
+                                            let material_por_mm2 = listadematerial.filter(element => element.width == req.body[`espesor${i}`])[0][req.body[`material${i}`]];
+
+                                            // Variables
+                                            let perimetro = parseFloat(req.body[`perimetro${i}`]) || 0;
+                                            let piercings = parseFloat(req.body[`piercings${i}`]) || 1;
+                                            let numdoblez = parseFloat(req.body[`dobleces${i}`]) || 0;
+                                            let longdobleces = parseFloat(req.body[`longitud_doblez${i}`]) || 1;
+
+                                            let longdoblezfactor = 1;
+                                            if (longdobleces >= 1500) {
+                                                longdoblezfactor = 2;
+                                            } 
+
+                                            let area = parseFloat(req.body[`area${i}`]) || 0;
+                                            if (req.body[`con_material${i}`] == "No" || req.body[`con_material${i}`] == "") {
+                                                area = 0;
+                                            } 
+
+                                            // Costo por unidad de pieza
+                                            let costo_unidad = perimetro*corte_por_mm + piercings*piercing_por_pieza + longdoblezfactor*numdoblez*doblez + area*material_por_mm2;
+                                            
+                                            worksheet1.getCell(`H${26+i}`).value = area*material_por_mm2;
+                                            worksheet1.getCell(`J${26+i}`).value = perimetro*corte_por_mm;
+                                            worksheet1.getCell(`L${26+i}`).value = piercings*piercing_por_pieza;
+                                            worksheet1.getCell(`N${26+i}`).value = longdoblezfactor*numdoblez*doblez;
+                                            worksheet1.getCell(`P${26+i}`).value = parseFloat(req.body[`cantidad${i}`])*costo_unidad;
+                                        }
+                                    }
+                
+                                    let filename = req.body.num + "_" + req.body.proyecto.replaceAll(" ","_") + "_Datos.xlsx";
+                                    workbook1.xlsx.writeFile( "./" + filename);
+                                })
+
+// ----------------------------- Se escribe el archivo de remisión ----------------------------------------------------------------------
+                                
+                                 var workbook2 = new Excel.Workbook();
+                                 workbook2.xlsx.readFile('./PlantillaRemision.xlsm').then(  function() {
+ 
+                                     let worksheet2 = workbook2.getWorksheet('Remision');
+ 
+                                      // Datos cliente
+                                      let NITorCC;
+                 
+                                      if (clientFound.NIT == "-"){
+                                          NITorCC = clientFound.CC;
+                                      } else {
+                                          NITorCC = clientFound.NIT;
+                                      }
+                  
+                                      worksheet2.getCell('D9').value = clientFound.client;
+                                      worksheet2.getCell('D10').value = NITorCC;
+                                      worksheet2.getCell('D11').value = clientFound.direction;
+                                      worksheet2.getCell('D12').value = clientFound.direction_send;
+                                      worksheet2.getCell('D13').value = clientFound.telefono1;
+                                      worksheet2.getCell('D14').value = clientFound.name;
+                                      worksheet2.getCell('D15').value = clientFound.email1;
+                                      worksheet2.getCell('D16').value = clientFound.billing_email;
+                  
+                                      // Datos cotización
+                                      let fechasplit = req.body.fecha.split("-");
+                                      let fecha = fechasplit[2]+"/"+fechasplit[1]+"/"+fechasplit[0];
+                          
+                                      let fecha_aprobacionsplit = req.body.fecha_aprobacion.split("-");
+                                      let fecha_aprobacion;
+                                      if (fecha_aprobacionsplit != ""){
+                                          fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
+                                      } else {
+                                          fecha_aprobacion = "";
+                                      }
+                          
+                                      // Datos generales
+                                      worksheet2.getCell('J9').value = req.body.num;
+                                      worksheet2.getCell('J13').value = fecha;
+                                      worksheet2.getCell('J15').value = req.session.name;
+                                      worksheet2.getCell('C18').value = req.body.proyecto;
+  
+                                     // Información del formulario
+                                     for(let i = 1; i <= 60; i++){
+ 
+                                         // Caso interpretado como fila vacía
+                                         if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''){
+                                             break;
+                                         } else if (req.body[`material${i}`] == '' && req.body[`espesor${i}`] == '' && req.body[`perimetro${i}`] == '' && req.body[`area${i}`] == ''){
+                                             // Llenado de filas de caso cobro diferente a corte/doblez
+                                             worksheet2.getCell(`A${20+i}`).value = i;
+                                             worksheet2.getCell(`B${20+i}`).value = req.body[`descrip${i}`] + ".";
+                                             worksheet2.getCell(`H${20+i}`).value = req.body[`cantidad${i}`];
+                                             worksheet2.getCell(`J${20+i}`).value = "Und";
+                                         } else {
+                                             // Llenado de filas caso cobro corte/doblez
+                                             worksheet2.getCell(`A${20+i}`).value = i;
+                                             worksheet2.getCell(`B${20+i}`).value = req.body[`descrip${i}`] + ". Material: " + req.body[`material${i}`] + ". Espesor: " + req.body[`espesor${i}`] + ".";
+                                             worksheet2.getCell(`H${20+i}`).value = req.body[`cantidad${i}`];
+                                             worksheet2.getCell(`J${20+i}`).value = "Und";
+                                        }
+                                    }
+                
+                                     let filename = req.body.num + "_" + req.body.proyecto.replaceAll(" ","_") + "_Remision.xlsx";
+                                     workbook2.xlsx.writeFile( "./" + filename);
+                                 })
+
+// ----------------------------- Se escribe el archivo de orden de corte ----------------------------------------------------------------------
+                                
+                                 var workbook3 = new Excel.Workbook();
+                                 workbook3.xlsx.readFile('./PlantillaOrdenCorte.xlsm').then(  function() {
+ 
+                                      let worksheet3 = workbook3.getWorksheet('Orden de Trabajo CORTE');
+
+                                      worksheet3.getCell('E1').value = req.body.num;
+                                      worksheet3.getCell('B4').value = clientFound.client;
+                                      worksheet3.getCell('B5').value = req.body.proyecto;
+
+                                      // índice para el llenado de filas
+                                      let j = 1;
+  
+                                     // Información del formulario
+                                     for(let i = 1; i <= 60; i++){
+ 
+                                         // Caso interpretado como fila vacía
+                                         if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''){
+                                             break;
+                                         } else if (req.body[`perimetro${i}`] == ''){
+                                             continue;
+                                         } else {
+                                             // Llenado de filas caso cobro corte/doblez
+                                             worksheet3.getCell(`A${8+j}`).value = j;
+                                             worksheet3.getCell(`B${8+j}`).value = req.body[`descrip${i}`] + ". Material: " + req.body[`material${i}`] + ". Espesor: " + req.body[`espesor${i}`] + ".";
+                                             if (req.body[`con_material${i}`] == 'Sí'){
+                                                worksheet3.getCell(`F${8+j}`).value = "Q.I.";
+                                             } else {
+                                                worksheet3.getCell(`F${8+j}`).value = "Cliente";
+                                             }
+                                             worksheet3.getCell(`G${8+j}`).value = req.body[`cantidad${i}`];
+                                             worksheet3.getCell(`H${8+j}`).value = req.body[`perimetro${i}`];
+                                             j += 1;
+                                        }
+                                    }
+                
+                                     let filename = req.body.num + "_" + req.body.proyecto.replaceAll(" ","_") + "_OrdenCorte.xlsx";
+                                     workbook3.xlsx.writeFile( "./" + filename);
+                                 })
+
+                                 
+// ----------------------------- Se escribe el archivo de orden de doblez ----------------------------------------------------------------------
+                                
+                                 var workbook4 = new Excel.Workbook();
+                                 workbook4.xlsx.readFile('./PlantillaOrdenDoblez.xlsm').then(  function() {
+ 
+                                      let worksheet4 = workbook4.getWorksheet('Orden de Trabajo DOBLEZ');
+
+                                      worksheet4.getCell('E1').value = req.body.num;
+                                      worksheet4.getCell('B4').value = clientFound.client;
+                                      worksheet4.getCell('B5').value = req.body.proyecto;
+
+                                      // índice para el llenado de filas
+                                      let j = 1;
+  
+                                     // Información del formulario
+                                     for(let i = 1; i <= 60; i++){
+ 
+                                         // Caso interpretado como fila vacía
+                                         if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''){
+                                             break;
+                                         } else if (req.body[`dobleces${i}`]== ''){
+                                            continue;
+                                         } else {
+                                             // Llenado de filas caso cobro corte/doblez
+                                             worksheet4.getCell(`A${8+j}`).value = j;
+                                             worksheet4.getCell(`B${8+j}`).value = req.body[`descrip${i}`] + ". Material: " + req.body[`material${i}`] + ". Espesor: " + req.body[`espesor${i}`] + ".";
+                                             worksheet4.getCell(`F${8+j}`).value = req.body[`dobleces${i}`];
+                                             worksheet4.getCell(`G${8+j}`).value = req.body[`longitud_doblez${i}`];
+                                             worksheet4.getCell(`H${8+j}`).value = req.body[`cantidad${i}`];
+                                             j += 1;
+                                        }
+                                    }
+                
+                                     let filename = req.body.num + "_" + req.body.proyecto.replaceAll(" ","_") + "_OrdenDoblez.xlsx";
+                                     workbook4.xlsx.writeFile( "./" + filename);
+                                 })
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+
                                 res.redirect('/downloadfile/'+req.body.num + '-' + clientFound.client.replaceAll(" ","_") + "-" +  req.body.proyecto.replaceAll(" ","_"));
 
                             }).catch((err)=>console.log(err));
@@ -258,7 +525,6 @@ let cotizacionController = {
 
                     if (cotizacionFound){
                         sessionStorage.removeItem("cotizacionToEdit");
-                        //console.log(rowsFound)
                         res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes}); 
                     } else {
                         res.redirect('/edit-cotizacion');

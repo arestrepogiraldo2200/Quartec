@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         num: {type: DataTypes.INTEGER},
         cantidad: {type: DataTypes.INTEGER},
         descripcion: {type: DataTypes.TEXT},
-        precio: {type: DataTypes.TEXT},
+        precio: {type: DataTypes.FLOAT},
         material: {type: DataTypes.TEXT},
         espesor: {type: DataTypes.TEXT},
         perimetroautocad: {type: DataTypes.FLOAT},

@@ -263,7 +263,7 @@ let cotizacionController = {
                                             worksheet1.getCell(`E${26+i}`).value = req.body[`cantidad${i}`];
                                             worksheet1.getCell(`F${26+i}`).value = "Und";
                                             worksheet1.getCell(`H${26+i}`).value = req.body[`precio${i}`];
-                                            worksheet1.getCell(`P${26+i}`).value = parseFloat(req.body[`cantidad${i}`])*parseFloat(req.body[`precio${i}`]);
+                                            worksheet1.getCell(`P${26+i}`).value = parseFloat(req.body[`cantidad${i}`])*parseFloat(req.body[`precio${i}`]) || 0;
                                         } else {
                                             // Llenado de filas caso cobro corte/doblez
                                             worksheet1.getCell(`A${26+i}`).value = i;
@@ -497,14 +497,12 @@ let cotizacionController = {
         let filenamedoblezresolvedPath = path.resolve(filenamedoblezPath);
         let filenamecorteresolvedPath = path.resolve(filenamecortePath);
 
-        // res.sendFile(resolvedPath);
-
         const filePaths = [
-            filenamecotizacionPath,
-            filenamedatosPath,
-            filenameremisionPath,
-            filenamedoblezPath,
-            filenamecortePath
+            filenamecotizacionresolvedPath,
+            filenamedatosresolvedPath,
+            filenameremisionresolvedPath,
+            filenamedoblezresolvedPath,
+            filenamecorteresolvedPath
         ];
 
         // // Create a new instance of JSZip
@@ -519,16 +517,16 @@ let cotizacionController = {
 
         // // Generate the zip file asynchronously
         // zip.generateNodeStream({ type: "nodebuffer", streamFiles: true })
-        //     .pipe(fs.createWriteStream("/path/to/compressed_files.zip"))
+        //     .pipe(fs.createWriteStream("./compressed_files.zip"))
         //     .on("finish", () => {
         //     // Set the appropriate headers for the response
         //     res.setHeader("Content-Disposition", "attachment; filename=compressed_files.zip");
         //     res.setHeader("Content-Type", "application/zip");
 
         //     // Send the zip file as a response
-        //     res.sendFile("/path/to/compressed_files.zip", (err) => {
+        //     res.sendFile("./compressed_files.zip", (err) => {
         //         // Clean up the zip file after sending
-        //         fs.unlink("/path/to/compressed_files.zip", (unlinkErr) => {
+        //         fs.unlink("./compressed_files.zip", (unlinkErr) => {
         //         if (err || unlinkErr) {
         //             console.error("Failed to send or delete the zip file:", err || unlinkErr);
         //         }
@@ -536,11 +534,11 @@ let cotizacionController = {
         //     });
         // });
 
-
         res.redirect('/inicio');   
 
-        // res.download(resolvedPath, {root: __dirname }, function(err) {
+        // res.download(filenamecotizacionresolvedPath, function(err) {
         //     console.log(err); 
+        //     console.log(process.cwd());
         //     res.redirect('/inicio');         
         //  });
     },

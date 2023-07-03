@@ -35,7 +35,7 @@
 
     <div class="formcontainer">
 
-        <form action="/editar-cliente-form" method ="post" onkeydown="return event.key != 'Enter';">
+        <form action="/editar-cliente-form" method ="post" onkeydown="return event.key != 'Enter';" onsubmit="return confirm('Está seguro que quiere editar los datos del cliente <%= cliente.client %>?');">
 
             <div class="inputcontainer">
                 <input type="number" id="id" name="id" value = "<%= cliente.id %>">

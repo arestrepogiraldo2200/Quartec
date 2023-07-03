@@ -29,7 +29,7 @@
 
     <div class="formcontainer">
 
-        <form action="/editar-datos" method ="post" onkeydown="return event.key != 'Enter';">
+        <form action="/editar-datos" method ="post" onkeydown="return event.key != 'Enter';" onsubmit="return confirm('Está seguro que quiere editar sus datos?');">
 
             <div class="inputcontainer">
                 <input type="text" id="id" name="id" value = "<%= asesorData.id %>">

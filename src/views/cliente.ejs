@@ -35,7 +35,7 @@
 
     <div class="formcontainer">
 
-        <form action="/crear-cliente" method ="post" onkeydown="return event.key != 'Enter';">
+        <form action="/crear-cliente" method ="post" onkeydown="return event.key != 'Enter';" onsubmit="return confirm('Está seguro que quiere crear el cliente?');">
 
             <div class="inputcontainer">
                 <label for="cliente">Cliente</label>

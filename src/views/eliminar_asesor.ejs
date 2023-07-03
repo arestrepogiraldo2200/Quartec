@@ -35,7 +35,7 @@
 
     <div class="formcontainer">
 
-        <form action="eliminar-asesor" method ="post" onkeydown="return event.key != 'Enter';">
+        <form action="eliminar-asesor" method ="post" onkeydown="return event.key != 'Enter';" onsubmit="return confirm('Está seguro que quiere eliminar asesor?');">
 
             <div class="inputcontainer">
                 <label for="text">Asesor</label>

@@ -356,7 +356,7 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  cotizacionFound.proyecto.replaceAll(" ","_") + ".xlsx";
+                                            let filename = cotizacionFound.num + "_" + String(clientFound.client).replaceAll(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx";
                                             workbook.xlsx.writeFile( "./public/files/" + filename);
                                         });
 
@@ -481,7 +481,7 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replaceAll(" ","_") + "_Datos.xlsx";
+                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Datos.xlsx";
                                             workbook1.xlsx.writeFile( "./public/files/" + filename);
                                         })
 
@@ -557,7 +557,7 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replaceAll(" ","_") + "_Remision.xlsx";
+                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Remision.xlsx";
                                             workbook2.xlsx.writeFile( "./public/files/" + filename);
                                         })
 
@@ -598,7 +598,7 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replaceAll(" ","_") + "_OrdenCorte.xlsx";
+                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.xlsx";
                                             workbook3.xlsx.writeFile("./public/files/" + filename);
                                         })
 
@@ -636,7 +636,7 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" +cotizacionFound.proyecto.replaceAll(" ","_") + "_OrdenDoblez.xlsx";
+                                            let filename = cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.xlsx";
                                             workbook4.xlsx.writeFile( "./public/files/" + filename);
                                         })
 
@@ -645,11 +645,11 @@ let cotizacionController = {
                                         res.render(path.join(__dirname, '../views/buttons_download'), 
                                         {
                                             numcot: cotizacionToDownload, 
-                                            filecotizacion: cotizacionFound.num + "_" + clientFound.client.replaceAll(" ","_") +  "_" +  cotizacionFound.proyecto.replaceAll(" ","_") + ".xlsx",
-                                            fileremision: cotizacionFound.num + "_" + cotizacionFound.proyecto.replaceAll(" ","_") + "_Remision.xlsx",
-                                            filedatos: cotizacionFound.num + "_" + cotizacionFound.proyecto.replaceAll(" ","_") + "_Datos.xlsx",
-                                            filecorte: cotizacionFound.num + "_" + cotizacionFound.proyecto.replaceAll(" ","_") + "_OrdenCorte.xlsx",
-                                            filedoblez: cotizacionFound.num + "_" +cotizacionFound.proyecto.replaceAll(" ","_") + "_OrdenDoblez.xlsx",
+                                            filecotizacion: cotizacionFound.num + "_" + String(clientFound.client).replaceAll(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx",
+                                            fileremision: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Remision.xlsx",
+                                            filedatos: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Datos.xlsx",
+                                            filecorte: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.xlsx",
+                                            filedoblez: cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.xlsx",
                                         })
 
                                     } else {

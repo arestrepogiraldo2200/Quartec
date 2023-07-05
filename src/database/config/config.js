@@ -1,29 +1,29 @@
 // Local database ------------------------------------------
 
 
-module.exports = {
-  "development": {
-    "username": "root",
-    "password": null,
-    "database": "quartec_db",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "quartec_db",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "quartec_db",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
-}
+// module.exports = {
+//   "development": {
+//     "username": "root",
+//     "password": null,
+//     "database": "quartec_db",
+//     "host": "127.0.0.1",
+//     "dialect": "mysql"
+//   },
+//   "test": {
+//     "username": "root",
+//     "password": null,
+//     "database": "quartec_db",
+//     "host": "127.0.0.1",
+//     "dialect": "mysql"
+//   },
+//   "production": {
+//     "username": "root",
+//     "password": null,
+//     "database": "quartec_db",
+//     "host": "127.0.0.1",
+//     "dialect": "mysql"
+//   }
+// }
 
 // Clever cloud database ------------------------------------------
 
@@ -53,26 +53,26 @@ module.exports = {
 
 // Familyapps Google cloud database ------------------------------------------
 
-// module.exports = {
-//   "development": {
-//     "username": "root",
-//     "password": ".azOqA'}FU[kp7gt",
-//     "database": "quartec_db",
-//     "host": "34.148.63.112",
-//     "dialect": "mysql"
-//   },
-//   "test": {
-//     "username": "root",
-//     "password": ".azOqA'}FU[kp7gt",
-//     "database": "quartec_db",
-//     "host": "34.148.63.112",
-//     "dialect": "mysql"
-//   },
-//   "production": {
-//     "username": "root",
-//     "password": ".azOqA'}FU[kp7gt",
-//     "database": "quartec_db",
-//     "host": "34.148.63.112",
-//     "dialect": "mysql"
-//   }
-// }
+module.exports = {
+  "development": {
+    "username": "root",
+    "password": ".azOqA'}FU[kp7gt",
+    "database": "quartec_db",
+    "host": "34.148.63.112",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": ".azOqA'}FU[kp7gt",
+    "database": "quartec_db",
+    "host": "34.148.63.112",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": ".azOqA'}FU[kp7gt",
+    "database": "quartec_db",
+    "host": "34.148.63.112",
+    "dialect": "mysql"
+  }
+}

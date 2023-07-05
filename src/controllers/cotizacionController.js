@@ -329,7 +329,7 @@ let cotizacionController = {
                                                     let piercing_por_pieza = listadepiercing.filter(element => element.width == rowsFound[i][`espesor`])[0]["piercing"];
                                                     let doblez = listadedoblez.filter(element => element.width == rowsFound[i][`espesor`])[0]["fold"];
                                                     let material_por_mm2 = listadematerial.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]];
-
+                                                    
                                                     // Variables
                                                     let perimetro = parseFloat(rowsFound[i][`perimetro`]) || 0;
                                                     let piercings = parseFloat(rowsFound[i][`piercings`]) || 1;
@@ -462,7 +462,7 @@ let cotizacionController = {
                                                     if (longdobleces >= 1500) {
                                                         longdoblezfactor = 2;
                                                     } 
-                                                    
+
                                                     let area;
                                                     if (rowsFound[i][`conmaterial`] == "No" || rowsFound[i][`conmaterial`] == null) {
                                                         area = 0;

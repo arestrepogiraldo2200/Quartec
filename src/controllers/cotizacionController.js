@@ -356,7 +356,7 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + String(clientFound.client).replaceAll(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx";
+                                            let filename = cotizacionFound.num + "_" + String(clientFound.client).replace(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx";
                                             workbook.xlsx.writeFile( "./public/files/" + filename);
                                         });
 
@@ -645,7 +645,7 @@ let cotizacionController = {
                                         res.render(path.join(__dirname, '../views/buttons_download'), 
                                         {
                                             numcot: cotizacionToDownload, 
-                                            filecotizacion: cotizacionFound.num + "_" + String(clientFound.client).replaceAll(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx",
+                                            filecotizacion: cotizacionFound.num + "_" + String(clientFound.client).replace(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx",
                                             fileremision: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Remision.xlsx",
                                             filedatos: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Datos.xlsx",
                                             filecorte: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.xlsx",

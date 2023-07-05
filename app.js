@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './src/views'));
 app.use(cors())
 app.use(express.static(path.resolve(__dirname, './public')));
-app.use(express.static(path.resolve(__dirname, './public/files')));
+// app.use(express.static(path.resolve(__dirname, './public/files')));
 
 app.use(
   session({

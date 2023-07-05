@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar cotización</title>
+    <title>Descargar</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
@@ -31,24 +31,15 @@
 
     <a href="/inicio"><img src="/images/logo.png" alt="logo"></a>
 
-    <h1 class = "title">Editar cotización</h1>
+    <h1 class = "title">Descargar datos de cotización <%=numcot%></h1>
 
     <div class="formcontainer">
 
-        <form action="/edit-cotizacion" method ="post">
-
-            <div class="inputcontainer">
-                <label for="text">Cotizacion</label>
-                <input type="text" list = "cot"  id="cotizacionlist" name="select" placeholder = "Seleccionar cotización de la lista.">
-                    <datalist id="cot">
-                    <% for (let i = 0; i< cotizaciones.length; i++){ %>
-                        <option value="<%= cotizaciones[i].num %>" name = "cotizacion_a_editar" ><%= String(cotizaciones[i].client) + "   " + String(cotizaciones[i].proyecto) %></option>
-                    <% } %>
-                    </datalist>
-           </div>
-
-            <input type="submit" value="Consultar">
-        </form>
+        <a href = "<%=filecotizacion%>" download><button class="downloadbuttons">Cotización</button></a>
+        <a href = "<%=filedatos%>" download><button class="downloadbuttons">Datos</button></a>
+        <a href = "<%=fileremision%>" download><button class="downloadbuttons">Remisión</button></a>
+        <a href = "<%=filecorte%>" download><button class="downloadbuttons">Orden de corte</button></a>
+        <a href = "<%=filedoblez%>" download><button class="downloadbuttons">Orden de doblez</button></a>
     </div>
 </body>
 </html>

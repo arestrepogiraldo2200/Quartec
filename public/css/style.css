@@ -238,23 +238,22 @@ input::-webkit-inner-spin-button {
   margin-left: 40%;
 }
 
+/* Download files ------------------------------------------------------------------- */
 
-/* Alert ----------------------------------------------------------------------------------------- */
-
-#alert {
-  display: none;
-  background-color: rgb(252, 219, 219);
-  border: 1px solid green;
-  position: fixed;
-  height: 80px;
-  width: 250px;
-  left: 40%;
-  top: 2%;
-  padding: 6px 8px 8px;
-  text-align: center;
+.downloadbuttons {
+  background-color: #d88a56;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width:60%;
 }
 
-
-
+.downloadbuttons:hover {
+  background-color: #db9e4f;
+  width:60%;
+}
 
 

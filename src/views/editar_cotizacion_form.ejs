@@ -129,6 +129,7 @@
                 <label for="estado">Estado</label>
                 <select name="selectestado" required>
                     <option value = "<%= cotizaciongeneral.estado %>" selected><%= cotizaciongeneral.estado %></option>
+                    <option value=""></option>
                     <option value="Aprobado">Aprobado</option>
                     <option value="En trámite">En trámite</option>
                     <option value="No aprobado">No aprobado</option>
@@ -235,6 +236,7 @@
                             ></td>
                         <td width = "110px"><select name="<%= "material" + String(i) %>">
                             <option value = "<%= filas[i-1].material %>" selected><%= filas[i-1].material %></option>
+                            <option value=""></option>
                             <option value="Ac. Inox. 304">Ac. Inox. 304</option>
                             <option value="Ac. Inox. 316">Ac. Inox. 316</option>
                             <option value="Ac. Inox. 430">Ac. Inox. 430</option>
@@ -248,6 +250,7 @@
                         </select></td>
                         <td width = "120px"><select name="<%= "espesor" + String(i) %>">
                             <option value = "<%= filas[i-1].espesor %>" selected><%= filas[i-1].espesor %></option>
+                            <option value=""></option>
                             <option value="Cal. 20 (0.9 mm)">Cal. 20 (0.9 mm)</option>
                             <option value="Cal. 19 (1 mm)">Cal. 19 (1 mm)</option>
                             <option value="Cal. 18 (1.2 mm)">Cal. 18 (1.2 mm)</option>
@@ -344,6 +347,7 @@
                             ></td>
                         <td><select name="<%= "con_material" + String(i) %>">
                             <option value = "<%= filas[i-1].conmaterial %>"><%= filas[i-1].conmaterial %></option>
+                            <option value=""></option>
                             <option value="Sí">Sí</option>
                             <option value="No">No</option>
                         </select></td>

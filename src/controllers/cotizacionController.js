@@ -32,96 +32,104 @@ let cotizacionController = {
 
             if (clientFound) {
 
-                db.corte.findAll({raw: true}).then((listadecorte)=>{
-                    db.doblez.findAll({raw: true}).then((listadedoblez)=>{
-                        db.piercing.findAll({raw: true}).then((listadepiercing)=>{
-                            db.material.findAll({raw: true}).then((listadematerial)=>{
+                 // Datos cliente
+                 let NITorCC;
 
-// ----------------------------- Se escribe la base de datos ------------------------------------------------------------------
-            
-                                // Datos cliente
-                                let NITorCC;
-            
-                                if (clientFound.NIT == "-"){
-                                    NITorCC = clientFound.CC;
-                                } else {
-                                    NITorCC = clientFound.NIT;
-                                }
-                    
-                                let fecha_aprobacionsplit = req.body.fecha_aprobacion.split("-");
-                                let fecha_aprobacion;
-                                if (fecha_aprobacionsplit != ""){
-                                    fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
-                                } else {
-                                    fecha_aprobacion = "";
-                                }
+                 if (clientFound.NIT == "-"){
+                     NITorCC = clientFound.CC;
+                 } else {
+                     NITorCC = clientFound.NIT;
+                 }
+     
+                 let fecha_aprobacionsplit = req.body.fecha_aprobacion.split("-");
+                 let fecha_aprobacion;
+                 if (fecha_aprobacionsplit != ""){
+                     fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
+                 } else {
+                     fecha_aprobacion = "";
+                 }
 
-                                // Datos de aprobación
-                                let aprobado;
-                                if (req.body.selectestado == "Aprobado"){
-                                    aprobado = 1;
-                                } else {
-                                    aprobado = 0;
-                                }
+                 // Datos de aprobación
+                 let aprobado;
+                 if (req.body.selectestado == "Aprobado"){
+                     aprobado = 1;
+                 } else {
+                     aprobado = 0;
+                 }
 
-                                // Se escriben los datos en la base de datos
-                                db.cotizacion.create(
-                                    {        
-                                        num: req.body.num,
-                                        client: req.body.selectclient,
-                                        fecha: req.body.fecha,
-                                        validez: req.body.validez,
-                                        entrega: req.body.entrega,
-                                        condiciones: req.body.selectcondiciones,
-                                        estado: req.body.selectestado,
-                                        aprobacion: req.body.fecha_aprobacion,
-                                        proyecto: req.body.proyecto,
-                                        pago: req.body.forma_pago,
-                                        transporte: req.body.transporte,
-                                        materiales: req.body.materiales,
-                                        asesor: req.session.name,
-                                        observ1: req.body.observ1,
-                                        observ2: req.body.observ2,
-                                        aprob: aprobado,
-                                    }).then(() => {}).catch((err) => console.log(err));
+// ----------------------------- Se eliminan las entradas ya existentes en la base de datos y se escriben las nuevas------------------------------------------------------------------
+
+                // Se eliminan entradas en la base de datos cotizacion
+                    db.cotizacion.destroy({
+                        where :{
+                            num: req.body.num
+                        }
+                      }).then( () => {
                                     
-                                // Información del formulario
-                                for(let i = 1; i <= 60; i++){
+                    // Se escriben los datos generales
+                        db.cotizacion.create(
+                            {        
+                                num: req.body.num,
+                                client: req.body.selectclient,
+                                fecha: req.body.fecha,
+                                validez: req.body.validez,
+                                entrega: req.body.entrega,
+                                condiciones: req.body.selectcondiciones,
+                                estado: req.body.selectestado,
+                                aprobacion: req.body.fecha_aprobacion || null,
+                                proyecto: req.body.proyecto,
+                                pago: req.body.forma_pago,
+                                transporte: req.body.transporte,
+                                materiales: req.body.materiales,
+                                asesor: req.session.name,
+                                observ1: req.body.observ1 || null,
+                                observ2: req.body.observ2 || null,
+                                aprob: aprobado,
+                            },
+                            ).then(() => {}).catch((err) => console.log(err));
+                    }).catch((err) => console.log(err));
 
-                                    // Caso interpretado como fila vacía
-                                    if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''){
-                                        break;
-                                    }                                         
-                                    // Se escriben los datos en la base de datos
-                                    db.cotizacion_datos.create(
-                                        {        
-                                            num: req.body.num,
-                                            cantidad: req.body[`cantidad${i}`] || null,
-                                            descripcion: req.body[`descrip${i}`] || null,
-                                            precio: req.body[`precio${i}`] || null,
-                                            material: req.body[`material${i}`] || null,
-                                            espesor: req.body[`espesor${i}`] || null,
-                                            perimetroautocad:  req.body[`perimetro_autocad${i}`] || null,
-                                            factorcorte: req.body[`factor_corte${i}`] || null,
-                                            perimetro: req.body[`perimetro${i}`] || null,
-                                            largoautocad: req.body[`largo_autocad${i}`] || null,                        
-                                            anchoautocad: req.body[`ancho_autocad${i}`] || null,
-                                            factorarea: req.body[`factor_area${i}`] || null,
-                                            area:  req.body[`area${i}`] || null,
-                                            piercings: req.body[`piercings${i}`] || null,
-                                            dobleces: req.body[`dobleces${i}`] || null,
-                                            longdoblez: req.body[`longitud_doblez${i}`] || null,
-                                            conmaterial: req.body[`con_material${i}`] || null
 
-                                        }).then(() => {}).catch((err) => console.log(err));
-                                }
+                    // Se eliminan entradas en la base de datos cotizacion_datos
+                    db.cotizacion_datos.destroy({
+                        where :{
+                            num: req.body.num
+                        }
+                      }).then( () => {
 
-                                res.redirect('/inicio');
+                        // Información del formulario
+                        for(let i = 1; i <= 60; i++){
 
-                            }).catch((err)=>console.log(err));
-                        }).catch((err)=>console.log(err));
-                    }).catch((err)=>console.log(err));
-                 }).catch((err)=>console.log(err));
+                            // Caso interpretado como fila vacía
+                            if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''  && req.body[`perimetro${i}`] == ''){
+                                break;
+                            }                                         
+                            // Se escriben los datos
+                            db.cotizacion_datos.create(
+                                {        
+                                    num: req.body.num,
+                                    cantidad: req.body[`cantidad${i}`] || null,
+                                    descripcion: req.body[`descrip${i}`] || null,
+                                    precio: req.body[`precio${i}`] || null,
+                                    material: req.body[`material${i}`] || null,
+                                    espesor: req.body[`espesor${i}`] || null,
+                                    perimetroautocad:  req.body[`perimetro_autocad${i}`] || null,
+                                    factorcorte: req.body[`factor_corte${i}`] || null,
+                                    perimetro: req.body[`perimetro${i}`] || null,
+                                    largoautocad: req.body[`largo_autocad${i}`] || null,                        
+                                    anchoautocad: req.body[`ancho_autocad${i}`] || null,
+                                    factorarea: req.body[`factor_area${i}`] || null,
+                                    area:  req.body[`area${i}`] || null,
+                                    piercings: req.body[`piercings${i}`] || null,
+                                    dobleces: req.body[`dobleces${i}`] || null,
+                                    longdoblez: req.body[`longitud_doblez${i}`] || null,
+                                    conmaterial: req.body[`con_material${i}`] || null
+                                }).then(() => {}).catch((err) => console.log(err));
+                        }
+
+                    }).catch((err) => console.log(err));
+
+                    res.redirect('/inicio');
 
             } else {
                 res.redirect('/cotizacion')
@@ -209,6 +217,30 @@ let cotizacionController = {
     downloadSelectPost: (req,res) => {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
+
+                // Removes all files in directory files
+        const rmDir = function (dirPath, removeSelf) {
+            if (removeSelf === undefined)
+                removeSelf = true;
+            try {
+                var files = fs.readdirSync(dirPath);
+            } catch (e) {
+                // throw e
+                return;
+            }
+            if (files.length > 0)
+                for (let i = 0; i < files.length; i++) {
+                const filePath = path.join(dirPath, files[i]);
+                if (fs.statSync(filePath).isFile())
+                    fs.unlinkSync(filePath);
+                else
+                    rmDir(filePath);
+                }
+            if (removeSelf)
+                fs.rmdirSync(dirPath);
+        };
+
+        rmDir('./public/files',false);
         
         if (req.body.select){
             sessionStorage.setItem("cotizacionToDownload", req.body.select);
@@ -233,7 +265,6 @@ let cotizacionController = {
                             db.piercing.findAll({raw: true}).then((listadepiercing)=>{
                                 db.material.findAll({raw: true}).then((listadematerial)=>{
                     
-
                                     if (cotizacionFound){
 
                                         sessionStorage.removeItem("cotizacionToDownload");
@@ -267,20 +298,12 @@ let cotizacionController = {
                                             let fechasplit = cotizacionFound.fecha.split("-");
                                             let fecha = fechasplit[2]+"/"+fechasplit[1]+"/"+fechasplit[0];
                                 
-                                            let fecha_aprobacionsplit = cotizacionFound.aprobacion.split("-");
                                             let fecha_aprobacion;
-                                            if (fecha_aprobacionsplit != ""){
+                                            if (cotizacionFound.aprobacion != null){
+                                                let fecha_aprobacionsplit = cotizacionFound.aprobacion.split("-");
                                                 fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
                                             } else {
                                                 fecha_aprobacion = "";
-                                            }
-
-                                            // Datos de aprobación
-                                            let aprobado;
-                                            if (cotizacionFound.estado == "Aprobado"){
-                                                aprobado = 1;
-                                            } else {
-                                                aprobado = 0;
                                             }
                                 
                                             // Datos generales
@@ -306,10 +329,7 @@ let cotizacionController = {
                                             // Información del formulario
                                             for(let i = 0; i < rowsFound.length ; i++){
 
-                                                // Caso interpretado como fila vacía
-                                                if (rowsFound[i][`cantidad`] == null && rowsFound[i][`descripcion`] == null && rowsFound[i][`material`] == null && rowsFound[i][`precio`] == null && rowsFound[i][`espesor`] == null){
-                                                    break;
-                                                } else if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && rowsFound[i][`perimetro`] == null && rowsFound[i][`area`] == null){
+                                                if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && rowsFound[i][`perimetro`] == null && rowsFound[i][`area`] == null && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
                                                     // Llenado de filas de caso cobro diferente a corte/doblez
                                                     worksheet.getCell(`A${27+i}`).value = i+1;
                                                     worksheet.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ".";
@@ -325,16 +345,16 @@ let cotizacionController = {
                                                     worksheet.getCell(`J${27+i}`).value = "Und";
 
                                                     // Costos
-                                                    let corte_por_mm = listadecorte.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]];
-                                                    let piercing_por_pieza = listadepiercing.filter(element => element.width == rowsFound[i][`espesor`])[0]["piercing"];
-                                                    let doblez = listadedoblez.filter(element => element.width == rowsFound[i][`espesor`])[0]["fold"];
-                                                    let material_por_mm2 = listadematerial.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]];
+                                                    let corte_por_mm = rowsFound[i][`material`] != null && rowsFound[i][`espesor`] != null? listadecorte.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]] : 0;
+                                                    let piercing_por_pieza = rowsFound[i][`espesor`] != null? listadepiercing.filter(element => element.width == rowsFound[i][`espesor`])[0]["piercing"] : 0;
+                                                    let doblez = rowsFound[i][`espesor`] != null? listadedoblez.filter(element => element.width == rowsFound[i][`espesor`])[0]["fold"] : 0;
+                                                    let material_por_mm2 = rowsFound[i][`material`] != null && rowsFound[i][`espesor`] != null? listadematerial.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]] : 0;
                                                     
                                                     // Variables
-                                                    let perimetro = parseFloat(rowsFound[i][`perimetro`]) || 0;
-                                                    let piercings = parseFloat(rowsFound[i][`piercings`]) || 1;
-                                                    let numdoblez = parseFloat(rowsFound[i][`dobleces`]) || 0;
-                                                    let longdobleces = parseFloat(rowsFound[i][`longdoblez`]) || 1;
+                                                    let perimetro = rowsFound[i][`perimetro`] != null? parseFloat(rowsFound[i][`perimetro`]) : 0;
+                                                    let piercings = rowsFound[i][`piercings`] != null? parseFloat(rowsFound[i][`piercings`]) : 0;
+                                                    let numdoblez = rowsFound[i][`dobleces`] != null? parseFloat(rowsFound[i][`dobleces`]) : 0;
+                                                    let longdobleces = rowsFound[i][`longdoblez`] != null? parseFloat(rowsFound[i][`longdoblez`]) : 1;
 
                                                     let longdoblezfactor = 1;
                                                     if (longdobleces >= 1500) {
@@ -389,9 +409,9 @@ let cotizacionController = {
                                             let fechasplit = cotizacionFound.fecha.split("-");
                                             let fecha = fechasplit[2]+"/"+fechasplit[1]+"/"+fechasplit[0];
                                 
-                                            let fecha_aprobacionsplit = cotizacionFound.aprobacion.split("-");
                                             let fecha_aprobacion;
-                                            if (fecha_aprobacionsplit != ""){
+                                            if (cotizacionFound.aprobacion != null){
+                                                let fecha_aprobacionsplit = cotizacionFound.aprobacion.split("-");
                                                 fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
                                             } else {
                                                 fecha_aprobacion = "";
@@ -428,16 +448,16 @@ let cotizacionController = {
                                             // Información del formulario
                                             for(let i = 0; i < rowsFound.length ; i++){
 
-                                                // Caso interpretado como fila vacía
-                                                if (rowsFound[i][`cantidad`] == null && rowsFound[i][`descripcion`] == null && rowsFound[i][`material`] == null && rowsFound[i][`precio`] == null && rowsFound[i][`espesor`] == null){
-                                                    break;
-                                                } else if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && rowsFound[i][`perimetro`] == null && rowsFound[i][`area`] == null){
+                                                if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && rowsFound[i][`perimetro`] == null && rowsFound[i][`area`] == null && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
                                                     // Llenado de filas de caso cobro diferente a corte/doblez
                                                     worksheet1.getCell(`A${27+i}`).value = i;
                                                     worksheet1.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ".";
                                                     worksheet1.getCell(`E${27+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet1.getCell(`F${27+i}`).value = "Und";
                                                     worksheet1.getCell(`H${27+i}`).value = rowsFound[i][`precio`];
+                                                    worksheet1.getCell(`J${27+i}`).value = 0;
+                                                    worksheet1.getCell(`L${27+i}`).value = 0;
+                                                    worksheet1.getCell(`N${27+i}`).value = 0;
                                                     worksheet1.getCell(`P${27+i}`).value = parseFloat(rowsFound[i][`cantidad`])*parseFloat(rowsFound[i][`precio`]) || 0;
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
@@ -447,16 +467,16 @@ let cotizacionController = {
                                                     worksheet1.getCell(`F${27+i}`).value = "Und";
 
                                                     // Costos
-                                                    let corte_por_mm = listadecorte.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]];
-                                                    let piercing_por_pieza = listadepiercing.filter(element => element.width == rowsFound[i][`espesor`])[0]["piercing"];
-                                                    let doblez = listadedoblez.filter(element => element.width == rowsFound[i][`espesor`])[0]["fold"];
-                                                    let material_por_mm2 = listadematerial.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]];
-
+                                                    let corte_por_mm = rowsFound[i][`material`] != null && rowsFound[i][`espesor`] != null? listadecorte.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]] : 0;
+                                                    let piercing_por_pieza = rowsFound[i][`espesor`] != null? listadepiercing.filter(element => element.width == rowsFound[i][`espesor`])[0]["piercing"] : 0;
+                                                    let doblez = rowsFound[i][`espesor`] != null? listadedoblez.filter(element => element.width == rowsFound[i][`espesor`])[0]["fold"] : 0;
+                                                    let material_por_mm2 = rowsFound[i][`material`] != null && rowsFound[i][`espesor`] != null? listadematerial.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]] : 0;
+                                                    
                                                     // Variables
-                                                    let perimetro = parseFloat(rowsFound[i][`perimetro`]) || 0;
-                                                    let piercings = parseFloat(rowsFound[i][`piercings`]) || 1;
-                                                    let numdoblez = parseFloat(rowsFound[i][`dobleces`]) || 0;
-                                                    let longdobleces = parseFloat(rowsFound[i][`longdoblez`]) || 1;
+                                                    let perimetro = rowsFound[i][`perimetro`] != null? parseFloat(rowsFound[i][`perimetro`]) : 0;
+                                                    let piercings = rowsFound[i][`piercings`] != null? parseFloat(rowsFound[i][`piercings`]) : 0;
+                                                    let numdoblez = rowsFound[i][`dobleces`] != null? parseFloat(rowsFound[i][`dobleces`]) : 0;
+                                                    let longdobleces = rowsFound[i][`longdoblez`] != null? parseFloat(rowsFound[i][`longdoblez`]) : 1;
 
                                                     let longdoblezfactor = 1;
                                                     if (longdobleces >= 1500) {
@@ -514,9 +534,9 @@ let cotizacionController = {
                                             let fechasplit = cotizacionFound.fecha.split("-");
                                             let fecha = fechasplit[2]+"/"+fechasplit[1]+"/"+fechasplit[0];
                                 
-                                            let fecha_aprobacionsplit = cotizacionFound.aprobacion.split("-");
                                             let fecha_aprobacion;
-                                            if (fecha_aprobacionsplit != ""){
+                                            if (cotizacionFound.aprobacion != null){
+                                                let fecha_aprobacionsplit = cotizacionFound.aprobacion.split("-");
                                                 fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
                                             } else {
                                                 fecha_aprobacion = "";
@@ -601,7 +621,6 @@ let cotizacionController = {
                                             let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.xlsx";
                                             workbook3.xlsx.writeFile("./public/files/" + filename);
                                         })
-
                                  
 // ----------------------------- Se escribe el archivo de orden de doblez ----------------------------------------------------------------------
                                 

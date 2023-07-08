@@ -256,4 +256,18 @@ input::-webkit-inner-spin-button {
   width:60%;
 }
 
+/* Calculation rows ------------------------------------------------------------------- */
 
+.calculationsrow{
+  background-color:  #ffe5c4;
+  border-bottom: solid 2px rgb(135, 135, 135);
+}
+
+.TOTAL{
+  width: 20%;
+  margin-left: 3%;
+}
+
+.cannotchange{
+  background-color:  #fff6e9;
+}

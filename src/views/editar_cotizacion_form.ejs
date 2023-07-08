@@ -32,6 +32,28 @@
             areaxfactor.value = area.toFixed(3);
         }
 
+        function DisplayCalculationsRow(item){
+
+            document.getElementById("calculationsrow" + item).style.display = "table-row";
+            document.getElementById("column1" + item).style.visibility = "visible";
+            document.getElementById("column2" + item).style.visibility = "visible";
+            document.getElementById("column3" + item).style.visibility = "visible";
+            document.getElementById("column4" + item).style.visibility = "visible";
+            document.getElementById("column5" + item).style.visibility = "visible";
+            document.getElementById("column6" + item).style.visibility = "visible";
+            document.getElementById("column7" + item).style.visibility = "visible";
+            document.getElementById("column8" + item).style.visibility = "visible";
+            document.getElementById("column9" + item).style.visibility = "visible";
+            document.getElementById("column10" + item).style.visibility = "visible";
+            document.getElementById("column11" + item).style.visibility = "visible";
+            document.getElementById("column12" + item).style.visibility = "visible";
+            document.getElementById("column13" + item).style.visibility = "visible";
+            document.getElementById("column14" + item).style.visibility = "visible";
+            document.getElementById("column15" + item).style.visibility = "visible";
+            document.getElementById("column16" + item).style.visibility = "visible";
+            document.getElementById("column17" + item).style.visibility = "visible";
+        }
+
     </script>
 </head>
 <body>
@@ -352,6 +374,27 @@
                             <option value="No">No</option>
                         </select></td>
                         </tr>
+
+                        <tr class="calculationsrow"  id="<%= "calculationsrow" + String(i) %>" style="display: none"> 
+                            <td style="visibility: hidden;" id="<%= "column1" + String(i) %>"></td>
+                            <td style="visibility: hidden;" id="<%= "column2" + String(i) %>">Total:</td>
+                            <td style="visibility: hidden;" id="<%= "column3" + String(i) %>"><input type="text" id="<%= "total" + String(i) %>" name="<%= "total" + String(i) %>" onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column4" + String(i) %>">Valor corte:</td>
+                            <td style="visibility: hidden;" id="<%= "column5" + String(i) %>"><input type="text" id="<%= "calculocorte" + String(i) %>" name="<%= "calculocorte" + String(i) %>" onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column6" + String(i) %>">Valor piercing:</td>
+                            <td style="visibility: hidden;" id="<%= "column7" + String(i) %>"><input type="text" id="<%= "calculopiercing" + String(i) %>" name="<%= "calculopiercing" + String(i) %>" onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column8" + String(i) %>">Valor doblez:</td>
+                            <td style="visibility: hidden;" id="<%= "column9" + String(i) %>"><input type="text" id="<%= "calculodoblez" + String(i) %>" name="<%= "calculodoblez" + String(i) %>" onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column10" + String(i) %>">Valor material:</td>
+                            <td style="visibility: hidden;" id="<%= "column11" + String(i) %>"><input type="text" id="<%= "calculomaterial" + String(i) %>" name="<%= "calculomaterial" + String(i) %>" onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column12" + String(i) %>"> </td>
+                            <td style="visibility: hidden;" id="<%= "column13" + String(i) %>"> </td>
+                            <td style="visibility: hidden;" id="<%= "column14" + String(i) %>"> </td>
+                            <td style="visibility: hidden;" id="<%= "column15" + String(i) %>"> </td>
+                            <td style="visibility: hidden;" id="<%= "column16" + String(i) %>"> </td>
+                            <td style="visibility: hidden;" id="<%= "column17" + String(i) %>"> </td>
+                        </tr>
+
                     <% } %>
 
                     <% for (let j = filas.length + 1; j <= 60; j++){ %>
@@ -417,7 +460,11 @@
                         </tr>
                     <% } %>
                 </table>
-            </div>             
+            </div>      
+            
+            <div class="inputcontainer">
+                <input type="text" class="TOTAL" id="TOTAL" name="TOTAL" onkeydown="return false" value="Total: $"/>
+            </div>  
               
             <input type="submit" value="Enviar">
         </form>

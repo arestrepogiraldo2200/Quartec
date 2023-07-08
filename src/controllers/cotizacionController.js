@@ -13,14 +13,26 @@ let cotizacionController = {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
         
-        db.clientes.findAll({raw: true}).then((listadeclientes)=>
-        {
-            db.asesores.findAll({raw: true}).then((listadeasesores) => {
+        db.clientes.findAll({raw: true}).then((listadeclientes)=>{
+            db.corte.findAll({raw: true}).then((listadecorte)=>{
+                db.doblez.findAll({raw: true}).then((listadedoblez)=>{
+                    db.piercing.findAll({raw: true}).then((listadepiercing)=>{
+                        db.material.findAll({raw: true}).then((listadematerial)=>{
 
-                res.render(path.join(__dirname, '../views/cotizacion'), {clientes : listadeclientes, asesor : req.session.name});    
+                            res.render(path.join(__dirname, '../views/cotizacion'), {clientes : listadeclientes, asesor : req.session.name, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial});    
+                          
+                            console.log(listadecorte);
+                            console.log("-----------------------------------------------------------------------------");
+                            console.log(listadedoblez);
+                            console.log("-----------------------------------------------------------------------------");
+                            console.log(listadepiercing);
+                            console.log("-----------------------------------------------------------------------------");
+                            console.log(listadematerial);
 
+                        }).catch((err)=>console.log(err));
+                    }).catch((err)=>console.log(err));
+                }).catch((err)=>console.log(err));
             }).catch((err)=>console.log(err));
-
         }).catch((err)=>console.log(err));
     },
 
@@ -168,14 +180,22 @@ let cotizacionController = {
         db.cotizacion.findOne({raw: true, where: { num: cotizacionToEdit } }).then((cotizacionFound) => {
             db.cotizacion_datos.findAll({raw: true, where: { num: cotizacionToEdit } }).then((rowsFound) => {
                 db.clientes.findAll({raw: true}).then((listadeclientes)=>{
+                    db.corte.findAll({raw: true}).then((listadecorte)=>{
+                        db.doblez.findAll({raw: true}).then((listadedoblez)=>{
+                            db.piercing.findAll({raw: true}).then((listadepiercing)=>{
+                                db.material.findAll({raw: true}).then((listadematerial)=>{
 
-                    if (cotizacionFound){
-                        sessionStorage.removeItem("cotizacionToEdit");
-                        res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes}); 
-                    } else {
-                        res.redirect('/edit-cotizacion');
-                    }
+                                    if (cotizacionFound){
+                                        sessionStorage.removeItem("cotizacionToEdit");
+                                        res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial}); 
+                                    } else {
+                                        res.redirect('/edit-cotizacion');
+                                    }
 
+                                }).catch((err)=>console.log(err));
+                            }).catch((err)=>console.log(err));
+                        }).catch((err)=>console.log(err));
+                    }).catch((err)=>console.log(err));
                 }).catch((err)=>console.log(err));
             }).catch((err)=>console.log(err));
          }).catch((err)=>console.log(err));

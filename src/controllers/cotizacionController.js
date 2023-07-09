@@ -21,13 +21,13 @@ let cotizacionController = {
 
                             res.render(path.join(__dirname, '../views/cotizacion'), {clientes : listadeclientes, asesor : req.session.name, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial});    
                           
-                            console.log(listadecorte);
-                            console.log("-----------------------------------------------------------------------------");
-                            console.log(listadedoblez);
-                            console.log("-----------------------------------------------------------------------------");
-                            console.log(listadepiercing);
-                            console.log("-----------------------------------------------------------------------------");
-                            console.log(listadematerial);
+                            // console.log(listadecorte);
+                            // console.log("-----------------------------------------------------------------------------");
+                            // console.log(listadedoblez);
+                            // console.log("-----------------------------------------------------------------------------");
+                            // console.log(listadepiercing);
+                            // console.log("-----------------------------------------------------------------------------");
+                            // console.log(listadematerial);
 
                         }).catch((err)=>console.log(err));
                     }).catch((err)=>console.log(err));
@@ -110,7 +110,7 @@ let cotizacionController = {
                       }).then( () => {
 
                         // Información del formulario
-                        for(let i = 1; i <= 60; i++){
+                        for(let i = 1; i <= 40; i++){
 
                             // Caso interpretado como fila vacía
                             if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''  && req.body[`perimetro${i}`] == ''){
@@ -187,7 +187,62 @@ let cotizacionController = {
 
                                     if (cotizacionFound){
                                         sessionStorage.removeItem("cotizacionToEdit");
-                                        res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial}); 
+
+                                        let preciosarray = [];
+                                        let totaltotal = 0;
+                                        let rows = rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1);
+
+                                        for (let i = 0; i < rows.length; i++){
+                                            
+                                            if (rows[i].precio != null){
+                                                preciosarray.push({
+                                                    total: 0,
+                                                    corte: 0,
+                                                    piercing: 0,
+                                                    doblez: 0,
+                                                    material: 0,
+                                                    totalporpieza: 0                                            
+                                                });
+
+                                                totaltotal = totaltotal + rows[i].precio*rows[i].cantidad;
+                                            } else {
+
+                                                let costocortepormm = listadecorte.filter(el => el.width == rows[i].espesor)[0][rows[i].material] || 0;
+                                                let costopiercing = listadepiercing.filter(el => el.width == rows[i].espesor)[0]["piercing"] || 0;
+                                                let costodoblez = listadedoblez.filter(el => el.width == rows[i].espesor)[0]["fold"] || 0;
+                                                let costomaterialmm2 = listadematerial.filter(el => el.width == rows[i].espesor)[0][rows[i].material] || 0;
+
+                                                let cantidad = rows[i].cantidad || 0;
+                                                let perimetro = rows[i].perimetro || 0;
+                                                let area = rows[i].area || 0;
+                                                let numdobleces = rows[i].dobleces || 0;
+                                                let numpiercings = rows[i].piercings || 0;
+                                                let longdoblez = rows[i].longdoblez || 0;
+                                                let conmaterial = rows[i].conmaterial || 0;
+
+                                                let porpiezacorte = perimetro*costocortepormm;
+                                                let porpiezapiercing = costopiercing*numpiercings;
+                                                let porpiezadoblez = longdoblez > 1500? 2*costodoblez*numdobleces : costodoblez*numdobleces;
+                                                let porpiezamaterial = conmaterial=="Sí"? area*costomaterialmm2 : 0;
+                                                let totalporpieza = porpiezacorte + porpiezapiercing + porpiezadoblez + porpiezamaterial;
+
+                                                preciosarray.push({
+                                                    total: cantidad*totalporpieza,
+                                                    corte: porpiezacorte,
+                                                    piercing: porpiezapiercing,
+                                                    doblez: porpiezadoblez,
+                                                    material: porpiezamaterial,   
+                                                    totalporpieza: totalporpieza                                                                               
+                                                });
+
+                                                totaltotal = totaltotal + cantidad*totalporpieza;
+                                            }
+                                        }
+
+                                        // console.log(preciosarray)
+                                        // console.log(totaltotal)
+
+                                        res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial, precios: preciosarray, tot: totaltotal}); 
                                     } else {
                                         res.redirect('/edit-cotizacion');
                                     }
@@ -349,7 +404,7 @@ let cotizacionController = {
                                             // Información del formulario
                                             for(let i = 0; i < rowsFound.length ; i++){
 
-                                                if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && rowsFound[i][`perimetro`] == null && rowsFound[i][`area`] == null && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
+                                                if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0) && (rowsFound[i][`area`] == null || rowsFound[i][`area`] == 0) && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
                                                     // Llenado de filas de caso cobro diferente a corte/doblez
                                                     worksheet.getCell(`A${27+i}`).value = i+1;
                                                     worksheet.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ".";
@@ -446,14 +501,14 @@ let cotizacionController = {
                                             }
                                 
                                             // Datos generales
-                                            worksheet1.getCell('L9').value = cotizacionFound.num;
-                                            worksheet1.getCell('L11').value = fecha;
-                                            worksheet1.getCell('L12').value = cotizacionFound.validez;
-                                            worksheet1.getCell('L13').value = cotizacionFound.entrega;
-                                            worksheet1.getCell('L14').value = cotizacionFound.condiciones;
-                                            worksheet1.getCell('L15').value = req.session.name;
+                                            worksheet1.getCell('M9').value = cotizacionFound.num;
+                                            worksheet1.getCell('M11').value = fecha;
+                                            worksheet1.getCell('M12').value = cotizacionFound.validez;
+                                            worksheet1.getCell('M13').value = cotizacionFound.entrega;
+                                            worksheet1.getCell('M14').value = cotizacionFound.condiciones;
+                                            worksheet1.getCell('M15').value = req.session.name;
                                             worksheet1.getCell('J16').value = cotizacionFound.estado;
-                                            worksheet1.getCell('N16').value = fecha_aprobacion;
+                                            worksheet1.getCell('O16').value = fecha_aprobacion;
                                             worksheet1.getCell('C24').value = cotizacionFound.proyecto;
                         
                                             // Condiciones comerciales
@@ -468,7 +523,7 @@ let cotizacionController = {
                                             // Información del formulario
                                             for(let i = 0; i < rowsFound.length ; i++){
 
-                                                if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && rowsFound[i][`perimetro`] == null && rowsFound[i][`area`] == null && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
+                                                if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0) && (rowsFound[i][`area`] == null || rowsFound[i][`area`] == 0) && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
                                                     // Llenado de filas de caso cobro diferente a corte/doblez
                                                     worksheet1.getCell(`A${27+i}`).value = i;
                                                     worksheet1.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ".";
@@ -618,10 +673,7 @@ let cotizacionController = {
                                             // Información del formulario
                                             for(let i = 0; i < rowsFound.length ; i++){
         
-                                                // Caso interpretado como fila vacía
-                                                if (rowsFound[i][`cantidad`] == null && rowsFound[i][`descripcion`] == null && rowsFound[i][`material`] == null && rowsFound[i][`precio`] == null && rowsFound[i][`espesor`] == null){
-                                                    break;
-                                                } else if (rowsFound[i][`perimetro`] == null){
+                                                if (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0){
                                                     continue;
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
@@ -659,10 +711,7 @@ let cotizacionController = {
                                             // Información del formulario
                                             for(let i = 0; i < rowsFound.length ; i++){
         
-                                                // Caso interpretado como fila vacía
-                                                if (rowsFound[i][`cantidad`] == null && rowsFound[i][`descripcion`] == null && rowsFound[i][`material`] == null && rowsFound[i][`precio`] == null && rowsFound[i][`espesor`] == null){
-                                                    break;
-                                                } else if (rowsFound[i][`dobleces`]== null){
+                                                if (rowsFound[i][`dobleces`]== null || rowsFound[i][`dobleces`]== 0){
                                                     continue;
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez

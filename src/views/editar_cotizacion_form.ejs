@@ -505,7 +505,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %>   id="<%= "column2" + String(i) %>" >Total:</td>
+                            <% } %>   id="<%= "column2" + String(i) %>" >Total piezas:</td>
 
 
                             <td <% if ( typeof filas[i-1].precio == "number") {%>
@@ -699,7 +699,7 @@
 
                         <tr class="calculationsrow"  id="<%= "calculationsrow" + String(j) %>" style="display: none">                             
                             <td style="visibility: hidden;" id="<%= "column1" + String(j) %>"></td>
-                            <td style="visibility: hidden;" id="<%= "column2" + String(j) %>">Total:</td>
+                            <td style="visibility: hidden;" id="<%= "column2" + String(j) %>">Total piezas:</td>
                             <td style="visibility: hidden;" id="<%= "column3" + String(j) %>"><input type="text" id="<%= "totaltodas" + String(j) %>" name="<%= "totaltodas" + String(j) %>" onkeydown="return false;"></td>
                             <td style="visibility: hidden;" id="<%= "column4" + String(j) %>">Valor corte:</td>
                             <td style="visibility: hidden;" id="<%= "column5" + String(j) %>"><input type="text" id="<%= "calculocorte" + String(j) %>" name="<%= "calculocorte" + String(j) %>" onkeydown="return false;"></td>

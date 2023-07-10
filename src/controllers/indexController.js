@@ -1,6 +1,7 @@
 
 const path = require('path');
 const db = require('../database/models');
+const bcrypt = require('bcrypt');
 
 
 let indexController = {
@@ -21,15 +22,32 @@ let indexController = {
 
             const user = listaAsesores.find((user) => user.name === asesor);
 
-            if (!user || user.password !== password) {
+            if (!user) {
                 return res.render(path.join(__dirname,'../views/index.ejs'));
             }
 
-            req.session.isAuthenticated = true; 
-            req.session.name = asesor;
-            req.session.isAdmin = user.is_admin;
+            if (bcrypt.compareSync(password, user.password)){
 
-            res.redirect("/inicio");
+                req.session.isAuthenticated = true; 
+                req.session.name = asesor;
+                req.session.isAdmin = user.is_admin;
+    
+                res.redirect("/inicio");
+
+            } else {
+
+                if (user.password === password){
+
+                    req.session.isAuthenticated = true; 
+                    req.session.name = asesor;
+                    req.session.isAdmin = user.is_admin;
+        
+                    res.redirect("/inicio");
+                    
+                } else {
+                    return res.render(path.join(__dirname,'../views/index.ejs'));
+                }
+            }
 
         }).catch((err)=>console.log(err));
     },

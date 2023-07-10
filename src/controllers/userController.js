@@ -1,6 +1,7 @@
 
 const path = require('path');
 const db = require('../database/models');
+const bcrypt = require('bcrypt');
 
 
 let userController = {
@@ -11,7 +12,7 @@ let userController = {
 
         db.asesores.findOne({raw: true, where: { name : req.session.name } }).then((asesor) => {
 
-            res.render(path.join(__dirname, '../views/editar_datos'), {asesorData : asesor});    
+            res.render(path.join(__dirname, '../views/editar_datos'), {asesorData : asesor });    
 
         }).catch((err)=>console.log(err));
     },
@@ -22,7 +23,7 @@ let userController = {
         db.asesores.update({
 
             name: req.body.usuario || "-",
-            password: req.body.contrasena || "-"
+            password: bcrypt.hashSync(req.body.contrasena, 10) || "-"
         },
         {
           where:{id: req.body.id}
@@ -48,7 +49,7 @@ let userController = {
         db.asesores.create({
 
             name: req.body.usuario,
-            password: req.body.contrasena,
+            password: bcrypt.hashSync(req.body.contrasena, 10),
             is_admin: 0,
 
         }).then( () => {res.redirect('/inicio');}).catch((err) => console.log(err));

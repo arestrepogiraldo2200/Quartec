@@ -1,26 +1,28 @@
-// Local database ------------------------------------------
 
+require('dotenv').config();
+
+// Local database ------------------------------------------
 
 // module.exports = {
 //   "development": {
-//     "username": "root",
-//     "password": null,
-//     "database": "quartec_db",
-//     "host": "127.0.0.1",
+//     "username": process.env.USERNAMELOCAL,
+//     "password": process.env.PASSWORDLOCAL,
+//     "database": process.env.DATABASELOCAL,
+//     "host": process.env.HOSTLOCAL,
 //     "dialect": "mysql"
 //   },
 //   "test": {
-//     "username": "root",
-//     "password": null,
-//     "database": "quartec_db",
-//     "host": "127.0.0.1",
+//     "username": process.env.USERNAMELOCAL,
+//     "password": process.env.PASSWORDLOCAL,
+//     "database": process.env.DATABASELOCAL,
+//     "host": process.env.HOSTLOCAL,
 //     "dialect": "mysql"
 //   },
 //   "production": {
-//     "username": "root",
-//     "password": null,
-//     "database": "quartec_db",
-//     "host": "127.0.0.1",
+//     "username": process.env.USERNAMELOCAL,
+//     "password": process.env.PASSWORDLOCAL,
+//     "database": process.env.DATABASELOCAL,
+//     "host": process.env.HOSTLOCAL,
 //     "dialect": "mysql"
 //   }
 // }
@@ -29,24 +31,24 @@
 
 // module.exports = {
 //   "development": {
-//     "username": "urvygcnb1zmfifvq",
-//     "password": "cne8IEvmD3bXMIiLmK1h",
-//     "database": "bcylh3n9dg5jdlbr82sl",
-//     "host": "bcylh3n9dg5jdlbr82sl-mysql.services.clever-cloud.com",
+//     "username": process.env.USERNAMECLEVER,
+//     "password": process.env.PASSWORDCLEVER,
+//     "database": process.env.DATABASECLEVER,
+//     "host": process.env.HOSTCLEVER,
 //     "dialect": "mysql"
 //   },
 //   "test": {
-//     "username": "urvygcnb1zmfifvq",
-//     "password": "cne8IEvmD3bXMIiLmK1h",
-//     "database": "bcylh3n9dg5jdlbr82sl",
-//     "host": "bcylh3n9dg5jdlbr82sl-mysql.services.clever-cloud.com",
+//     "username": process.env.USERNAMECLEVER,
+//     "password": process.env.PASSWORDCLEVER,
+//     "database": process.env.DATABASECLEVER,
+//     "host": process.env.HOSTCLEVER,
 //     "dialect": "mysql"
 //   },
 //   "production": {
-//     "username": "urvygcnb1zmfifvq",
-//     "password": "cne8IEvmD3bXMIiLmK1h",
-//     "database": "bcylh3n9dg5jdlbr82sl",
-//     "host": "bcylh3n9dg5jdlbr82sl-mysql.services.clever-cloud.com",
+//     "username": process.env.USERNAMECLEVER,
+//     "password": process.env.PASSWORDCLEVER,
+//     "database": process.env.DATABASECLEVER,
+//     "host": process.env.HOSTCLEVER,
 //     "dialect": "mysql"
 //   }
 // }
@@ -55,24 +57,24 @@
 
 module.exports = {
   "development": {
-    "username": "root",
-    "password": ".azOqA'}FU[kp7gt",
-    "database": "quartec_db",
-    "host": "34.148.63.112",
+    "username": process.env.USERNAMEGOOGLE,
+    "password": process.env.PASSWORDGOOGLE,
+    "database": process.env.DATABASEGOOGLE,
+    "host": process.env.HOSTGOOGLE,
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": ".azOqA'}FU[kp7gt",
-    "database": "quartec_db",
-    "host": "34.148.63.112",
+    "username": process.env.USERNAMEGOOGLE,
+    "password": process.env.PASSWORDGOOGLE,
+    "database": process.env.DATABASEGOOGLE,
+    "host": process.env.HOSTGOOGLE,
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": ".azOqA'}FU[kp7gt",
-    "database": "quartec_db",
-    "host": "34.148.63.112",
+    "username": process.env.USERNAMEGOOGLE,
+    "password": process.env.PASSWORDGOOGLE,
+    "database": process.env.DATABASEGOOGLE,
+    "host": process.env.HOSTGOOGLE,
     "dialect": "mysql"
   }
 }

@@ -2,7 +2,8 @@
 const path = require('path');
 const db = require('../database/models');
 var Excel = require('exceljs');
-var sessionStorage = require('sessionstorage');
+const sessionStorage = require('sessionstorage');
+const ls = require('local-storage');
 const JSZip = require("jszip");
 const fs = require('fs');
 const AdmZip = require('adm-zip');
@@ -167,7 +168,7 @@ let cotizacionController = {
 
         if (!req.body.select) return res.redirect('/edit-cotizacion');
         
-        sessionStorage.setItem("cotizacionToEdit", req.body.select);
+        ls.set("cotizacionToEdit", req.body.select);
         res.redirect("/edit-cotizacion-form");
     },
 
@@ -175,7 +176,7 @@ let cotizacionController = {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
 
-        let cotizacionToEdit = sessionStorage.getItem("cotizacionToEdit");
+        let cotizacionToEdit = ls.get("cotizacionToEdit");
 
         db.cotizacion.findOne({raw: true, where: { num: cotizacionToEdit } }).then((cotizacionFound) => {
             db.cotizacion_datos.findAll({raw: true, where: { num: cotizacionToEdit } }).then((rowsFound) => {
@@ -186,7 +187,7 @@ let cotizacionController = {
                                 db.material.findAll({raw: true}).then((listadematerial)=>{
 
                                     if (cotizacionFound){
-                                        sessionStorage.removeItem("cotizacionToEdit");
+                                        ls.remove("cotizacionToEdit");
 
                                         let preciosarray = [];
                                         let totaltotal = 0;
@@ -318,7 +319,7 @@ let cotizacionController = {
         rmDir('./public/files',false);
         
         if (req.body.select){
-            sessionStorage.setItem("cotizacionToDownload", req.body.select);
+            ls.set("cotizacionToDownload", req.body.select);
             res.redirect("/download-cotizacion-docs");
         } else {
             res.redirect("/download-cotizacion");
@@ -330,7 +331,7 @@ let cotizacionController = {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
 
-        let cotizacionToDownload = sessionStorage.getItem("cotizacionToDownload");
+        let cotizacionToDownload = ls.get("cotizacionToDownload");
 
         db.cotizacion.findOne({raw: true, where: { num: cotizacionToDownload } }).then((cotizacionFound) => {
             db.cotizacion_datos.findAll({raw: true, where: { num: cotizacionToDownload } }).then((rowsFound) => {
@@ -342,7 +343,7 @@ let cotizacionController = {
                     
                                     if (cotizacionFound){
 
-                                        sessionStorage.removeItem("cotizacionToDownload");
+                                        ls.remove("cotizacionToDownload");
                                         
                 // ----------------------------- Se escribe el archivo de cotizacion ----------------------------------------------------------------------
 

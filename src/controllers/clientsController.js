@@ -2,6 +2,7 @@
 const path = require('path');
 const db = require('../database/models');
 var sessionStorage = require('sessionstorage');
+const ls = require('local-storage');
 
 
 let clientsController = {
@@ -67,7 +68,7 @@ let clientsController = {
 
         if (!req.body.select) return res.redirect('/editar-cliente');
 
-        sessionStorage.setItem("clientToEdit", req.body.select);
+        ls.set("clientToEdit", req.body.select);
         res.redirect("/editar-cliente-form");
     },
 
@@ -75,12 +76,12 @@ let clientsController = {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
 
-        let clientToEdit = sessionStorage.getItem("clientToEdit");
+        let clientToEdit = ls.get("clientToEdit");
 
         db.clientes.findOne({raw: true, where: { client: clientToEdit } }).then((clientFound) => {
 
             if (clientFound){
-                sessionStorage.removeItem("clientToEdit");
+                ls.remove("clientToEdit");
                 res.render(path.join(__dirname, '../views/editar_cliente_form'), {cliente : clientFound}); 
             } else {
                 res.redirect('/editar-cliente');

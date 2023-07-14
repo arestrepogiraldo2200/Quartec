@@ -43,6 +43,8 @@ let cotizacionController = {
       
         db.clientes.findOne({raw: true, where: { client: req.body.selectclient } }).then((clientFound) => {
 
+            // console.log("REQ:",req.body);
+
             if (clientFound) {
 
                  // Datos cliente
@@ -111,7 +113,7 @@ let cotizacionController = {
                       }).then( () => {
 
                         // Información del formulario
-                        for(let i = 1; i <= 40; i++){
+                        for(let i = 1; i <= 60; i++){
 
                             // Caso interpretado como fila vacía
                             if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''  && req.body[`perimetro${i}`] == ''){
@@ -191,6 +193,7 @@ let cotizacionController = {
 
                                         let preciosarray = [];
                                         let totaltotal = 0;
+                                        let preciospormaterial = [];
                                         let rows = rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1);
 
                                         for (let i = 0; i < rows.length; i++){
@@ -226,9 +229,10 @@ let cotizacionController = {
                                                 let porpiezadoblez = longdoblez > 1500? 2*costodoblez*numdobleces : costodoblez*numdobleces;
                                                 let porpiezamaterial = conmaterial=="Sí"? area*costomaterialmm2 : 0;
                                                 let totalporpieza = porpiezacorte + porpiezapiercing + porpiezadoblez + porpiezamaterial;
+                                                let totalpiezastodas = cantidad*totalporpieza
 
                                                 preciosarray.push({
-                                                    total: cantidad*totalporpieza,
+                                                    total: totalpiezastodas.toFixed(0),
                                                     corte: porpiezacorte,
                                                     piercing: porpiezapiercing,
                                                     doblez: porpiezadoblez,
@@ -236,14 +240,47 @@ let cotizacionController = {
                                                     totalporpieza: totalporpieza                                                                               
                                                 });
 
+                                                preciospormaterial.push({
+                                                    row: i,
+                                                    material: rows[i].material + "|" + rows[i].espesor,
+                                                    totalpiezas: cantidad*totalporpieza
+                                                });
+
                                                 totaltotal = totaltotal + cantidad*totalporpieza;
                                             }
                                         }
 
-                                        // console.log(preciosarray)
-                                        // console.log(totaltotal)
+                                        // calculation of total per material and width
+                                        let preciospormaterialnotrepeated = Object.values(
+                                            preciospormaterial.reduce((acc, current) => {
+                                                acc[current.material] = acc[current.material] ?? [];
+                                                acc[current.material].push(current);
+                                                return acc;
+                                            }, {})
+                                        );
 
-                                        res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial, precios: preciosarray, tot: totaltotal}); 
+                                        let preciospormaterialdefinitive = []
+
+                                        for (let i = 0; i < preciospormaterialnotrepeated.length; i++){
+
+                                            let suma = 0;
+
+                                            for (let j = 0; j < preciospormaterialnotrepeated[i].length; j++){
+                                                suma += preciospormaterialnotrepeated[i][j].totalpiezas
+                                            }
+                                            let splitmaterial = preciospormaterialnotrepeated[i][0].material.split("|");
+
+                                            preciospormaterialdefinitive.push({
+                                                material: splitmaterial[0],
+                                                width: splitmaterial[1],
+                                                total: suma.toFixed(0)
+                                            })
+                                        }
+
+                                        // console.log(preciospormaterialnotrepeated)
+                                        // console.log(preciospormaterialdefinitive)
+
+                                        res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial, precios: preciosarray, tot: totaltotal, totalespormaterial: preciospormaterialdefinitive}); 
                                     } else {
                                         res.redirect('/edit-cotizacion');
                                     }
@@ -272,6 +309,7 @@ let cotizacionController = {
         if (!req.session.isAuthenticated) return res.redirect('/');
 
         db.cotizacion.update({
+            estado: "Aprobado",
             aprob: 1,
             aprobacion: req.body.fecha_aprobacion,
         },

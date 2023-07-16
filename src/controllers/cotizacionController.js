@@ -20,8 +20,16 @@ let cotizacionController = {
                     db.piercing.findAll({raw: true}).then((listadepiercing)=>{
                         db.material.findAll({raw: true}).then((listadematerial)=>{
 
-                            res.render(path.join(__dirname, '../views/cotizacion'), {clientes : listadeclientes, asesor : req.session.name, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial});    
-                          
+                            fs.readFile(path.join(__dirname,'../../cotizacion0.txt'), 'utf8', (err, data) => {
+                                if (err) {
+                                  console.error(err);
+                                  return;
+                                }
+                                let num0;
+                                num0 = parseInt(data);
+                                res.render(path.join(__dirname, '../views/cotizacion'), {clientes : listadeclientes, asesor : req.session.name, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial,  nummin : num0});    
+                            });
+
                             // console.log(listadecorte);
                             // console.log("-----------------------------------------------------------------------------");
                             // console.log(listadedoblez);
@@ -72,6 +80,22 @@ let cotizacionController = {
                      aprobado = 0;
                  }
 
+                 // Read and write file of pricing quote number
+                 fs.readFile(path.join(__dirname,'../../cotizacion0.txt'), 'utf8', (err, data) => {
+                    if (err) {
+                      console.error(err);
+                      return;
+                    }
+                    let num0;
+                    num0 = parseInt(data) >  req.body.num?  parseInt(data): req.body.num ;
+
+                    // Update number file
+                    fs.writeFile(path.join(__dirname,'../../cotizacion0.txt'), String(num0), (err) => {
+                        if (err) throw err;
+                    })
+
+                });
+
 // ----------------------------- Se eliminan las entradas ya existentes en la base de datos y se escriben las nuevas------------------------------------------------------------------
 
                 // Se eliminan entradas en la base de datos cotizacion
@@ -105,7 +129,25 @@ let cotizacionController = {
                     }).catch((err) => console.log(err));
 
 
-                    // Se eliminan entradas en la base de datos cotizacion_datos
+                    // Se eliminan entradas en la base de datos de parámetros globales -----------------------------------------------------
+                    db.globalparams.destroy({
+                        where :{
+                            num: req.body.num
+                        }
+                      }).then( () => {
+                                    
+                    // Se escriben los datos de globalparams
+                        db.globalparams.create(
+                            {        
+                                num: req.body.num,
+                                globalcorte: req.body.globcorte,
+                                globalmaterial: req.body.globmaterial
+                            },
+                            ).then(() => {}).catch((err) => console.log(err));
+                    }).catch((err) => console.log(err));
+
+
+                    // Se eliminan entradas en la base de datos cotizacion_datos ----------------------------------------------------------
                     db.cotizacion_datos.destroy({
                         where :{
                             num: req.body.num
@@ -187,6 +229,7 @@ let cotizacionController = {
                         db.doblez.findAll({raw: true}).then((listadedoblez)=>{
                             db.piercing.findAll({raw: true}).then((listadepiercing)=>{
                                 db.material.findAll({raw: true}).then((listadematerial)=>{
+                                    db.globalparams.findAll({raw: true, where: { num: cotizacionToEdit }}).then((paramsfound)=>{
 
                                     if (cotizacionFound){
                                         ls.remove("cotizacionToEdit");
@@ -280,11 +323,21 @@ let cotizacionController = {
                                         // console.log(preciospormaterialnotrepeated)
                                         // console.log(preciospormaterialdefinitive)
 
-                                        res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial, precios: preciosarray, tot: totaltotal, totalespormaterial: preciospormaterialdefinitive}); 
+                                        fs.readFile(path.join(__dirname,'../../cotizacion0.txt'), 'utf8', (err, data) => {
+                                            if (err) {
+                                              console.error(err);
+                                              return;
+                                            }
+                                            let num0;
+                                            num0 = parseInt(data);
+                                            res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial, precios: preciosarray, tot: totaltotal, totalespormaterial: preciospormaterialdefinitive,  nummin : num0,  numcurrent: cotizacionFound.num, globalparams: paramsfound}); 
+                                        });
+
                                     } else {
                                         res.redirect('/edit-cotizacion');
                                     }
 
+                                    }).catch((err)=>console.log(err));
                                 }).catch((err)=>console.log(err));
                             }).catch((err)=>console.log(err));
                         }).catch((err)=>console.log(err));
@@ -790,6 +843,30 @@ let cotizacionController = {
                 }).catch((err)=>console.log(err));
             }).catch((err)=>console.log(err));
          }).catch((err)=>console.log(err));
+    },
+
+    numeracion: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+        if (!req.session.isAdmin) return res.redirect('/inicio');
+
+        fs.readFile(path.join(__dirname,'../../cotizacion0.txt'), 'utf8', (err, data) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+            let num0;
+            num0 = parseInt(data);
+            res.render(path.join(__dirname, '../views/numeracion'), {nummin : num0})
+        });
+    },
+
+    numeracionPost: (req,res) => {
+
+        fs.writeFile(path.join(__dirname,'../../cotizacion0.txt'), req.body.numero, (err) => {
+            if (err) throw err;
+            res.redirect('/inicio');
+        })
     }
 
 }

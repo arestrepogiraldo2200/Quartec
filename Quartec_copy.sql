@@ -185,6 +185,19 @@ CREATE TABLE `cotizacion_datos` (
 
 -- --------------------------------------------------------
 
+-- Estructura de tabla para la tabla `globalparams`
+--
+
+CREATE TABLE `globalparams` (
+  `id` int(15) NOT NULL,
+  `num`  INT(10) NOT NULL,
+  `globalcorte` FLOAT,
+  `globalmaterial` FLOAT
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
 ALTER TABLE `asesores`
   ADD PRIMARY KEY (`id`);
 
@@ -233,12 +246,20 @@ ALTER TABLE `cotizacion_datos`
 ALTER TABLE `cotizacion_datos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE `globalparams`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `globalparams`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 ----------------------------------------------------------
 
 INSERT INTO asesores(id, name, is_admin, password) VALUES (1,'Diego Alberto Restrepo', 1, '123456');
 INSERT INTO asesores(id, name, is_admin, password) VALUES (2,'Juan Diego Arboleda', 0, '123456');
 INSERT INTO asesores(id, name, is_admin, password) VALUES (3,'Juan Fernando Castro', 0, '123456');
 INSERT INTO asesores(id, name, is_admin, password) VALUES (4,'Juan David Rivera', 0, '123456');
+INSERT INTO asesores(id, name, is_admin, password) VALUES (5,'Alejandro Restrepo', 0, '123456');
+
 
 INSERT INTO clientes(id, client, name, name2, NIT, CC, direction, direction_send, telefono1, telefono2, telefono3, billing_email, email1, email2, email3, email4) VALUES (1,'ACRRIN MADERA CON DISEÑO - ESPACIO AL CUADRADO','Valentina Cano', '-', '900340840','-', 'CR 42 75 83 LC 205', 'CR 42 75 83 LC 205', '3125783', '3205777752', '-', 'espacio2ventas@gmail.com', 'acrrincamilo@gmail.com','-','-','-');
 INSERT INTO clientes (client, NIT, name, name2, direction, telefono1, telefono2, telefono3, billing_email, email1, email2, email3, email4) VALUES ('ALDIMEBER GARCÍA', '98538528', 'Aldimeber García', '-', 'Cl. 49 #17C-80, Apto 1916', '3006719286', '-', '-', '-', '-', '-', '-', '-');

@@ -232,6 +232,13 @@
             }
         }
 
+        function sameNumber(){
+            document.getElementById("num").value = document.getElementById("numbercurrent").value;
+        }
+        function nextNumber(){
+            document.getElementById("num").value = document.getElementById("numbernext").value;
+        }
+
     </script>
 </head>
 <body>
@@ -266,10 +273,16 @@
                 <h2>Datos de cotización y cliente</h2>
             </div>  
 
+            <input inputmode="numeric" type="number" id="numbernext" style="display: none;" value="<%=nummin + 1%>">
+            <input inputmode="numeric" type="number" id="numbercurrent" style="display: none;" value="<%=numcurrent%>">
+
             <div class="inputcontainer">
                 <label for="num">Número de cotización</label>
-                <input inputmode="numeric" type="number" id="num" name="num" placeholder = "Ediciones requieren un nuevo número de cotización" required>
+                <input inputmode="numeric" type="number" id="num" name="num" onkeydown="return false" placeholder = "Ediciones requieren un nuevo número de cotización" required>
             </div>
+
+            <button type="button" class="changenumber" onclick="nextNumber();"   >Cotización diferente</button>
+            <button type="button" class="changenumber" onclick="sameNumber();"   >Misma cotización</button>
 
             <div class="inputcontainer">
                 <label for="text">Cliente</label>
@@ -397,6 +410,16 @@
 
             <div class="inputcontainer">
                 <h2>Datos</h2>
+            </div>  
+
+            <div class="inputcontainer">
+                <label for="factorglobalcorte">Factor global corte:</label>
+                <input type="number" step="0.0001" id="globcorte" name="globcorte" class="globalfactor" value="<%=globalparams[0].globalcorte%>" required>
+            </div>  
+            
+            <div class="inputcontainer">
+                <label for="factorglobalcorte">Factor global material:</label>
+                <input type="number" step="0.0001" id="globmaterial" name="globmaterial" class="globalfactor" value="<%=globalparams[0].globalmaterial%>" required>
             </div>  
 
             <div class="inputcontainer tabladatos">

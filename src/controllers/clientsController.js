@@ -16,6 +16,8 @@ let clientsController = {
 
     create: (req,res) => {
 
+        if (!req.session.isAuthenticated) return res.redirect('/');
+
         let NIT_or_CC = [];
 
         if (req.body.nitorcc == "NIT"){

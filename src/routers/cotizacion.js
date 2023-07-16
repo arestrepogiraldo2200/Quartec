@@ -19,4 +19,7 @@ router.get('/download-cotizacion', cotizacionController.downloadSelect);
 router.post('/download-cotizacion', cotizacionController.downloadSelectPost);
 router.get('/download-cotizacion-docs', cotizacionController.downloadDocs);
 
+router.get('/editar-numeracion', cotizacionController.numeracion);
+router.post('/editar-numeracion', cotizacionController.numeracionPost);
+
 module.exports = router;

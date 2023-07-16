@@ -291,4 +291,45 @@ input::-webkit-inner-spin-button {
   width: 40%;
 }
 
+/* Cambio material ------------------------------------------ */
+
+.cambiomaterial{
+  margin-left: 7%;
+  width: 40%;
+}
+
+/* botones edición de número */
+
+
+.changenumber {
+  background-color: #d88a56;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width:20%;
+  margin-bottom: 30px;
+}
+
+.changenumber:hover {
+  background-color: #db9e4f;
+  width:20%;
+}
+
+/* ---------------------------------------------- */
+
+.globalfactor{
+  width:7%;
+  text-align: center;
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
 

@@ -8,6 +8,7 @@ let preciosController = {
     main: (req,res) => {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
+        if (!req.session.isAdmin) return res.redirect('/inicio');
 
         db.corte.findAll({raw: true}).then((listadecorte)=>{
             db.doblez.findAll({raw: true}).then((listadedoblez)=>{
@@ -63,21 +64,26 @@ let preciosController = {
         }
 
         // Edit the material prices --------------------------------------------------------------------------------------------------
-        for (let i = 0; i < numcalibres; i++){
+        // for (let i = 0; i < numcalibres; i++){
 
-            db.material.update({
-                "Ac. H.R": req.body[`material_precio_HR${i}`],
-                "Ac. C.R": req.body[`material_precio_CR${i}`],
-                "Ac. Inox. 304": req.body[`material_precio_304${i}`],
-                "Ac. Inox. 316": req.body[`material_precio_316${i}`],
-                "Ac. Inox. 430": req.body[`material_precio_430${i}`],
-                "Galv.": req.body[`material_precio_Galv${i}`],
-                "Alum.": req.body[`material_precio_Alum${i}`],
-                "Bronce": req.body[`material_precio_Bronce${i}`],
-                "Cobre": req.body[`material_precio_Cobre${i}`],
-                "Latón": req.body[`material_precio_Laton${i}`],
-            },{ where:{id: req.body[`material_id${i}`] }}).then(() => {}).catch((err)=>console.log(err));
-        }
+        //     db.material.update({
+        //         "Ac. H.R": req.body[`material_precio_HR${i}`],
+        //         "Ac. C.R": req.body[`material_precio_CR${i}`],
+        //         "Ac. Inox. 304": req.body[`material_precio_304${i}`],
+        //         "Ac. Inox. 316": req.body[`material_precio_316${i}`],
+        //         "Ac. Inox. 430": req.body[`material_precio_430${i}`],
+        //         "Galv.": req.body[`material_precio_Galv${i}`],
+        //         "Alum.": req.body[`material_precio_Alum${i}`],
+        //         "Bronce": req.body[`material_precio_Bronce${i}`],
+        //         "Cobre": req.body[`material_precio_Cobre${i}`],
+        //         "Latón": req.body[`material_precio_Laton${i}`],
+        //     },{ where:{id: req.body[`material_id${i}`] }}).then(() => {}).catch((err)=>console.log(err));
+        // }
+                
+        let updateData = {};
+        updateData[req.body.materialcambio] = req.body.preciocambio/req.body.areacambio;
+
+        db.material.update(updateData,{ where:{width: req.body.espesorcambio }}).then(() => {}).catch((err)=>console.log(err));
        
         res.redirect("/inicio");
     }

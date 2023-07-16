@@ -9,6 +9,30 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script>
+
+        function showareaprice(){
+
+            let espesorform = document.getElementById('espesorcambio').value;
+            let materialform = document.getElementById('materialcambio').value;
+
+            if (espesorform == "" || materialform == ""){
+                ;
+            } else{
+
+                document.getElementById("valoresnumericos1").style.display = "block";
+                document.getElementById("valoresnumericosinput1").style.display = "block";
+                document.getElementById("valoresnumericos2").style.display = "block";
+                document.getElementById("valoresnumericosinput2").style.display = "block";
+
+                document.getElementById("valoresnumericosinput1").setAttribute('required', '');
+                document.getElementById("valoresnumericosinput2").setAttribute('required', '');
+            }
+        }
+
+
+
+    </script>
 </head>
 <body>
     <div class = "logoutcontainer">
@@ -133,6 +157,63 @@
                 <h2>Precios de material</h2>
             </div>
 
+            <div class="inputcontainer cambiomaterial">
+                Seleccione el material de la lámina a cambiar
+                <select id="materialcambio" name="materialcambio"  onchange="showareaprice();">
+                    <option value=""></option>
+                    <option value="Ac. Inox. 304">Ac. Inox. 304</option>
+                    <option value="Ac. Inox. 316">Ac. Inox. 316</option>
+                    <option value="Ac. Inox. 430">Ac. Inox. 430</option>
+                    <option value="Ac. H.R">Ac. H.R</option>
+                    <option value="Ac. C.R">Ac. C.R</option>
+                    <option value="Galv.">Galv.</option>
+                    <option value="Alum.">Alum.</option>
+                    <option value="Bronce">Bronce</option>
+                    <option value="Cobre">Cobre</option>
+                    <option value="Latón">Latón</option>
+                </select>
+            </div>
+
+            <div class="inputcontainer cambiomaterial">
+                Seleccione el espesor de la lámina a cambiar
+                <select id="espesorcambio" name="espesorcambio" onchange="showareaprice();">
+                    <option value=""></option>
+                    <option value="Cal. 20 (0.9 mm)">Cal. 20 (0.9 mm)</option>
+                    <option value="Cal. 19 (1 mm)">Cal. 19 (1 mm)</option>
+                    <option value="Cal. 18 (1.2 mm)">Cal. 18 (1.2 mm)</option>
+                    <option value="Cal. 16 (1.5 mm)">Cal. 16 (1.5 mm)</option>
+                    <option value="Cal. 14 (1.9 mm)">Cal. 14 (1.9 mm)</option>
+                    <option value="Cal. 13 (2.2 mm)">Cal. 13 (2.2 mm)</option>
+                    <option value="Cal. 12 (2.6 mm)">Cal. 12 (2.6 mm)</option>
+                    <option value="Cal. 11 (3.0 mm)">Cal. 11 (3.0 mm)</option>
+                    <option value="Cal. 10 (3.4 mm)">Cal. 10 (3.4 mm)</option>
+                    <option value="Cal. 9 (3.8 mm)">Cal. 9 (3.8 mm)</option>
+                    <option value="Cal. 8 (4.2 mm)">Cal. 8 (4.2 mm)</option>
+                    <option value="Cal. 7 (4.5 mm)">Cal. 7 (4.5 mm)</option>
+                    <option value="Cal. 6 (4.9 mm)">Cal. 6 (4.9 mm)</option>
+                    <option value="Cal. 5 (5.3 mm)">Cal. 5 (5.3 mm)</option>
+                    <option value="Cal. 4 (5.7 mm)">Cal. 4 (5.7 mm)</option>
+                    <option value="Cal. 3 (6.0 mm)">Cal. 3 (6.0 mm)</option>
+                    <option value="Cal. 1/2">Cal. 1/2"</option>
+                    <option value="Cal. 3/8">Cal. 3/8"</option>
+                    <option value="Cal. 5/16">Cal. 5/16"</option>
+                    <option value="Cal. 1/4">Cal. 1/4"</option>
+                    <option value="Cal. 3/16">Cal. 3/16"</option>
+                    <option value="Cal. 1/8">Cal. 1/8"</option>
+                    <option value="Cal. 1/16">Cal. 1/16"</option>
+                </select>
+            </div>
+
+            <div class="inputcontainer cambiomaterial" id = "valoresnumericos1" style = "display: none;">
+                Ingrese el área en mm² de la lámina a cambiar
+                <input type="number" step="0.0001" id = "valoresnumericosinput1" style = "display: none;"  placeholder="mm²"  name="areacambio"  min="0.0001">
+            </div>
+
+            <div class="inputcontainer cambiomaterial" id = "valoresnumericos2" style = "display: none; margin-bottom: 30px;">
+                Ingrese costo en COP de la lámina a cambiar
+                <input type="number" step="0.0001" id = "valoresnumericosinput2" style = "display: none;" placeholder="$"   name="preciocambio">
+            </div>
+
             <div class="inputcontainer precios precios_area">
                     
                 <table class="datos_material">
@@ -155,16 +236,16 @@
                             <tr>
                                 <td class="cell" style="display: none;"><input type="number" name="<%= "material_id" + String(i) %>" value="<%= listaDeMaterial[i].id %>" required></td>
                                 <td class="cell"><input type="text" value="<%= listaDeMaterial[i].width %>"  onkeydown="return false;"></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_HR" + String(i) %>" name="<%= "material_precio_HR" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. H.R'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_CR" + String(i) %>" name="<%= "material_precio_CR" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. C.R'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_304" + String(i) %>" name="<%= "material_precio_304" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 304'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_316" + String(i) %>" name="<%= "material_precio_316" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 316'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_430" + String(i) %>" name="<%= "material_precio_430" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 430'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Galv" + String(i) %>" name="<%= "material_precio_Galv" + String(i) %>" value="<%= listaDeMaterial[i]['Galv.'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Alum" + String(i) %>" name="<%= "material_precio_Alum" + String(i) %>" value="<%= listaDeMaterial[i]['Alum.'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Bronce" + String(i) %>" name="<%= "material_precio_Bronce" + String(i) %>" value="<%= listaDeMaterial[i]['Bronce'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Cobre" + String(i) %>" name="<%= "material_precio_Cobre" + String(i) %>" value="<%= listaDeMaterial[i]['Cobre'] %>" required></td>
-                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Laton" + String(i) %>" name="<%= "material_precio_Laton" + String(i) %>" value="<%= listaDeMaterial[i]['Latón'] %>" required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_HR" + String(i) %>" name="<%= "material_precio_HR" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. H.R'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_CR" + String(i) %>" name="<%= "material_precio_CR" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. C.R'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_304" + String(i) %>" name="<%= "material_precio_304" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 304'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_316" + String(i) %>" name="<%= "material_precio_316" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 316'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_430" + String(i) %>" name="<%= "material_precio_430" + String(i) %>" value="<%= listaDeMaterial[i]['Ac. Inox. 430'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Galv" + String(i) %>" name="<%= "material_precio_Galv" + String(i) %>" value="<%= listaDeMaterial[i]['Galv.'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Alum" + String(i) %>" name="<%= "material_precio_Alum" + String(i) %>" value="<%= listaDeMaterial[i]['Alum.'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Bronce" + String(i) %>" name="<%= "material_precio_Bronce" + String(i) %>" value="<%= listaDeMaterial[i]['Bronce'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Cobre" + String(i) %>" name="<%= "material_precio_Cobre" + String(i) %>" value="<%= listaDeMaterial[i]['Cobre'] %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input type="number" step="0.0001" id="<%= "material_precio_Laton" + String(i) %>" name="<%= "material_precio_Laton" + String(i) %>" value="<%= listaDeMaterial[i]['Latón'] %>"    onkeydown="return false;"    required></td>
                             </tr>
                         <% } %>
                     </table>

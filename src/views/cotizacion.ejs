@@ -17,7 +17,8 @@
             let perimetroautocad = parseFloat(document.getElementById('perimetro_autocad'+item).value) || 0;
             let factorcorte = parseFloat(document.getElementById('factor_corte'+item).value) || 0;
             let perimetroxfactor = document.getElementById('perimetro'+item);
-            let perimetro = perimetroautocad*factorcorte;
+            let globalcut = document.getElementById('globcorte').value || 1;
+            let perimetro = perimetroautocad*factorcorte*globalcut;
 
             perimetroxfactor.value = perimetro.toFixed(2);
 
@@ -69,12 +70,13 @@
             let anchoautocad = parseFloat(document.getElementById('ancho_autocad'+item).value) || 0;
             let factorarea = parseFloat(document.getElementById('factor_area'+item).value) || 0;
             let areaxfactor = document.getElementById('area'+item);
+            let globmaterial = document.getElementById('globmaterial').value || 1;
+
             let area = 0;
 
             if (largoautocad != 0 && anchoautocad != 0){
-                area = (largoautocad+5)*(anchoautocad+5)*factorarea;
+                area = (largoautocad+5)*(anchoautocad+5)*factorarea*globmaterial;
             }
-
 
             areaxfactor.value = area.toFixed(3);
 
@@ -235,6 +237,102 @@
                     }
                 }
             }
+        }
+
+        function changeglobalCorte(cortevalues){
+
+            let globalcut = document.getElementById('globcorte').value || 1;
+
+            for (let i = 1; i <= 60; i++){
+
+                let espesorformrec = document.getElementById('espesor'+String(i)).value;
+                let materialformrec = document.getElementById('material'+String(i)).value;
+                let cantidad = document.getElementById('cantidad'+String(i)).value;
+                let descrip = document.getElementById('descrip'+String(i)).value;
+                let precio = document.getElementById('precio'+String(i)).value;
+
+                if (espesorformrec == "" && materialformrec=="" && cantidad =="" && descrip =="" && precio ==""){
+                    break;
+                }    
+
+                if (espesorformrec == "" && materialformrec==""){
+                    continue;
+                }        
+
+                //  Cálculo del perímetro 
+                let perimetroautocad = parseFloat(document.getElementById('perimetro_autocad'+String(i)).value) || 0;
+                let factorcorte = parseFloat(document.getElementById('factor_corte'+String(i)).value) || 0;
+                let perimetroxfactor = document.getElementById('perimetro'+String(i));
+                let perimetro = perimetroautocad*factorcorte*globalcut;
+
+                perimetroxfactor.value = perimetro.toFixed(2);
+
+                 //  Cálculo del costo del corte por pieza 
+                let espesorform = document.getElementById('espesor'+String(i)).value;
+                let materialform = document.getElementById('material'+String(i)).value;
+                let costocortepormm = cortevalues.filter(el => el.width == espesorform)[0][materialform];
+                let costocorte = document.getElementById('calculocorte'+String(i));
+                let costoporpieza = costocortepormm*perimetro;
+
+                costocorte.value = costoporpieza.toFixed(2) || 0;
+
+                changeTotalValue(i);
+                changeTotalPiezas(i);
+                changePerMaterialWidth(i);
+            }
+
+            changeTotalTotal()
+        }
+
+        function changeglobalMaterial(materialvalues){
+
+            let globmaterial = document.getElementById('globmaterial').value || 1;
+
+            for (let i = 1; i <= 60; i++){
+
+                let espesorformrec = document.getElementById('espesor'+String(i)).value;
+                let materialformrec = document.getElementById('material'+String(i)).value;
+                let cantidad = document.getElementById('cantidad'+String(i)).value;
+                let descrip = document.getElementById('descrip'+String(i)).value;
+                let precio = document.getElementById('precio'+String(i)).value;
+
+                if (espesorformrec == "" && materialformrec=="" && cantidad =="" && descrip =="" && precio ==""){
+                    break;
+                }    
+
+                if (espesorformrec == "" && materialformrec==""){
+                    continue;
+                }      
+                
+                 //  Cálculo del area 
+                let largoautocad = parseFloat(document.getElementById('largo_autocad'+String(i)).value) || 0;
+                let anchoautocad = parseFloat(document.getElementById('ancho_autocad'+String(i)).value) || 0;
+                let factorarea = parseFloat(document.getElementById('factor_area'+String(i)).value) || 0;
+                let areaxfactor = document.getElementById('area'+String(i));
+                let area = 0;
+
+                if (largoautocad != 0 && anchoautocad != 0){
+                    area = (largoautocad+5)*(anchoautocad+5)*factorarea*globmaterial;
+                }
+
+                areaxfactor.value = area.toFixed(3);
+
+                //  Cálculo del costo del material por pieza 
+                let espesorform = document.getElementById('espesor'+String(i)).value;
+                let materialform = document.getElementById('material'+String(i)).value;
+                let costomaterialmm2 = materialvalues.filter(el => el.width == espesorform)[0][materialform];
+                let costomaterial = document.getElementById('calculomaterial'+String(i));
+                let conmaterial = document.getElementById('con_material'+String(i));
+                let costoporpieza = costomaterialmm2*area; 
+
+                costomaterial.value = conmaterial.value == "Sí"? costoporpieza.toFixed(2) : 0;
+
+                changeTotalValue(i);
+                changeTotalPiezas(i);
+                changePerMaterialWidth(i);
+            }
+
+            changeTotalTotal()
         }
 
     </script>
@@ -405,12 +503,12 @@
 
             <div class="inputcontainer">
                 <label for="factorglobalcorte">Factor global corte:</label>
-                <input type="number" step="0.0001" id="globcorte" name="globcorte" value="1" class="globalfactor"  required>
+                <input type="number" step="0.0001" id="globcorte" name="globcorte" value="1" min ="0.0001" class="globalfactor"  onchange="changeglobalCorte(<%= JSON.stringify(corte) %>);" required>
             </div>  
             
             <div class="inputcontainer">
-                <label for="factorglobalcorte">Factor global material:</label>
-                <input type="number" step="0.0001" id="globmaterial" name="globmaterial" value="1" class="globalfactor"  required>
+                <label for="factorglobalmaterial">Factor global material:</label>
+                <input type="number" step="0.0001" id="globmaterial" name="globmaterial" value="1" min ="0.0001" class="globalfactor"  onchange="changeglobalMaterial(<%= JSON.stringify(material) %>);" required>
             </div>  
 
             <div class="inputcontainer tabladatos">

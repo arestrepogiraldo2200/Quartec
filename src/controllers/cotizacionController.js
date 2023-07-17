@@ -27,6 +27,12 @@ let cotizacionController = {
                                 }
                                 let num0;
                                 num0 = parseInt(data);
+
+                                // Update number file
+                                fs.writeFile(path.join(__dirname,'../../cotizacion0.txt'), String(num0+1), (err) => {
+                                    if (err) throw err;
+                                })
+
                                 res.render(path.join(__dirname, '../views/cotizacion'), {clientes : listadeclientes, asesor : req.session.name, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial,  nummin : num0});    
                             });
 
@@ -79,22 +85,6 @@ let cotizacionController = {
                  } else {
                      aprobado = 0;
                  }
-
-                 // Read and write file of pricing quote number
-                 fs.readFile(path.join(__dirname,'../../cotizacion0.txt'), 'utf8', (err, data) => {
-                    if (err) {
-                      console.error(err);
-                      return;
-                    }
-                    let num0;
-                    num0 = parseInt(data) >  req.body.num?  parseInt(data): req.body.num ;
-
-                    // Update number file
-                    fs.writeFile(path.join(__dirname,'../../cotizacion0.txt'), String(num0), (err) => {
-                        if (err) throw err;
-                    })
-
-                });
 
 // ----------------------------- Se eliminan las entradas ya existentes en la base de datos y se escriben las nuevas------------------------------------------------------------------
 
@@ -330,6 +320,12 @@ let cotizacionController = {
                                             }
                                             let num0;
                                             num0 = parseInt(data);
+
+                                            // Update number file
+                                            fs.writeFile(path.join(__dirname,'../../cotizacion0.txt'), String(num0+1), (err) => {
+                                                if (err) throw err;
+                                            })
+
                                             res.render(path.join(__dirname, '../views/editar_cotizacion_form'), {cotizaciongeneral : cotizacionFound, filas: rowsFound.sort((a, b) => (a.id > b.id) ? 1 : -1), clientes : listadeclientes, corte: listadecorte, doblez : listadedoblez, piercing : listadepiercing, material : listadematerial, precios: preciosarray, tot: totaltotal, totalespormaterial: preciospormaterialdefinitive,  nummin : num0,  numcurrent: cotizacionFound.num, globalparams: paramsfound}); 
                                         });
 
@@ -617,7 +613,7 @@ let cotizacionController = {
 
                                                 if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0) && (rowsFound[i][`area`] == null || rowsFound[i][`area`] == 0) && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
                                                     // Llenado de filas de caso cobro diferente a corte/doblez
-                                                    worksheet1.getCell(`A${27+i}`).value = i;
+                                                    worksheet1.getCell(`A${27+i}`).value = i+1;
                                                     worksheet1.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ".";
                                                     worksheet1.getCell(`E${27+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet1.getCell(`F${27+i}`).value = "Und";
@@ -628,7 +624,7 @@ let cotizacionController = {
                                                     worksheet1.getCell(`P${27+i}`).value = parseFloat(rowsFound[i][`cantidad`])*parseFloat(rowsFound[i][`precio`]) || 0;
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
-                                                    worksheet1.getCell(`A${27+i}`).value = i;
+                                                    worksheet1.getCell(`A${27+i}`).value = i+1;
                                                     worksheet1.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
                                                     worksheet1.getCell(`E${27+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet1.getCell(`F${27+i}`).value = "Und";
@@ -737,7 +733,7 @@ let cotizacionController = {
                                                     worksheet2.getCell(`J${21+i}`).value = "Und";
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
-                                                    worksheet2.getCell(`A${21+i}`).value = i;
+                                                    worksheet2.getCell(`A${21+i}`).value = i+1;
                                                     worksheet2.getCell(`B${21+i}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
                                                     worksheet2.getCell(`H${21+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet2.getCell(`J${21+i}`).value = "Und";

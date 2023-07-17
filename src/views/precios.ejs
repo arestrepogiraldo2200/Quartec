@@ -206,7 +206,12 @@
 
             <div class="inputcontainer cambiomaterial" id = "valoresnumericos1" style = "display: none;">
                 Ingrese el área en mm² de la lámina a cambiar
-                <input type="number" step="0.0001" id = "valoresnumericosinput1" style = "display: none;"  placeholder="mm²"  name="areacambio"  min="0.0001">
+                <input type="number" list = "cl" step="0.0001" id = "valoresnumericosinput1" style = "display: none;"  placeholder="mm²"  name="areacambio"  min="0.0001">
+                <datalist id="cl">
+                    <option value="2000000">1000mmx2000mm</option>
+                    <option value="2976800">4'x8'</option>
+                    <option value="4645152">5'x10'</option>
+                </datalist>
             </div>
 
             <div class="inputcontainer cambiomaterial" id = "valoresnumericos2" style = "display: none; margin-bottom: 30px;">

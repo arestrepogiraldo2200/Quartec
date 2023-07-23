@@ -326,9 +326,11 @@ input::-webkit-inner-spin-button {
   margin-left: 10px;
 }
 
+/* Increase size of checkbox */
 
-
-
+input[type=checkbox] {
+	zoom: 1.5;
+}
 
 
 

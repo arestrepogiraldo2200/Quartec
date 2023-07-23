@@ -276,7 +276,7 @@ let cotizacionController = {
                                                 preciospormaterial.push({
                                                     row: i,
                                                     material: rows[i].material + "|" + rows[i].espesor,
-                                                    totalpiezas: cantidad*totalporpieza
+                                                    totalpiezas: cantidad*porpiezacorte
                                                 });
 
                                                 totaltotal = totaltotal + cantidad*totalporpieza;

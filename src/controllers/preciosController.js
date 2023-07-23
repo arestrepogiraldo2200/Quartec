@@ -15,6 +15,9 @@ let preciosController = {
                 db.piercing.findAll({raw: true}).then((listadepiercing)=>{
                     db.material.findAll({raw: true}).then((listadematerial)=>{
 
+                        console.log("CORTE: ",listadecorte)
+                        console.log("MATERIAL:",listadematerial)
+
                         res.render(path.join(__dirname, '../views/precios'), {listaDeCorte: listadecorte, listaDeDoblez: listadedoblez, listaDePiercing: listadepiercing, listaDeMaterial: listadematerial} );
 
                     }).catch((err)=>console.log(err));
@@ -28,7 +31,7 @@ let preciosController = {
         if (!req.session.isAuthenticated) return res.redirect('/');
         if (!req.session.isAdmin) return res.redirect('/inicio');
 
-        let numcalibres = 25;
+        let numcalibres = 26;  // <<< ========
 
         // Edit the cut prices --------------------------------------------------------------------------------------------------
         for (let i = 0; i < numcalibres; i++){
@@ -36,6 +39,7 @@ let preciosController = {
             db.corte.update({
                 "Ac. H.R": req.body[`corte_precio_HR${i}`],
                 "Ac. C.R": req.body[`corte_precio_CR${i}`],
+                "Ac. 1070": req.body[`corte_precio_1070${i}`],
                 "Ac. Inox. 304": req.body[`corte_precio_304${i}`],
                 "Ac. Inox. 316": req.body[`corte_precio_316${i}`],
                 "Ac. Inox. 430": req.body[`corte_precio_430${i}`],

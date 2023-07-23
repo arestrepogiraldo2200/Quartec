@@ -99,6 +99,7 @@ CREATE TABLE `corte` (
   `width` varchar(45) NOT NULL,
   `Ac. H.R` FLOAT NOT NULL,
   `Ac. C.R` FLOAT NOT NULL,
+  `Ac. 1070` FLOAT NOT NULL,
   `Ac. Inox. 304` FLOAT NOT NULL,
   `Ac. Inox. 316` FLOAT NOT NULL,
   `Ac. Inox. 430` FLOAT NOT NULL,
@@ -119,6 +120,7 @@ CREATE TABLE `material` (
   `width` varchar(45) NOT NULL,
   `Ac. H.R` FLOAT NOT NULL,
   `Ac. C.R` FLOAT NOT NULL,
+  `Ac. 1070` FLOAT NOT NULL,
   `Ac. Inox. 304` FLOAT NOT NULL,
   `Ac. Inox. 316` FLOAT NOT NULL,
   `Ac. Inox. 430` FLOAT NOT NULL,
@@ -335,100 +337,113 @@ INSERT INTO clientes (client, CC, name, name2, direction, telefono1, telefono2, 
 INSERT INTO clientes (client, NIT, name, name2, direction, telefono1, telefono2, telefono3, billing_email, email1, email2, email3, email4) VALUES ('WOM TOOLS S.A.S', '900509752-1', 'Weimar Ortiz', '-', 'CL 30 75 14', '604 6141203', '-', '-', 'wom.tools@gmail.com', '-', '-', '-', '-');
 
 
-INSERT INTO doblez(id, width, fold) VALUES (1,"Cal. 20 (0.9 mm)", 1400);
-INSERT INTO doblez(id, width, fold) VALUES (2,"Cal. 19 (1 mm)", 1400);
-INSERT INTO doblez(id, width, fold) VALUES (3,"Cal. 18 (1.2 mm)", 1600);
-INSERT INTO doblez(id, width, fold) VALUES (4,"Cal. 16 (1.5 mm)", 1800);
-INSERT INTO doblez(id, width, fold) VALUES (5,"Cal. 14 (1.9 mm)", 2300);
-INSERT INTO doblez(id, width, fold) VALUES (6,"Cal. 13 (2.2 mm)", 2400);
-INSERT INTO doblez(id, width, fold) VALUES (7,"Cal. 12 (2.6 mm)", 3000);
-INSERT INTO doblez(id, width, fold) VALUES (8,"Cal. 11 (3.0 mm)", 3500);
-INSERT INTO doblez(id, width, fold) VALUES (9,"Cal. 10 (3.4 mm)", 3500);
-INSERT INTO doblez(id, width, fold) VALUES (10,"Cal. 9 (3.8 mm)", 4000);
-INSERT INTO doblez(id, width, fold) VALUES (11,"Cal. 8 (4.2 mm)", 4500);
-INSERT INTO doblez(id, width, fold) VALUES (12,"Cal. 7 (4.5 mm)", 5000);
-INSERT INTO doblez(id, width, fold) VALUES (13,"Cal. 6 (4.9 mm)", 5500);
-INSERT INTO doblez(id, width, fold) VALUES (14,"Cal. 5 (5.3 mm)", 5500);
-INSERT INTO doblez(id, width, fold) VALUES (15,"Cal. 4 (5.7 mm)", 6000);
-INSERT INTO doblez(id, width, fold) VALUES (16,"Cal. 3 (6.0 mm)", 7000);
-INSERT INTO doblez(id, width, fold) VALUES (17,"Cal. 1/2", 20000);
-INSERT INTO doblez(id, width, fold) VALUES (18,"Cal. 3/8", 10500);
-INSERT INTO doblez(id, width, fold) VALUES (19,"Cal. 5/16", 9000);
-INSERT INTO doblez(id, width, fold) VALUES (20,"Cal. 1/4", 7000);
-INSERT INTO doblez(id, width, fold) VALUES (21,"Cal. 3/16", 5000);
-INSERT INTO doblez(id, width, fold) VALUES (22,"Cal. 1/8", 3500);
-INSERT INTO doblez(id, width, fold) VALUES (23,"Cal. 1/16", 1800);
-
-INSERT INTO piercing(id, width, piercing) VALUES (1,"Cal. 20 (0.9 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (2,"Cal. 19 (1 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (3,"Cal. 18 (1.2 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (4,"Cal. 16 (1.5 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (5,"Cal. 14 (1.9 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (6,"Cal. 13 (2.2 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (7,"Cal. 12 (2.6 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (8,"Cal. 11 (3.0 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (9,"Cal. 10 (3.4 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (10,"Cal. 9 (3.8 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (11,"Cal. 8 (4.2 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (12,"Cal. 7 (4.5 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (13,"Cal. 6 (4.9 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (14,"Cal. 5 (5.3 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (15,"Cal. 4 (5.7 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (16,"Cal. 3 (6.0 mm)", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (17,"Cal. 1/2", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (18,"Cal. 3/8", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (19,"Cal. 5/16", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (20,"Cal. 1/4", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (21,"Cal. 3/16", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (22,"Cal. 1/8", 70);
-INSERT INTO piercing(id, width, piercing) VALUES (23,"Cal. 1/16", 70);
-
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (1,"Cal. 20 (0.9 mm)", 3.10, 3.10,  3.7,   3.7,  3.7 ,  3.7,  5.5, 5.5, 5.5, 5.5 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (2,"Cal. 19 (1 mm)", 3.10, 3.10,  3.7,   3.7,  3.7 ,  3.7,  5.5, 5.5, 5.5, 5.5 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (3,"Cal. 18 (1.2 mm)", 3.10, 3.10,  4.3,   4.3,  4.3 ,  4.3,  6.5, 6.5, 6.5, 6.5 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (4,"Cal. 16 (1.5 mm)", 3.10, 3.10,  4.3,   4.3,  4.3 ,  4.3,  6.5, 6.5, 6.5, 6.5 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (5,"Cal. 14 (1.9 mm)", 3.60, 3.60,  4.7,   4.7,  4.7 ,  4.7,  7.0, 7.0, 7.0, 7.0 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (6,"Cal. 13 (2.2 mm)", 4.30, 4.30,  6.8,   6.8,  6.8 ,  6.8,  10.1, 10.1, 10.1, 10.1 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (7,"Cal. 12 (2.6 mm)", 4.30, 4.30,  6.8,   6.8,  6.8 ,  6.8,  10.1, 10.1, 10.1, 10.1 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (8,"Cal. 11 (3.0 mm)", 4.30, 4.30,  6.8,   6.8,  6.8 ,  6.8,  10.1, 10.1, 10.1, 10.1 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (9,"Cal. 10 (3.4 mm)", 5.50, 5.50,  7.4,   7.4,  7.4 ,  7.4,  11.0, 11.0, 11.0, 11.0 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (10,"Cal. 9 (3.8 mm)", 5.50, 5.50,  11.0,   11.0,  11.0 ,  11.0,  16.7, 16.7, 16.7, 16.7 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (11,"Cal. 8 (4.2 mm)", 6.10, 6.10,  14.1,   14.1,  14.1 ,  14.1,  21.2, 21.2, 21.2, 21.2 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (12,"Cal. 7 (4.5 mm)", 7.40, 7.40,  14.1,   14.1,  14.1 ,  14.1,  21.2, 21.2, 21.2, 21.2 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (13,"Cal. 6 (4.9 mm)", 7.40, 7.40,  14.1,   14.1,  14.1 ,  14.1,  21.2, 21.2, 21.2, 21.2 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (14,"Cal. 5 (5.3 mm)", 9.20, 9.20,  20.0,   20.0,  20.0 ,  20.0,  29.5, 29.5, 29.5, 29.5 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (15,"Cal. 4 (5.7 mm)", 9.20, 9.20,  22.1,   22.1,  22.1 ,  22.1,  33.2, 33.2, 33.2, 33.2 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (16,"Cal. 3 (6.0 mm)", 9.20, 9.20,  22.1,   22.1,  22.1 ,  221.0,  33.2, 33.2, 33.2, 33.2 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (17,"Cal. 1/2", 22.00, 22.00,  1230000.0,   1230000.0,  1230000.0 ,  1230000.0,  1845000.0, 1845000.0, 1845000.0, 1845000.0 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (18,"Cal. 3/8", 18.50, 18.50,  34.4,   34.4,  34.4 ,  34.4,  51.7, 51.7, 51.7, 51.7 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (19,"Cal. 5/16", 11.00, 11.00,  28.3,   28.3,  28.3 ,  28.3,  42.4, 42.4, 42.4, 42.4 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (20,"Cal. 1/4", 9.20, 9.20,  22.1,   22.1,  22.1 ,  22.1,  33.2, 33.2, 33.2, 33.2 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (21,"Cal. 3/16", 7.40, 7.40,  14.1,   14.1,  14.1 ,  14.1,  21.2, 21.2, 21.2, 21.2 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (22,"Cal. 1/8", 4.30, 4.30,  6.8,   6.8,  6.8 ,  6.8,  10.1, 10.1, 10.1, 10.1 );
-INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (23,"Cal. 1/16", 3.10, 3.10,  4.3,   4.3,  4.3 ,  4.3,  6.5, 6.5, 6.5, 6.5 );
-
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (1,"Cal. 20 (0.9 mm)", 0.06, 0.06, 0.27, 0.00, 0.00,  0.07, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (2,"Cal. 19 (1 mm)", 0.00, 0.00, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (3,"Cal. 18 (1.2 mm)", 0.08, 0.08, 0.29, 0.00, 0.00,  0.09, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (4,"Cal. 16 (1.5 mm)", 0.09, 0.09, 0.31, 0.00, 0.00,  0.11, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (5,"Cal. 14 (1.9 mm)", 0.12, 0.12, 0.38, 0.00, 0.00,  0.13, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (6,"Cal. 13 (2.2 mm)", 0.00, 0.00, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (7,"Cal. 12 (2.6 mm)", 0.15, 0.15, 0.62, 0.00, 0.00,  0.17, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (8,"Cal. 11 (3.0 mm)", 0.18, 0.18, 0.86, 0.00, 0.00,  0.20, 0.68, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (9,"Cal. 10 (3.4 mm)", 0.00, 0.00, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (10,"Cal. 9 (3.8 mm)", 0.00, 0.00, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (11,"Cal. 8 (4.2 mm)", 0.00, 0.00, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (12,"Cal. 7 (4.5 mm)", 0.28, 0.28, 1.48, 0.00, 0.00,  0.32, 1.08, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (13,"Cal. 6 (4.9 mm)", 0.00, 0.00, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (14,"Cal. 5 (5.3 mm)", 0.00, 0.00, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (15,"Cal. 4 (5.7 mm)", 0.00, 0.00, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (16,"Cal. 3 (6.0 mm)", 0.41, 0.41, 1.97, 0.00, 0.00,  0.47, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (17,"Cal. 1/2", 1.00, 1.00, 0.00, 0.00, 0.00,  1.15, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (18,"Cal. 3/8", 0.70, 0.70, 3.82, 0.00, 0.00,  0.81, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (19,"Cal. 5/16", 0.63, 0.63, 3.41, 0.00, 0.00,  0.73, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (20,"Cal. 1/4", 0.43, 0.43, 2.09, 0.00, 0.00,  0.50, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (21,"Cal. 3/16", 0.28, 0.28, 1.48, 0.00, 0.00,  0.32, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (22,"Cal. 1/8", 0.22, 0.22, 0.36, 0.00, 0.00,  0.25, 0.00, 0.00, 0.00, 0.00);
-INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (23,"Cal. 1/16", 0.11, 0.11, 0.00, 0.00, 0.00,  0.13, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO doblez(id, width, fold) VALUES (1,"Cal. 26 (0.4 mm)", 1400);
+INSERT INTO doblez(id, width, fold) VALUES (2,"Cal. 24 (0.6 mm)", 1400);
+INSERT INTO doblez(id, width, fold) VALUES (3,"Cal. 23 (0.7 mm)", 1400);
+INSERT INTO doblez(id, width, fold) VALUES (4,"Cal. 20 (0.9 mm)", 1400);
+INSERT INTO doblez(id, width, fold) VALUES (5,"Cal. 19 (1 mm)", 1400);
+INSERT INTO doblez(id, width, fold) VALUES (6,"Cal. 18 (1.2 mm)", 1600);
+INSERT INTO doblez(id, width, fold) VALUES (7,"Cal. 16 (1.5 mm)", 1800);
+INSERT INTO doblez(id, width, fold) VALUES (8,"Cal. 14 (1.9 mm)", 2300);
+INSERT INTO doblez(id, width, fold) VALUES (9,"Cal. 13 (2.2 mm)", 2400);
+INSERT INTO doblez(id, width, fold) VALUES (10,"Cal. 12 (2.6 mm)", 3000);
+INSERT INTO doblez(id, width, fold) VALUES (11,"Cal. 11 (3.0 mm)", 3500);
+INSERT INTO doblez(id, width, fold) VALUES (12,"Cal. 10 (3.4 mm)", 3500);
+INSERT INTO doblez(id, width, fold) VALUES (13,"Cal. 9 (3.8 mm)", 4000);
+INSERT INTO doblez(id, width, fold) VALUES (14,"Cal. 8 (4.2 mm)", 4500);
+INSERT INTO doblez(id, width, fold) VALUES (15,"Cal. 7 (4.5 mm)", 5000);
+INSERT INTO doblez(id, width, fold) VALUES (16,"Cal. 6 (4.9 mm)", 5500);
+INSERT INTO doblez(id, width, fold) VALUES (17,"Cal. 5 (5.3 mm)", 5500);
+INSERT INTO doblez(id, width, fold) VALUES (18,"Cal. 4 (5.7 mm)", 6000);
+INSERT INTO doblez(id, width, fold) VALUES (19,"Cal. 3 (6.0 mm)", 7000);
+INSERT INTO doblez(id, width, fold) VALUES (20,"Cal. 1/2", 20000);
+INSERT INTO doblez(id, width, fold) VALUES (21,"Cal. 3/8", 10500);
+INSERT INTO doblez(id, width, fold) VALUES (22,"Cal. 5/16", 9000);
+INSERT INTO doblez(id, width, fold) VALUES (23,"Cal. 1/4", 7000);
+INSERT INTO doblez(id, width, fold) VALUES (24,"Cal. 3/16", 5000);
+INSERT INTO doblez(id, width, fold) VALUES (25,"Cal. 1/8", 3500);
+INSERT INTO doblez(id, width, fold) VALUES (26,"Cal. 1/16", 1800);
 
 
+INSERT INTO piercing(id, width, piercing) VALUES (1,"Cal. 26 (0.4 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (2,"Cal. 24 (0.6 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (3,"Cal. 23 (0.7 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (4,"Cal. 20 (0.9 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (5,"Cal. 19 (1 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (6,"Cal. 18 (1.2 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (7,"Cal. 16 (1.5 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (8,"Cal. 14 (1.9 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (9,"Cal. 13 (2.2 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (10,"Cal. 12 (2.6 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (11,"Cal. 11 (3.0 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (12,"Cal. 10 (3.4 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (13,"Cal. 9 (3.8 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (14,"Cal. 8 (4.2 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (15,"Cal. 7 (4.5 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (16,"Cal. 6 (4.9 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (17,"Cal. 5 (5.3 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (18,"Cal. 4 (5.7 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (19,"Cal. 3 (6.0 mm)", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (20,"Cal. 1/2", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (21,"Cal. 3/8", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (22,"Cal. 5/16", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (23,"Cal. 1/4", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (24,"Cal. 3/16", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (25,"Cal. 1/8", 70);
+INSERT INTO piercing(id, width, piercing) VALUES (26,"Cal. 1/16", 70);
+
+
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (1,"Cal. 26 (0.4 mm)", 3.10, 3.10,  3.7 , 3.7,   3.7,  3.7 ,  3.7,  5.5, 5.5, 5.5, 5.5 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (2,"Cal. 24 (0.6 mm)", 3.10, 3.10,  3.7 , 3.7,   3.7,  3.7 ,  3.7,  5.5, 5.5, 5.5, 5.5 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (3,"Cal. 23 (0.7 mm)", 3.10, 3.10,  3.7 , 3.7,   3.7,  3.7 ,  3.7,  5.5, 5.5, 5.5, 5.5 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (4,"Cal. 20 (0.9 mm)", 3.10, 3.10,  3.7 , 3.7,   3.7,  3.7 ,  3.7,  5.5, 5.5, 5.5, 5.5 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (5,"Cal. 19 (1 mm)", 3.10, 3.10,  3.7 , 3.7,   3.7,  3.7 ,  3.7,  5.5, 5.5, 5.5, 5.5 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (6,"Cal. 18 (1.2 mm)", 3.10, 3.10,  4.3 , 4.3,   4.3,  4.3 ,  4.3,  6.5, 6.5, 6.5, 6.5 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (7,"Cal. 16 (1.5 mm)", 3.10, 3.10,  4.3 , 4.3,   4.3,  4.3 ,  4.3,  6.5, 6.5, 6.5, 6.5 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (8,"Cal. 14 (1.9 mm)", 3.60, 3.60,  4.7 , 4.7,   4.7,  4.7 ,  4.7,  7.0, 7.0, 7.0, 7.0 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (9,"Cal. 13 (2.2 mm)", 4.30, 4.30,  6.8 , 6.8,   6.8,  6.8 ,  6.8,  10.1, 10.1, 10.1, 10.1 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (10,"Cal. 12 (2.6 mm)", 4.30, 4.30,  6.8 , 6.8,   6.8,  6.8 ,  6.8,  10.1, 10.1, 10.1, 10.1 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (11,"Cal. 11 (3.0 mm)", 4.30, 4.30,  6.8 , 6.8,   6.8,  6.8 ,  6.8,  10.1, 10.1, 10.1, 10.1 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (12,"Cal. 10 (3.4 mm)", 5.50, 5.50,  7.4 , 7.4,   7.4,  7.4 ,  7.4,  11.0, 11.0, 11.0, 11.0 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (13,"Cal. 9 (3.8 mm)", 5.50, 5.50,  11.0 , 11.0,   11.0,  11.0 ,  11.0,  16.7, 16.7, 16.7, 16.7 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (14,"Cal. 8 (4.2 mm)", 6.10, 6.10,  14.1 , 14.1,   14.1,  14.1 ,  14.1,  21.2, 21.2, 21.2, 21.2 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (15,"Cal. 7 (4.5 mm)", 7.40, 7.40,  14.1 , 14.1,   14.1,  14.1 ,  14.1,  21.2, 21.2, 21.2, 21.2 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (16,"Cal. 6 (4.9 mm)", 7.40, 7.40,  14.1 , 14.1,   14.1,  14.1 ,  14.1,  21.2, 21.2, 21.2, 21.2 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (17,"Cal. 5 (5.3 mm)", 9.20, 9.20,  20.0 , 20.0,   20.0,  20.0 ,  20.0,  29.5, 29.5, 29.5, 29.5 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (18,"Cal. 4 (5.7 mm)", 9.20, 9.20,  22.1 , 22.1,   22.1,  22.1 ,  22.1,  33.2, 33.2, 33.2, 33.2 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (19,"Cal. 3 (6.0 mm)", 9.20, 9.20,  22.1 , 22.1,   22.1,  22.1 ,  221.0,  33.2, 33.2, 33.2, 33.2 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (20,"Cal. 1/2", 22.00, 22.00,  1230000.0 , 1230000.0,   1230000.0,  1230000.0 ,  1230000.0,  1845000.0, 1845000.0, 1845000.0, 1845000.0 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (21,"Cal. 3/8", 18.50, 18.50,  34.4 , 34.4,   34.4,  34.4 ,  34.4,  51.7, 51.7, 51.7, 51.7 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (22,"Cal. 5/16", 11.00, 11.00,  28.3 , 28.3,   28.3,  28.3 ,  28.3,  42.4, 42.4, 42.4, 42.4 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (23,"Cal. 1/4", 9.20, 9.20,  22.1 , 22.1,   22.1,  22.1 ,  22.1,  33.2, 33.2, 33.2, 33.2 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (24,"Cal. 3/16", 7.40, 7.40,  14.1 , 14.1,   14.1,  14.1 ,  14.1,  21.2, 21.2, 21.2, 21.2 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (25,"Cal. 1/8", 4.30, 4.30,  6.8 , 6.8,   6.8,  6.8 ,  6.8,  10.1, 10.1, 10.1, 10.1 );
+INSERT INTO corte( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`,`Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (26,"Cal. 1/16", 3.10, 3.10,  4.3 , 4.3,   4.3,  4.3 ,  4.3,  6.5, 6.5, 6.5, 6.5 );
+
+
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (1,"Cal. 26 (0.4 mm)", 0.06, 0.06, 0.0, 0.27, 0.00, 0.00,  0.07, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (2,"Cal. 24 (0.6 mm)", 0.06, 0.06, 0.0, 0.27, 0.00, 0.00,  0.07, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (3,"Cal. 23 (0.7 mm)", 0.06, 0.06, 0.0, 0.27, 0.00, 0.00,  0.07, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (4,"Cal. 20 (0.9 mm)", 0.06, 0.06, 0.0, 0.27, 0.00, 0.00,  0.07, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (5,"Cal. 19 (1 mm)", 0.00, 0.00, 0.0, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (6,"Cal. 18 (1.2 mm)", 0.08, 0.08, 0.0, 0.29, 0.00, 0.00,  0.09, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (7,"Cal. 16 (1.5 mm)", 0.09, 0.09, 0.0, 0.31, 0.00, 0.00,  0.11, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (8,"Cal. 14 (1.9 mm)", 0.12, 0.12, 0.0, 0.38, 0.00, 0.00,  0.13, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (9,"Cal. 13 (2.2 mm)", 0.00, 0.00, 0.0, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (10,"Cal. 12 (2.6 mm)", 0.15, 0.15, 0.0, 0.62, 0.00, 0.00,  0.17, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (11,"Cal. 11 (3.0 mm)", 0.18, 0.18, 0.0, 0.86, 0.00, 0.00,  0.20, 0.68, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (12,"Cal. 10 (3.4 mm)", 0.00, 0.00, 0.0, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (13,"Cal. 9 (3.8 mm)", 0.00, 0.00, 0.0, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (14,"Cal. 8 (4.2 mm)", 0.00, 0.00, 0.0, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (15,"Cal. 7 (4.5 mm)", 0.28, 0.28, 0.0, 1.48, 0.00, 0.00,  0.32, 1.08, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (16,"Cal. 6 (4.9 mm)", 0.00, 0.00, 0.0, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (17,"Cal. 5 (5.3 mm)", 0.00, 0.00, 0.0, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (18,"Cal. 4 (5.7 mm)", 0.00, 0.00, 0.0, 0.00, 0.00, 0.00,  0.00, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (19,"Cal. 3 (6.0 mm)", 0.41, 0.41, 0.0, 1.97, 0.00, 0.00,  0.47, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (20,"Cal. 1/2", 1.00, 1.00, 0.0, 0.00, 0.00, 0.00,  1.15, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (21,"Cal. 3/8", 0.70, 0.70, 0.0, 3.82, 0.00, 0.00,  0.81, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (22,"Cal. 5/16", 0.63, 0.63, 0.0, 3.41, 0.00, 0.00,  0.73, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (23,"Cal. 1/4", 0.43, 0.43, 0.0, 2.09, 0.00, 0.00,  0.50, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (24,"Cal. 3/16", 0.28, 0.28, 0.0, 1.48, 0.00, 0.00,  0.32, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (25,"Cal. 1/8", 0.22, 0.22, 0.0, 0.36, 0.00, 0.00,  0.25, 0.00, 0.00, 0.00, 0.00);
+INSERT INTO material( `id`, `width`, `Ac. H.R`, `Ac. C.R`, `Ac. 1070`, `Ac. Inox. 304`, `Ac. Inox. 316`, `Ac. Inox. 430`, `Galv.`, `Alum.`, `Bronce`, `Cobre`, `Latón`) VALUES (26,"Cal. 1/16", 0.11, 0.11, 0.0, 0.00, 0.00, 0.00,  0.13, 0.00, 0.00, 0.00, 0.00);

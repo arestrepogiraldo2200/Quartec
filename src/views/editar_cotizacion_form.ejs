@@ -168,6 +168,7 @@
             document.getElementById("column15" + item).style.visibility = "visible";
             document.getElementById("column16" + item).style.visibility = "visible";
             document.getElementById("column17" + item).style.visibility = "visible";
+            document.getElementById("column18" + item).style.visibility = "visible";
         }
 
         // function to show per material and width
@@ -193,20 +194,21 @@
 
                     let espesorformrec = document.getElementById('espesor'+String(i));
                     let materialformrec = document.getElementById('material'+String(i));
-                    let totaltodas =  document.getElementById("totaltodas" +String(i)).value || 0;
+                    let calculocorte =  document.getElementById("calculocorte" +String(i)).value || 0;
+                    let cantidad = document.getElementById('cantidad'+String(i)).value || 0;
 
                     if (espesorformrec.value == espesorform && materialformrec.value == materialform){
-                        suma += parseFloat(totaltodas);
+                        suma += parseFloat(calculocorte)*parseFloat(cantidad);
                     }
                 }
-                casillamaterial.value = "Total "+ materialform + " " + espesorform + ": $ " + String(suma.toFixed(0)); 
+                casillamaterial.value = "Total corte, "+ materialform + " " + espesorform + ": $ " + String(suma.toFixed(0)); 
             }
         }
 
         // function to delete non existing material and width
         function cleaniseMaterialWidth(piercingvalues){
 
-            let listmaterial = ["Ac. H.R", "Ac. C.R", "Ac. Inox. 304", "Ac. Inox. 316", "Ac. Inox. 430", "Galv.", "Alum.", "Bronce", "Cobre", "Latón"];
+            let listmaterial = ["Ac. H.R", "Ac. C.R", "Ac. 1070", "Ac. Inox. 304", "Ac. Inox. 316", "Ac. Inox. 430", "Galv.", "Alum.", "Bronce", "Cobre", "Latón"];
 
             for(let i = 0; i < piercingvalues.length; i++){
                 for(let j = 0; j < listmaterial.length; j++){
@@ -353,6 +355,11 @@
             document.getElementById('con_material'+item).setAttribute('required', '');
         }
 
+        function validateMaterialWidth(item){
+            document.getElementById('espesor'+String(item)).setAttribute('required', '');
+            document.getElementById('material'+String(item)).setAttribute('required', '');
+        }
+
     </script>
 </head>
 <body>
@@ -392,7 +399,7 @@
 
             <div class="inputcontainer">
                 <label for="num">Número de cotización</label>
-                <input inputmode="numeric" type="number" id="num" name="num" onkeydown="return false" placeholder = "Ediciones requieren un nuevo número de cotización" required>
+                <input readonly inputmode="numeric" type="number" id="num" name="num" onkeydown="return false" placeholder = "Ediciones requieren un nuevo número de cotización" required>
             </div>
 
             <button type="button" class="changenumber" onclick="nextNumber();"   >Cotización diferente</button>
@@ -415,19 +422,28 @@
 
             <div class="inputcontainer">
                 <label for="validez">Validez de la oferta</label>
-                <input type="text" id="validez" name="validez" list = "valid" required value = "<%=cotizaciongeneral.validez %>">
+                <!-- <input type="text" id="validez" name="validez" list = "valid" required value = "<%=cotizaciongeneral.validez %>">
                 <datalist id="valid">
                     <option value="5 días">5 días</option>
                     <option value="10 días">10 días</option>
                     <option value="15 días">15 días</option>
                     <option value="20 días">20 días</option>
                     <option value="30 días">30 días</option>
-                </datalist>
+                </datalist> -->
+                <select type="text" id="validez" name="validez" list = "valid" required>
+                    <option value = "<%=cotizaciongeneral.validez%>" selected><%=cotizaciongeneral.validez%></option>
+                    <option value=""></option>
+                    <option value="5 días">5 días</option>
+                    <option value="10 días">10 días</option>
+                    <option value="15 días">15 días</option>
+                    <option value="20 días">20 días</option>
+                    <option value="30 días">30 días</option>
+                </select>
             </div>    
 
             <div class="inputcontainer">
                 <label for="entrega">Tiempo de entrega</label>
-                <input type="text" id="entrega" name="entrega" list = "deliv" required value = "<%=cotizaciongeneral.entrega %>">
+                <!-- <input type="text" id="entrega" name="entrega" list = "deliv" required value = "<%=cotizaciongeneral.entrega %>">
                 <datalist id="deliv">
                     <option value="1 día hábil">1 día hábil</option>
                     <option value="2 días hábiles">2 días hábiles</option>
@@ -438,18 +454,39 @@
                     <option value="15 días hábiles">15 días hábiles</option>
                     <option value="20 días hábiles">20 días hábiles</option>
                     <option value="30 días hábiles">30 días hábiles</option>
-                </datalist>
+                </datalist> -->
+                <select type="text" id="entrega" name="entrega" list = "deliv" required>
+                    <option value = "<%=cotizaciongeneral.entrega %>" selected><%=cotizaciongeneral.entrega %></option>
+                    <option value=""></option>
+                    <option value="1 día hábil">1 día hábil</option>
+                    <option value="2 días hábiles">2 días hábiles</option>
+                    <option value="3 días hábiles">3 días hábiles</option>
+                    <option value="4 días hábiles">4 días hábiles</option>
+                    <option value="5 días hábiles">5 días hábiles</option>
+                    <option value="10 días hábiles">10 días hábiles</option>
+                    <option value="15 días hábiles">15 días hábiles</option>
+                    <option value="20 días hábiles">20 días hábiles</option>
+                    <option value="30 días hábiles">30 días hábiles</option>
+                </select>
             </div>       
 
             <div class="inputcontainer">
                 <label for="condiciones">Condiciones de pago</label>
-                <input type="text" list = "cond" name="selectcondiciones" required value = "<%=cotizaciongeneral.condiciones %>">
+                <!-- <input type="text" list = "cond" name="selectcondiciones" required value = "<%=cotizaciongeneral.condiciones %>">
                 <datalist id="cond">
                     <option value="Contado">Contado</option>
                     <option value="Crédito a 15 días">Crédito a 15 días</option>
                     <option value="Crédito a 30 días">Crédito a 30 días</option>
                     <option value="Contra entrega">Contra entrega</option>
-                </datalist>
+                </datalist> -->
+                <select type="text" list = "cond" name="selectcondiciones" required>
+                    <option  value = "<%=cotizaciongeneral.condiciones %>" selected><%=cotizaciongeneral.condiciones %></option>
+                    <option value=""></option>
+                    <option value="Contado">Contado</option>
+                    <option value="Crédito a 15 días">Crédito a 15 días</option>
+                    <option value="Crédito a 30 días">Crédito a 30 días</option>
+                    <option value="Contra entrega">Contra entrega</option>
+                </select>
             </div>    
             
             <div class="inputcontainer" style="display:none;">
@@ -479,35 +516,57 @@
 
             <div class="inputcontainer">
                 <label for="condiciones_com">Forma de pago</label>
-                <input type="text" list = "payment" name="forma_pago" required value = "<%=cotizaciongeneral.pago %>">
+                <!-- <input type="text" list = "payment" name="forma_pago" required value = "<%=cotizaciongeneral.pago %>">
                 <datalist id="payment">
                     <option value="Forma de Pago: Contra Entrega.">Forma de Pago: Contra Entrega.</option>
                     <option value="Forma de Pago: 50% Anticipo y 50% Contra Entrega.">Forma de Pago: 50% Anticipo y 50% Contra Entrega.</option>
                     <option value="Forma de Pago: 100% de Anticipo.">Forma de Pago: 100% de Anticipo.</option>
                     <option value="Forma de Pago: Crédito a 15 días.">Forma de Pago: Crédito a 15 días.</option>
                     <option value="Forma de Pago: Crédito a 30 días.">Forma de Pago: Crédito a 30 días.</option>
-                </datalist>
+                </datalist> -->
+                <select type="text" list = "payment" name="forma_pago" required>
+                    <option  value = "<%=cotizaciongeneral.pago %>" selected><%=cotizaciongeneral.pago %></option>
+                    <option value=""></option>
+                    <option value="Forma de Pago: Contra Entrega.">Forma de Pago: Contra Entrega.</option>
+                    <option value="Forma de Pago: 50% Anticipo y 50% Contra Entrega.">Forma de Pago: 50% Anticipo y 50% Contra Entrega.</option>
+                    <option value="Forma de Pago: 100% de Anticipo.">Forma de Pago: 100% de Anticipo.</option>
+                    <option value="Forma de Pago: Crédito a 15 días.">Forma de Pago: Crédito a 15 días.</option>
+                    <option value="Forma de Pago: Crédito a 30 días.">Forma de Pago: Crédito a 30 días.</option>
+                </select>
             </div>    
 
             <div class="inputcontainer">
 
                 <label for="transport">Transporte</label>
-                <input type="text" list = "trans" name="transporte" required  value = "<%=cotizaciongeneral.transporte %>">
+                <!-- <input type="text" list = "trans" name="transporte" required  value = "<%=cotizaciongeneral.transporte %>">
                 <datalist id="trans">
                     <option value="El servicio no incluye transporte.">El servicio no incluye transporte.</option>
                     <option value="El servicio si incluye transporte.">El servicio si incluye transporte.</option>
-                </datalist>
+                </datalist> -->
+                <select type="text" list = "trans" name="transporte" required >
+                    <option value = "<%=cotizaciongeneral.transporte %>" selected><%=cotizaciongeneral.transporte %></option>
+                    <option value=""></option>
+                    <option value="El servicio no incluye transporte.">El servicio no incluye transporte.</option>
+                    <option value="El servicio si incluye transporte.">El servicio si incluye transporte.</option>
+                </select>
             </div>    
 
             <div class="inputcontainer">
 
                 <label for="materiales">Materiales</label>
-                <input type="text" list = "mat" name="materiales" required  value = "<%=cotizaciongeneral.materiales %>">
+                <!-- <input type="text" list = "mat" name="materiales" required  value = "<%=cotizaciongeneral.materiales %>">
                 <datalist id="mat">
                     <option value="El servicio no incluye materiales.">El servicio no incluye materiales.</option>
                     <option value="El servicio si incluye materiales.">El servicio si incluye materiales.</option>
                     <option value="El servicio incluye algunos materiales.">El servicio incluye algunos materiales.</option>
-                </datalist>
+                </datalist> -->
+                <select type="text" list = "mat" name="materiales" required>
+                    <option  value = "<%=cotizaciongeneral.materiales %>" selected><%=cotizaciongeneral.materiales %></option>
+                    <option value=""></option>
+                    <option value="El servicio no incluye materiales.">El servicio no incluye materiales.</option>
+                    <option value="El servicio si incluye materiales.">El servicio si incluye materiales.</option>
+                    <option value="El servicio incluye algunos materiales.">El servicio incluye algunos materiales.</option>
+                </select>
             </div>   
 
             <div class="inputcontainer">
@@ -557,6 +616,7 @@
                     <th>Dobleces por pieza</th>
                     <th>Longitud doblez (mm)</th>
                     <th>Con material</th>
+                    <th>Borrar fila</th>
                     </tr>
 
                     <% for (let i = 1; i <= filas.length ; i++){ %>
@@ -577,6 +637,7 @@
                             <option value="Ac. Inox. 304">Ac. Inox. 304</option>
                             <option value="Ac. Inox. 316">Ac. Inox. 316</option>
                             <option value="Ac. Inox. 430">Ac. Inox. 430</option>
+                            <option value="Ac. 1070">Ac. 1070</option>
                             <option value="Ac. H.R">Ac. H.R</option>
                             <option value="Ac. C.R">Ac. C.R</option>
                             <option value="Galv.">Galv.</option>
@@ -588,6 +649,9 @@
                         <td width = "120px"><select   id="<%= "espesor" + String(i) %>"    name="<%= "espesor" + String(i) %>"     onchange="DisplayCalculationsRow(<%= String(i) %>);    changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changePiercingValue(<%= String(i) %>, <%= JSON.stringify(piercing) %>);     changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);     changePerMaterialWidth(<%= String(i)%>);   cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
                             <option value = "<%= filas[i-1].espesor %>" selected><%= filas[i-1].espesor %></option>
                             <option value=""></option>
+                            <option value="Cal. 26 (0.4 mm)">Cal. 26 (0.4 mm)</option>
+                            <option value="Cal. 24 (0.6 mm)">Cal. 24 (0.6 mm)</option>
+                            <option value="Cal. 23 (0.7 mm)">Cal. 23 (0.7 mm)</option>
                             <option value="Cal. 20 (0.9 mm)">Cal. 20 (0.9 mm)</option>
                             <option value="Cal. 19 (1 mm)">Cal. 19 (1 mm)</option>
                             <option value="Cal. 18 (1.2 mm)">Cal. 18 (1.2 mm)</option>
@@ -612,7 +676,7 @@
                             <option value="Cal. 1/8">Cal. 1/8"</option>
                             <option value="Cal. 1/16">Cal. 1/16"</option>
                         </select></td>
-                        <td><input type="number" step="0.0001" id="<%= "perimetro_autocad" + String(i) %>" name="<%= "perimetro_autocad" + String(i) %>"       onchange="requiredCutValue(<%= String(i) %>);        changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(i)%>);      changePerMaterialWidth(<%= String(i)%>);" 
+                        <td><input type="number" step="0.0001" id="<%= "perimetro_autocad" + String(i) %>" name="<%= "perimetro_autocad" + String(i) %>"       onchange="validateMaterialWidth(<%= String(i) %>);       requiredCutValue(<%= String(i) %>);        changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(i)%>);      changePerMaterialWidth(<%= String(i)%>);" 
                             <% if (filas[i-1].perimetroautocad == 0) {%>
                                 value = ""
                             <% } else {%>
@@ -626,21 +690,21 @@
                                 value = "<%= filas[i-1].factorcorte %>"
                             <% } %>
                             ></td>
-                        <td><input type="text" class ="cannotchange" id="<%= "perimetro" + String(i) %>" name="<%= "perimetro" + String(i) %>" onkeydown="return false;" 
+                        <td><input readonly type="text" class ="cannotchange" id="<%= "perimetro" + String(i) %>" name="<%= "perimetro" + String(i) %>" onkeydown="return false;" 
                             <% if (filas[i-1].perimetro == 0) {%>
                                 value = ""
                             <% } else {%>
                                 value = "<%= filas[i-1].perimetro %>"
                             <% } %>
                             ></td>
-                        <td><input type="number" step="0.0001" id="<%= "largo_autocad" + String(i) %>" name="<%= "largo_autocad" + String(i) %>"        onchange="requiredMaterialValue(<%= String(i) %>);       changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(i)%>);    changePerMaterialWidth(<%= String(i)%>);" 
+                        <td><input type="number" step="0.0001" id="<%= "largo_autocad" + String(i) %>" name="<%= "largo_autocad" + String(i) %>"        onchange="validateMaterialWidth(<%= String(i) %>);       requiredMaterialValue(<%= String(i) %>);       changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(i)%>);    changePerMaterialWidth(<%= String(i)%>);" 
                             <% if (filas[i-1].largoautocad == 0) {%>
                                 value = ""
                             <% } else {%>
                                 value = "<%= filas[i-1].largoautocad %>"
                             <% } %>
                             ></td>
-                        <td><input type="number" step="0.0001" id="<%= "ancho_autocad" + String(i) %>" name="<%= "ancho_autocad" + String(i) %>"       onchange="requiredMaterialValue(<%= String(i) %>);       changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(i)%>);     changePerMaterialWidth(<%= String(i)%>);" 
+                        <td><input type="number" step="0.0001" id="<%= "ancho_autocad" + String(i) %>" name="<%= "ancho_autocad" + String(i) %>"       onchange="validateMaterialWidth(<%= String(i) %>);       requiredMaterialValue(<%= String(i) %>);       changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(i)%>);     changePerMaterialWidth(<%= String(i)%>);" 
                             <% if (filas[i-1].anchoautocad == 0) {%>
                                 value = ""
                             <% } else {%>
@@ -654,7 +718,7 @@
                                 value = "<%= filas[i-1].factorarea %>"
                             <% } %>
                             ></td>
-                        <td><input type="text" class ="cannotchange" id="<%= "area" + String(i) %>" name="<%= "area" + String(i) %>" onkeydown="return false;"
+                        <td><input readonly type="text" class ="cannotchange" id="<%= "area" + String(i) %>" name="<%= "area" + String(i) %>" onkeydown="return false;"
                             <% if (filas[i-1].area == 0) {%>
                                 value = ""
                             <% } else {%>
@@ -668,7 +732,7 @@
                                 value = "<%= filas[i-1].piercings %>"
                             <% } %>
                             ></td>
-                        <td><input type="number" id="<%= "dobleces" + String(i) %>" name="<%= "dobleces" + String(i) %>"       onchange="requiredDoblezValue(<%= String(i) %>);      changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(i)%>);     changePerMaterialWidth(<%= String(i)%>);"
+                        <td><input type="number" id="<%= "dobleces" + String(i) %>" name="<%= "dobleces" + String(i) %>"       onchange="validateMaterialWidth(<%= String(i) %>);       requiredDoblezValue(<%= String(i) %>);      changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(i)%>);     changePerMaterialWidth(<%= String(i)%>);"
                             <% if (filas[i-1].dobleces == 0) {%>
                                 value = ""
                             <% } else {%>
@@ -688,6 +752,7 @@
                             <option value="Sí">Sí</option>
                             <option value="No">No</option>
                         </select></td>
+                        <td><input type="checkbox" id="<%= "eliminar" + String(i) %>" name="<%= "eliminar" + String(i) %>"></td>
                         </tr>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                         <tr class="calculationsrow"  id="<%= "calculationsrow" + String(i) %>" 
@@ -710,14 +775,14 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %>   id="<%= "column2" + String(i) %>" >Total piezas:</td>
+                            <% } %>   id="<%= "column2" + String(i) %>" >Valor total:</td>
 
 
                             <td <% if ( typeof filas[i-1].precio == "number") {%>
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column3" + String(i) %>"><input type="text" id="<%= "totaltodas" + String(i) %>" onkeydown="return false;"
+                            <% } %> id="<%= "column3" + String(i) %>"><input readonly type="text" id="<%= "totaltodas" + String(i) %>" onkeydown="return false;"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= parseFloat(precios[i-1].total).toFixed(0) %>"
                             <% } %> ></td>
@@ -734,7 +799,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %>  id="<%= "column5" + String(i) %>"><input type="text" id="<%= "calculocorte" + String(i) %>" onkeydown="return false;"
+                            <% } %>  id="<%= "column5" + String(i) %>"><input readonly type="text" id="<%= "calculocorte" + String(i) %>" onkeydown="return false;"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].corte %>"  
                             <% } %>
@@ -752,7 +817,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %>  id="<%= "column7" + String(i) %>"><input type="text" id="<%= "calculopiercing" + String(i) %>"  onkeydown="return false;" 
+                            <% } %>  id="<%= "column7" + String(i) %>"><input readonly type="text" id="<%= "calculopiercing" + String(i) %>"  onkeydown="return false;" 
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].piercing %>"  
                             <% } %>></td>
@@ -769,7 +834,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column9" + String(i) %>"><input type="text" id="<%= "calculodoblez" + String(i) %>"  onkeydown="return false;"
+                            <% } %> id="<%= "column9" + String(i) %>"><input readonly type="text" id="<%= "calculodoblez" + String(i) %>"  onkeydown="return false;"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].doblez %>"  
                             <% } %>></td>
@@ -786,7 +851,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column11" + String(i) %>"><input type="text" id="<%= "calculomaterial" + String(i) %>"  onkeydown="return false;"
+                            <% } %> id="<%= "column11" + String(i) %>"><input readonly type="text" id="<%= "calculomaterial" + String(i) %>"  onkeydown="return false;"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].material %>"  
                             <% } %>></td>
@@ -796,14 +861,14 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column12" + String(i) %>">Total por unidad de pieza:</td>
+                            <% } %> id="<%= "column12" + String(i) %>">Valor unitario:</td>
                             
 
                             <td <% if ( typeof filas[i-1].precio == "number") {%>
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column13" + String(i) %>"><input type="text" id="<%= "total" + String(i) %>"  onkeydown="return false;"
+                            <% } %> id="<%= "column13" + String(i) %>"><input readonly type="text" id="<%= "total" + String(i) %>"  onkeydown="return false;"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].totalporpieza %>"  
                             <% } %>></td>
@@ -835,6 +900,13 @@
                             <% } else {%>
                                 style="visibility: visible;"
                             <% } %> id="<%= "column17" + String(i) %>"> </td>
+
+                            
+                            <td <% if ( typeof filas[i-1].precio == "number") {%>
+                                style="visibility: hidden;"
+                            <% } else {%>
+                                style="visibility: visible;"
+                            <% } %> id="<%= "column18" + String(i) %>"> </td>
                         </tr>
 
                     <% } %>
@@ -885,41 +957,43 @@
                             <option value="Cal. 1/8">Cal. 1/8"</option>
                             <option value="Cal. 1/16">Cal. 1/16"</option>
                         </select></td>
-                        <td><input type="number" step="0.0001" id="<%= "perimetro_autocad" + String(j) %>" name="<%= "perimetro_autocad" + String(j) %>" onchange="requiredCutValue(<%= String(j) %>);      changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
+                        <td><input type="number" step="0.0001" id="<%= "perimetro_autocad" + String(j) %>" name="<%= "perimetro_autocad" + String(j) %>" onchange="validateMaterialWidth(<%= String(j) %>);       requiredCutValue(<%= String(j) %>);      changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td><input type="number" step="0.0001" id="<%= "factor_corte" + String(j) %>"   value="1"   name="<%= "factor_corte" + String(j) %>" onchange="changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
-                        <td><input type="text" class ="cannotchange" id="<%= "perimetro" + String(j) %>" name="<%= "perimetro" + String(j) %>" onkeydown="return false;"></td>
-                        <td><input type="number" step="0.0001" id="<%= "largo_autocad" + String(j) %>" name="<%= "largo_autocad" + String(j) %>" onchange="requiredMaterialValue(<%= String(j) %>);      changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
-                        <td><input type="number" step="0.0001" id="<%= "ancho_autocad" + String(j) %>" name="<%= "ancho_autocad" + String(j) %>" onchange="requiredMaterialValue(<%= String(j) %>);      changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
+                        <td><input readonly type="text" class ="cannotchange" id="<%= "perimetro" + String(j) %>" name="<%= "perimetro" + String(j) %>" onkeydown="return false;"></td>
+                        <td><input type="number" step="0.0001" id="<%= "largo_autocad" + String(j) %>" name="<%= "largo_autocad" + String(j) %>" onchange="validateMaterialWidth(<%= String(j) %>);       requiredMaterialValue(<%= String(j) %>);      changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
+                        <td><input type="number" step="0.0001" id="<%= "ancho_autocad" + String(j) %>" name="<%= "ancho_autocad" + String(j) %>" onchange="validateMaterialWidth(<%= String(j) %>);       requiredMaterialValue(<%= String(j) %>);      changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td><input type="number" step="0.0001" id="<%= "factor_area" + String(j) %>"    value="1"  name="<%= "factor_area" + String(j) %>" onchange="changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
-                        <td><input type="text" class ="cannotchange" id="<%= "area" + String(j) %>" name="<%= "area" + String(j) %>" onkeydown="return false;"></td>
+                        <td><input readonly type="text" class ="cannotchange" id="<%= "area" + String(j) %>" name="<%= "area" + String(j) %>" onkeydown="return false;"></td>
                         <td><input type="number" id="<%= "piercings" + String(j) %>" name="<%= "piercings" + String(j) %>"  onchange="changePiercingValue(<%= String(j) %>, <%= JSON.stringify(piercing) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
-                        <td><input type="number" id="<%= "dobleces" + String(j) %>" name="<%= "dobleces" + String(j) %>"  onchange="requiredDoblezValue(<%= String(j) %>);       changeDoblezValue(<%= String(j) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
+                        <td><input type="number" id="<%= "dobleces" + String(j) %>" name="<%= "dobleces" + String(j) %>"  onchange="validateMaterialWidth(<%= String(j) %>);       requiredDoblezValue(<%= String(j) %>);       changeDoblezValue(<%= String(j) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td><input type="number" step="0.0001" id="<%= "longitud_doblez" + String(j) %>" name="<%= "longitud_doblez" + String(j) %>"  onchange="changeDoblezValue(<%= String(j) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);" ></td>
                         <td><select id="<%= "con_material" + String(j) %>" name="<%= "con_material" + String(j) %>" onchange="changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);  changeTotalValue(<%= String(j) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);">
                             <option value=""></option>
                             <option value="Sí">Sí</option>
                             <option value="No">No</option>
                         </select></td>
+                        <td><input type="checkbox" id="<%= "eliminar" + String(j) %>" name="<%= "eliminar" + String(j) %>"></td>
                         </tr>
 
                         <tr class="calculationsrow"  id="<%= "calculationsrow" + String(j) %>" style="display: none">                             
                             <td style="visibility: hidden;" id="<%= "column1" + String(j) %>"></td>
-                            <td style="visibility: hidden;" id="<%= "column2" + String(j) %>">Total piezas:</td>
-                            <td style="visibility: hidden;" id="<%= "column3" + String(j) %>"><input type="text" id="<%= "totaltodas" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column2" + String(j) %>">Valor total:</td>
+                            <td style="visibility: hidden;" id="<%= "column3" + String(j) %>"><input readonly type="text" id="<%= "totaltodas" + String(j) %>"  onkeydown="return false;"></td>
                             <td style="visibility: hidden;" id="<%= "column4" + String(j) %>">Valor corte:</td>
-                            <td style="visibility: hidden;" id="<%= "column5" + String(j) %>"><input type="text" id="<%= "calculocorte" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column5" + String(j) %>"><input readonly type="text" id="<%= "calculocorte" + String(j) %>"  onkeydown="return false;"></td>
                             <td style="visibility: hidden;" id="<%= "column6" + String(j) %>">Valor piercing:</td>
-                            <td style="visibility: hidden;" id="<%= "column7" + String(j) %>"><input type="text" id="<%= "calculopiercing" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column7" + String(j) %>"><input readonly type="text" id="<%= "calculopiercing" + String(j) %>"  onkeydown="return false;"></td>
                             <td style="visibility: hidden;" id="<%= "column8" + String(j) %>">Valor doblez:</td>
-                            <td style="visibility: hidden;" id="<%= "column9" + String(j) %>"><input type="text" id="<%= "calculodoblez" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column9" + String(j) %>"><input readonly type="text" id="<%= "calculodoblez" + String(j) %>"  onkeydown="return false;"></td>
                             <td style="visibility: hidden;" id="<%= "column10" + String(j) %>">Valor material:</td>
-                            <td style="visibility: hidden;" id="<%= "column11" + String(j) %>"><input type="text" id="<%= "calculomaterial" + String(j) %>"  onkeydown="return false;"></td>
-                            <td style="visibility: hidden;" id="<%= "column12" + String(j) %>">Total por unidad de pieza:</td>
-                            <td style="visibility: hidden;" id="<%= "column13" + String(j) %>"><input type="text" id="<%= "total" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column11" + String(j) %>"><input readonly type="text" id="<%= "calculomaterial" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column12" + String(j) %>">Valor unitario:</td>
+                            <td style="visibility: hidden;" id="<%= "column13" + String(j) %>"><input readonly type="text" id="<%= "total" + String(j) %>"  onkeydown="return false;"></td>
                             <td style="visibility: hidden;" id="<%= "column14" + String(j) %>"> </td>
                             <td style="visibility: hidden;" id="<%= "column15" + String(j) %>"> </td>
                             <td style="visibility: hidden;" id="<%= "column16" + String(j) %>"> </td>
                             <td style="visibility: hidden;" id="<%= "column17" + String(j) %>"> </td>
+                            <td style="visibility: hidden;" id="<%= "column18" + String(j) %>"> </td>
                         </tr>
                     <% } %>
                 </table>
@@ -929,25 +1003,26 @@
             <div class="inputcontainer totalespormaterial" style="display: block;" id = "contenedortotales">
 
                 <% for(let i = 0; i < totalespormaterial.length; i++){ %>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="<%=totalespormaterial[i].material.replace(/\s/g, '') + totalespormaterial[i].width.replace(/\s/g, '')%>" style="display: block;" onkeydown="return false" value="Total <%=totalespormaterial[i].material.replace(/\s/g, '') +" "+ totalespormaterial[i].width.replace(/\s/g, '')%> : $ <%=totalespormaterial[i].total%>"/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="<%=totalespormaterial[i].material.replace(/\s/g, '') + totalespormaterial[i].width.replace(/\s/g, '')%>" style="display: block;" onkeydown="return false" value="Total <%=totalespormaterial[i].material.replace(/\s/g, '') +" "+ totalespormaterial[i].width.replace(/\s/g, '')%> : $ <%=totalespormaterial[i].total%>"/>
                 <% } %>
 
                 <% for(let i = 0; i < piercing.length; i++){ %>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Ac.H.R<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Ac. H.R <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Ac.C.R<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Ac. C.R <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.304<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Ac. Inox. 304 <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.316<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Ac. Inox. 316 <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.430<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Ac. Inox. 430 <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Galv.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Galv. <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Alum.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Alum. <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Bronce<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Bronce <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Cobre<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Cobre <%= piercing[i].width %> : "/>
-                    <input type="text" class="TOTALPORMATERIALGROSOR" id="Latón<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total Latón <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.H.R<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. H.R <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.C.R<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. C.R <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.1070<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. 1070 <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.304<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 304 <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.316<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 316 <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.430<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 430 <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Galv.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Galv. <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Alum.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Alum. <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Bronce<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Bronce <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Cobre<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Cobre <%= piercing[i].width %> : "/>
+                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Latón<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Latón <%= piercing[i].width %> : "/>
                 <% } %>
             </div> 
 
             <div class="inputcontainer">
-                <input type="text" class="TOTAL" id="TOTAL" onkeydown="return false" value= "Total: $ <%= String(tot.toFixed(0)) %>" >
+                <input readonly type="text" class="TOTAL" id="TOTAL" onkeydown="return false" value= "Total: $ <%= String(tot.toFixed(0)) %>" >
             </div>  
               
             <input type="submit" value="Enviar">

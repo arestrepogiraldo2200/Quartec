@@ -194,7 +194,8 @@ CREATE TABLE `globalparams` (
   `id` int(15) NOT NULL,
   `num`  INT(10) NOT NULL,
   `globalcorte` FLOAT,
-  `globalmaterial` FLOAT
+  `globalmaterial` FLOAT,
+  `globaldoblez` FLOAT
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

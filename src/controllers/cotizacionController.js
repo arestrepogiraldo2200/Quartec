@@ -131,7 +131,8 @@ let cotizacionController = {
                             {        
                                 num: req.body.num,
                                 globalcorte: req.body.globcorte,
-                                globalmaterial: req.body.globmaterial
+                                globalmaterial: req.body.globmaterial,
+                                globaldoblez:  req.body.globdoblez
                             },
                             ).then(() => {}).catch((err) => console.log(err));
                     }).catch((err) => console.log(err));
@@ -257,9 +258,11 @@ let cotizacionController = {
                                                 let longdoblez = rows[i].longdoblez || 0;
                                                 let conmaterial = rows[i].conmaterial || 0;
 
+                                                // console.log(paramsfound[0].globaldoblez)
+
                                                 let porpiezacorte = perimetro*costocortepormm;
                                                 let porpiezapiercing = costopiercing*numpiercings;
-                                                let porpiezadoblez = longdoblez > 1500? 2*costodoblez*numdobleces : costodoblez*numdobleces;
+                                                let porpiezadoblez = longdoblez > 1500? 2*costodoblez*numdobleces*paramsfound[0].globaldoblez : costodoblez*numdobleces*paramsfound[0].globaldoblez;
                                                 let porpiezamaterial = conmaterial=="Sí"? area*costomaterialmm2 : 0;
                                                 let totalporpieza = porpiezacorte + porpiezapiercing + porpiezadoblez + porpiezamaterial;
                                                 let totalpiezastodas = cantidad*totalporpieza
@@ -276,7 +279,7 @@ let cotizacionController = {
                                                 preciospormaterial.push({
                                                     row: i,
                                                     material: rows[i].material + "|" + rows[i].espesor,
-                                                    totalpiezas: cantidad*porpiezacorte
+                                                    totalpiezas: cantidad*(porpiezacorte + porpiezapiercing)
                                                 });
 
                                                 totaltotal = totaltotal + cantidad*totalporpieza;
@@ -427,7 +430,8 @@ let cotizacionController = {
                         db.doblez.findAll({raw: true}).then((listadedoblez)=>{
                             db.piercing.findAll({raw: true}).then((listadepiercing)=>{
                                 db.material.findAll({raw: true}).then((listadematerial)=>{
-                    
+                                    db.globalparams.findAll({raw: true, where: { num: cotizacionToDownload }}).then((paramsfound)=>{
+
                                     if (cotizacionFound){
 
                                         ls.remove("cotizacionToDownload");
@@ -532,7 +536,7 @@ let cotizacionController = {
                                                     }
 
                                                     // Costo por unidad de pieza
-                                                    let costo_unidad = perimetro*corte_por_mm + piercings*piercing_por_pieza + longdoblezfactor*numdoblez*doblez + area*material_por_mm2;
+                                                    let costo_unidad = perimetro*corte_por_mm + piercings*piercing_por_pieza + longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez + area*material_por_mm2;
 
                                                     worksheet.getCell(`L${27+i}`).value = costo_unidad;
                                                     worksheet.getCell(`N${27+i}`).value = parseFloat(rowsFound[i][`cantidad`])*costo_unidad;
@@ -654,12 +658,12 @@ let cotizacionController = {
                                                     }
 
                                                     // Costo por unidad de pieza
-                                                    let costo_unidad = perimetro*corte_por_mm + piercings*piercing_por_pieza + longdoblezfactor*numdoblez*doblez + area*material_por_mm2;
+                                                    let costo_unidad = perimetro*corte_por_mm + piercings*piercing_por_pieza + longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez + area*material_por_mm2;
                                                     
                                                     worksheet1.getCell(`H${27+i}`).value = area*material_por_mm2;
                                                     worksheet1.getCell(`J${27+i}`).value = perimetro*corte_por_mm;
                                                     worksheet1.getCell(`L${27+i}`).value = piercings*piercing_por_pieza;
-                                                    worksheet1.getCell(`N${27+i}`).value = longdoblezfactor*numdoblez*doblez;
+                                                    worksheet1.getCell(`N${27+i}`).value = longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez;
                                                     worksheet1.getCell(`P${27+i}`).value = parseFloat(rowsFound[i][`cantidad`])*costo_unidad;
                                                 }
                                             }
@@ -832,6 +836,7 @@ let cotizacionController = {
                                         res.redirect('/download-cotizacion');
                                     }
 
+                                    }).catch((err)=>console.log(err));
                                 }).catch((err)=>console.log(err));
                             }).catch((err)=>console.log(err));
                         }).catch((err)=>console.log(err));

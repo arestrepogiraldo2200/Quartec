@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         num: {type: DataTypes.INTEGER},
         globalcorte: {type: DataTypes.FLOAT},
         globalmaterial: {type: DataTypes.FLOAT},
+        globaldoblez: {type: DataTypes.FLOAT},
 
     };
 

@@ -53,12 +53,15 @@
             let numdobleces = parseFloat(document.getElementById('dobleces'+item).value) || 0;
             let longdobleces = parseFloat(document.getElementById('longitud_doblez'+item).value) || 0;
 
+            let globdoblez = document.getElementById('globdoblez').value || 1;
+
+
             let longdoblezfactor = 1;
             if (longdobleces >= 1500) {
                 longdoblezfactor = 2;
             } 
             
-            let costoporpieza = longdoblezfactor*numdobleces*costodoblez;
+            let costoporpieza = longdoblezfactor*numdobleces*costodoblez*globdoblez;
 
             costodobleces.value = costoporpieza.toFixed(2) || 0;
         }
@@ -196,13 +199,15 @@
                     let espesorformrec = document.getElementById('espesor'+String(i));
                     let materialformrec = document.getElementById('material'+String(i));
                     let calculocorte =  document.getElementById("calculocorte" +String(i)).value || 0;
+                    let calculopiercing =  document.getElementById("calculopiercing" +String(i)).value || 0;
+
                     let cantidad = document.getElementById('cantidad'+String(i)).value || 0;
 
                     if (espesorformrec.value == espesorform && materialformrec.value == materialform){
-                        suma += parseFloat(calculocorte)*parseFloat(cantidad);
+                        suma += ( parseFloat(calculocorte) + parseFloat(calculopiercing) )*parseFloat(cantidad);
                     }
                 }
-                casillamaterial.value = "Total corte, "+ materialform + " " + espesorform + ": $ " + String(suma.toFixed(0)); 
+                casillamaterial.value = "Total corte, "+ materialform + " " + espesorform + ": $ " + String(suma.toFixed(1)); 
             }
         }
 
@@ -353,6 +358,49 @@
             document.getElementById('espesor'+String(item)).setAttribute('required', '');
             document.getElementById('material'+String(item)).setAttribute('required', '');
         }
+
+        function changeglobalDoblez(doblezvalues){
+
+            let globdoblez = document.getElementById('globdoblez').value || 1;
+
+            for (let i = 1; i <= 60; i++){
+
+                let espesorformrec = document.getElementById('espesor'+String(i)).value;
+                let materialformrec = document.getElementById('material'+String(i)).value;
+                let cantidad = document.getElementById('cantidad'+String(i)).value;
+                let descrip = document.getElementById('descrip'+String(i)).value;
+                let precio = document.getElementById('precio'+String(i)).value;
+
+                if (espesorformrec == "" && materialformrec=="" && cantidad =="" && descrip =="" && precio ==""){
+                    break;
+                }    
+
+                if (espesorformrec == "" && materialformrec==""){
+                    continue;
+                }   
+
+                let espesorform = document.getElementById('espesor'+String(i)).value;
+                let costodoblez = doblezvalues.filter(el => el.width == espesorform)[0].fold;
+                let costodobleces = document.getElementById('calculodoblez'+String(i));
+                let numdobleces = parseFloat(document.getElementById('dobleces'+String(i)).value) || 0;
+                let longdobleces = parseFloat(document.getElementById('longitud_doblez'+String(i)).value) || 0;
+
+                let longdoblezfactor = 1;
+                if (longdobleces >= 1500) {
+                    longdoblezfactor = 2;
+                } 
+                
+                let costoporpieza = longdoblezfactor*numdobleces*costodoblez*globdoblez;
+
+                costodobleces.value = costoporpieza.toFixed(2) || 0;
+
+                changeTotalValue(i);
+                changeTotalPiezas(i);
+            }
+
+            changeTotalTotal()
+
+        }
     </script>
 </head>
 <body>
@@ -419,10 +467,35 @@
                 </datalist> -->
                 <select type="text" id="validez" name="validez" list = "valid" required>
                     <option value=""></option>
+                    <option value="1 día">1 día</option>
+                    <option value="2 días">2 días</option>
+                    <option value="3 días">3 días</option>
+                    <option value="4 días">4 días</option>
                     <option value="5 días">5 días</option>
+                    <option value="6 días">6 días</option>
+                    <option value="7 días">7 días</option>
+                    <option value="8 días">8 días</option>
+                    <option value="9 días">9 días</option>
                     <option value="10 días">10 días</option>
+                    <option value="11 días">11 días</option>
+                    <option value="12 días">12 días</option>
+                    <option value="13 días">13 días</option>
+                    <option value="14 días">14 días</option>
                     <option value="15 días">15 días</option>
+                    <option value="16 días">16 días</option>
+                    <option value="17 días">17 días</option>
+                    <option value="18 días">18 días</option>
+                    <option value="19 días">19 días</option>
                     <option value="20 días">20 días</option>
+                    <option value="21 días">21 días</option>
+                    <option value="22 días">22 días</option>
+                    <option value="23 días">23 días</option>
+                    <option value="24 días">24 días</option>
+                    <option value="25 días">25 días</option>
+                    <option value="26 días">26 días</option>
+                    <option value="27 días">27 días</option>
+                    <option value="28 días">28 días</option>
+                    <option value="29 días">29 días</option>
                     <option value="30 días">30 días</option>
                 </select>
             </div>    
@@ -448,9 +521,30 @@
                     <option value="3 días hábiles">3 días hábiles</option>
                     <option value="4 días hábiles">4 días hábiles</option>
                     <option value="5 días hábiles">5 días hábiles</option>
+                    <option value="6 días hábiles">6 días hábiles</option>
+                    <option value="7 días hábiles">7 días hábiles</option>
+                    <option value="8 días hábiles">8 días hábiles</option>
+                    <option value="9 días hábiles">9 días hábiles</option>
                     <option value="10 días hábiles">10 días hábiles</option>
+                    <option value="11 días hábiles">11 días hábiles</option>
+                    <option value="12 días hábiles">12 días hábiles</option>
+                    <option value="13 días hábiles">13 días hábiles</option>
+                    <option value="14 días hábiles">14 días hábiles</option>
                     <option value="15 días hábiles">15 días hábiles</option>
+                    <option value="16 días hábiles">16 días hábiles</option>
+                    <option value="17 días hábiles">17 días hábiles</option>
+                    <option value="18 días hábiles">18 días hábiles</option>
+                    <option value="19 días hábiles">19 días hábiles</option>
                     <option value="20 días hábiles">20 días hábiles</option>
+                    <option value="21 días hábiles">21 días hábiles</option>
+                    <option value="22 días hábiles">22 días hábiles</option>
+                    <option value="23 días hábiles">23 días hábiles</option>
+                    <option value="24 días hábiles">24 días hábiles</option>
+                    <option value="25 días hábiles">25 días hábiles</option>
+                    <option value="26 días hábiles">26 días hábiles</option>
+                    <option value="27 días hábiles">27 días hábiles</option>
+                    <option value="28 días hábiles">28 días hábiles</option>
+                    <option value="29 días hábiles">29 días hábiles</option>
                     <option value="30 días hábiles">30 días hábiles</option>
                 </select>
             </div>       
@@ -467,8 +561,7 @@
                 <select type="text" list = "cond" name="selectcondiciones" required>
                     <option value=""></option>
                     <option value="Contado">Contado</option>
-                    <option value="Crédito a 15 días">Crédito a 15 días</option>
-                    <option value="Crédito a 30 días">Crédito a 30 días</option>
+                    <option value="Anticipo y crédito">Anticipo y crédito</option>
                     <option value="Contra entrega">Contra entrega</option>
                 </select>
             </div>    
@@ -512,8 +605,14 @@
                     <option value="Forma de Pago: Contra Entrega.">Forma de Pago: Contra Entrega.</option>
                     <option value="Forma de Pago: 50% Anticipo y 50% Contra Entrega.">Forma de Pago: 50% Anticipo y 50% Contra Entrega.</option>
                     <option value="Forma de Pago: 100% de Anticipo.">Forma de Pago: 100% de Anticipo.</option>
+                    <option value="Forma de Pago: Crédito a 5 días.">Forma de Pago: Crédito a 5 días.</option>
+                    <option value="Forma de Pago: Crédito a 7 días.">Forma de Pago: Crédito a 7 días.</option>
+                    <option value="Forma de Pago: Crédito a 10 días.">Forma de Pago: Crédito a 10 días.</option>
                     <option value="Forma de Pago: Crédito a 15 días.">Forma de Pago: Crédito a 15 días.</option>
+                    <option value="Forma de Pago: Crédito a 20 días.">Forma de Pago: Crédito a 20 días.</option>
                     <option value="Forma de Pago: Crédito a 30 días.">Forma de Pago: Crédito a 30 días.</option>
+                    <option value="Forma de Pago: Crédito a 45 días.">Forma de Pago: Crédito a 45 días.</option>
+                    <option value="Forma de Pago: Crédito a 60 días.">Forma de Pago: Crédito a 60 días.</option>
                 </select>
             </div>    
 
@@ -573,6 +672,11 @@
             <div class="inputcontainer">
                 <label for="factorglobalmaterial">Factor global material:</label>
                 <input type="number" step="0.0001" id="globmaterial" name="globmaterial" value="1" min ="0.0001" class="globalfactor"  onchange="changeglobalMaterial(<%= JSON.stringify(material) %>);" required>
+            </div>  
+
+            <div class="inputcontainer">
+                <label for="factorglobaldoblez">Factor global doblez:</label>
+                <input type="number" step="0.0001" id="globdoblez" name="globdoblez" value="1" min ="0.0001" class="globalfactor"  onchange="changeglobalDoblez(<%= JSON.stringify(doblez) %>);" required>
             </div>  
 
             <div class="inputcontainer tabladatos">

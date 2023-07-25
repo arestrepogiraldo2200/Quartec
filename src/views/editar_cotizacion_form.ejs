@@ -349,15 +349,30 @@
         }
 
         function requiredDoblezValue(item){
-            document.getElementById('longitud_doblez'+item).setAttribute('required', '');
+
+            if (document.getElementById('dobleces'+item).value == ''){
+                document.getElementById('longitud_doblez'+item).removeAttribute('required','');
+            } else{
+                document.getElementById('longitud_doblez'+item).setAttribute('required', '');
+            }
         }
         
         function requiredCutValue(item){
-            document.getElementById('piercings'+item).setAttribute('required', '');
+
+            if (document.getElementById('perimetro_autocad'+item).value == ''){
+                document.getElementById('piercings'+item).removeAttribute('required','');
+            } else{
+                document.getElementById('piercings'+item).setAttribute('required', '');
+            }
         }
 
         function requiredMaterialValue(item){
-            document.getElementById('con_material'+item).setAttribute('required', '');
+
+            if (document.getElementById('largo_autocad'+item).value == '' && document.getElementById('ancho_autocad'+item).value == ''){
+                document.getElementById('con_material'+item).removeAttribute('required','');
+            } else{
+                document.getElementById('con_material'+item).setAttribute('required', '');
+            }
         }
 
         function validateMaterialWidth(item){
@@ -441,6 +456,10 @@
             changeTotalPiezas(i);
             cleaniseMaterialWidth(piercingvalues);
             changeTotalTotal();
+        }
+
+        function uncheck(i){
+            document.getElementById('eliminar'+String(i)).checked = false;
         }
 
     </script>
@@ -761,7 +780,7 @@
                     <% for (let i = 1; i <= filas.length ; i++){ %>
                         <tr>
                         <td class="item"><%= i %></td>
-                        <td width = "50px"><input type="number" id="<%= "cantidad" + String(i) %>" name="<%= "cantidad" + String(i) %>" value = "<%= filas[i-1].cantidad %>"  onchange="changeTotalTotal();   changeTotalPiezas(<%= String(i)%>);   changePerMaterialWidth(<%= String(i)%>);" ></td>
+                        <td width = "50px"><input type="number" id="<%= "cantidad" + String(i) %>" name="<%= "cantidad" + String(i) %>" value = "<%= filas[i-1].cantidad %>"  onchange="uncheck(<%= String(i)%>);          changeTotalTotal();   changeTotalPiezas(<%= String(i)%>);   changePerMaterialWidth(<%= String(i)%>);" ></td>
                         <td width = "220px"><input type="text" id="<%= "descrip" + String(i) %>" name="<%= "descrip" + String(i) %>" value = "<%= filas[i-1].descripcion %>"></td>
                         <td width = "80px"><input type="number" id="<%= "precio" + String(i) %>" name="<%= "precio" + String(i) %>"
                             <% if (filas[i-1].precio == 0) {%>
@@ -769,8 +788,8 @@
                             <% } else {%>
                                 value = "<%= filas[i-1].precio %>"
                             <% } %>
-                            onchange="changeTotalTotal();"></td>
-                        <td width = "110px"><select  id="<%= "material" + String(i) %>"   name="<%= "material" + String(i) %>"     onchange="changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(i)%>);   changePerMaterialWidth(<%= String(i)%>);     cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
+                            onchange="uncheck(<%= String(i)%>);          changeTotalTotal();"></td>
+                        <td width = "110px"><select  id="<%= "material" + String(i) %>"   name="<%= "material" + String(i) %>"     onchange="uncheck(<%= String(i)%>);          changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(i)%>);   changePerMaterialWidth(<%= String(i)%>);     cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
                             <option value = "<%= filas[i-1].material %>" selected><%= filas[i-1].material %></option>
                             <option value=""></option>
                             <option value="Ac. Inox. 304">Ac. Inox. 304</option>
@@ -785,7 +804,7 @@
                             <option value="Cobre">Cobre</option>
                             <option value="Latón">Latón</option>
                         </select></td>
-                        <td width = "120px"><select   id="<%= "espesor" + String(i) %>"    name="<%= "espesor" + String(i) %>"     onchange="DisplayCalculationsRow(<%= String(i) %>);    changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changePiercingValue(<%= String(i) %>, <%= JSON.stringify(piercing) %>);     changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);     changePerMaterialWidth(<%= String(i)%>);   cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
+                        <td width = "120px"><select   id="<%= "espesor" + String(i) %>"    name="<%= "espesor" + String(i) %>"     onchange="uncheck(<%= String(i)%>);          DisplayCalculationsRow(<%= String(i) %>);    changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changePiercingValue(<%= String(i) %>, <%= JSON.stringify(piercing) %>);     changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);     changePerMaterialWidth(<%= String(i)%>);   cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
                             <option value = "<%= filas[i-1].espesor %>" selected><%= filas[i-1].espesor %></option>
                             <option value=""></option>
                             <option value="Cal. 26 (0.4 mm)">Cal. 26 (0.4 mm)</option>
@@ -1054,10 +1073,10 @@
                     <% for (let j = filas.length + 1; j <= 60; j++){ %>
                         <tr>
                         <td class="item"><%= j %></td>
-                        <td width = "50px"><input type="number" id="<%= "cantidad" + String(j) %>" name="<%= "cantidad" + String(j) %>"  onchange="changeTotalTotal();   changeTotalPiezas(<%= String(j)%>);            changePerMaterialWidth(<%= String(j)%>);"></td>
+                        <td width = "50px"><input type="number" id="<%= "cantidad" + String(j) %>" name="<%= "cantidad" + String(j) %>"  onchange="uncheck(<%= String(j)%>);          changeTotalTotal();   changeTotalPiezas(<%= String(j)%>);            changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td width = "220px"><input type="text" id="<%= "descrip" + String(j) %>" name="<%= "descrip" + String(j) %>"></td>
-                        <td width = "80px"><input type="number" id="<%= "precio" + String(j) %>" name="<%= "precio" + String(j) %>"  onchange="changeTotalTotal();"></td>
-                        <td width = "110px"><select id="<%= "material" + String(j) %>" name="<%= "material" + String(j) %>" onchange="changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(j)%>);         changePerMaterialWidth(<%= String(j)%>);       cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
+                        <td width = "80px"><input type="number" id="<%= "precio" + String(j) %>" name="<%= "precio" + String(j) %>"  onchange="uncheck(<%= String(j)%>);          changeTotalTotal();"></td>
+                        <td width = "110px"><select id="<%= "material" + String(j) %>" name="<%= "material" + String(j) %>" onchange="uncheck(<%= String(j)%>);          changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(j)%>);         changePerMaterialWidth(<%= String(j)%>);       cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
                             <option value=""></option>
                             <option value="Ac. Inox. 304">Ac. Inox. 304</option>
                             <option value="Ac. Inox. 316">Ac. Inox. 316</option>
@@ -1070,7 +1089,7 @@
                             <option value="Cobre">Cobre</option>
                             <option value="Latón">Latón</option>
                         </select></td>
-                        <td width = "120px"><select id="<%= "espesor" + String(j) %>" name="<%= "espesor" + String(j) %>" onchange="DisplayCalculationsRow(<%= String(j) %>);    changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changePiercingValue(<%= String(j) %>, <%= JSON.stringify(piercing) %>);     changeDoblezValue(<%= String(j) %>, <%= JSON.stringify(doblez) %>);   changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(j)%>);         changePerMaterialWidth(<%= String(j)%>);       cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
+                        <td width = "120px"><select id="<%= "espesor" + String(j) %>" name="<%= "espesor" + String(j) %>" onchange="uncheck(<%= String(j)%>);          DisplayCalculationsRow(<%= String(j) %>);    changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changePiercingValue(<%= String(j) %>, <%= JSON.stringify(piercing) %>);     changeDoblezValue(<%= String(j) %>, <%= JSON.stringify(doblez) %>);   changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(j)%>);         changePerMaterialWidth(<%= String(j)%>);       cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
                             <option value=""></option>
                             <option value="Cal. 20 (0.9 mm)">Cal. 20 (0.9 mm)</option>
                             <option value="Cal. 19 (1 mm)">Cal. 19 (1 mm)</option>

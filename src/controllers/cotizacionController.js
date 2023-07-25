@@ -144,12 +144,17 @@ let cotizacionController = {
                             num: req.body.num
                         }
                       }).then( () => {
+                        
+                        // console.log(req.body);
 
                         // Información del formulario
                         for(let i = 1; i <= 60; i++){
 
+                            if (req.body[`eliminar${i}`] && req.body[`eliminar${i}`] == 'on'){
+                                continue;
+                            }
                             // Caso interpretado como fila vacía
-                            if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''  && req.body[`perimetro${i}`] == ''){
+                            if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''  && req.body[`perimetro${i}`] == '' ){
                                 break;
                             }                                         
                             // Se escriben los datos

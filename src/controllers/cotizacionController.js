@@ -2,11 +2,18 @@
 const path = require('path');
 const db = require('../database/models');
 var Excel = require('exceljs');
+const PDFDocument = require('pdfkit');
 const sessionStorage = require('sessionstorage');
 const ls = require('local-storage');
 const JSZip = require("jszip");
 const fs = require('fs');
 const AdmZip = require('adm-zip');
+const { resolve } = require('path');
+
+// Para la conversión a pdf
+const fsp = require('fs').promises;
+const libre = require('libreoffice-convert');
+libre.convertAsync = require('util').promisify(libre.convert);
 
 let cotizacionController = {
 
@@ -389,7 +396,7 @@ let cotizacionController = {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
 
-                // Removes all files in directory files
+        // Removes all files in directory files
         const rmDir = function (dirPath, removeSelf) {
             if (removeSelf === undefined)
                 removeSelf = true;
@@ -428,6 +435,53 @@ let cotizacionController = {
 
         let cotizacionToDownload = ls.get("cotizacionToDownload");
 
+        // Función para esperar -------------------------------------------------------
+        function wait(milliseconds) {
+            return new Promise(resolve => setTimeout(resolve, milliseconds));
+          }
+
+        // Función para convertir a .pdf -------------------------------------------------------
+        async function convertPDF(filenametoconvert) {
+
+            await wait(1000);
+
+            const ext = 'pdf'; // Output extension
+            const inputPath =  path.join("./public", filenametoconvert);
+            const outputPath = path.join("./public/files/", filenametoconvert.slice(0, -5)+`.${ext}`);
+
+            // Read the input file.
+            const xlsxBuf = await fsp.readFile(inputPath);
+
+            // Convert to PDF format with an undefined filter
+	        let pdfBuf = await libre.convertAsync(xlsxBuf, ext, undefined);
+
+            // Save the converted PDF
+	        await fsp.writeFile(outputPath, pdfBuf);
+        }
+
+        // Función para borrar archivos -------------------------------------------------------
+        async function deleteDirFilesUsingPattern(pattern){
+
+            await wait(2000);
+
+            dirPath = path.join(__dirname, "../../public");
+          
+            fs.readdir(dirPath, (err, fileNames) => {
+
+                if (err) throw err;
+          
+              for (const name of fileNames) {
+          
+                if (name.includes(pattern)) {
+                    fs.unlink(dirPath+"/"+name, (err) => {
+                    if (err) throw err;
+                    // console.log(`Deleted ${name}`);
+                  });
+                }
+              }
+            });
+          }
+          
         db.cotizacion.findOne({raw: true, where: { num: cotizacionToDownload } }).then((cotizacionFound) => {
             db.cotizacion_datos.findAll({raw: true, where: { num: cotizacionToDownload } }).then((rowsFound) => {
                 db.clientes.findOne({raw: true, where: { client: cotizacionFound.client } }).then((clientFound)=>{
@@ -440,6 +494,12 @@ let cotizacionController = {
                                     if (cotizacionFound){
 
                                         ls.remove("cotizacionToDownload");
+
+                                        let filename = cotizacionFound.num + "_" + String(clientFound.client).replace(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx";
+                                        let filename1 = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Datos.xlsx";
+                                        let filename2 = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Remision.xlsx";
+                                        let filename3 = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.xlsx";
+                                        let filename4 = cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.xlsx";
                                         
                 // ----------------------------- Se escribe el archivo de cotizacion ----------------------------------------------------------------------
 
@@ -548,8 +608,8 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + String(clientFound.client).replace(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx";
-                                            workbook.xlsx.writeFile( "./public/files/" + filename);
+                                            //workbook.xlsx.writeFile( "./public/files/" + filename);
+                                            workbook.xlsx.writeFile( "./public/" + filename).then(convertPDF(filename));
                                         });
 
 // ----------------------------- Se escribe el archivo de cotización de datos ------------------------------------------------------------------
@@ -673,8 +733,8 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Datos.xlsx";
-                                            workbook1.xlsx.writeFile( "./public/files/" + filename);
+                                            //workbook1.xlsx.writeFile( "./public/files/" + filename);
+                                            workbook1.xlsx.writeFile( "./public/" + filename1).then(convertPDF(filename1));
                                         })
 
 // ----------------------------- Se escribe el archivo de remisión ----------------------------------------------------------------------
@@ -749,8 +809,8 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Remision.xlsx";
-                                            workbook2.xlsx.writeFile( "./public/files/" + filename);
+                                            //workbook2.xlsx.writeFile( "./public/files/" + filename);
+                                            workbook2.xlsx.writeFile( "./public/" + filename2).then(convertPDF(filename2));
                                         })
 
 // ----------------------------- Se escribe el archivo de orden de corte ----------------------------------------------------------------------
@@ -787,8 +847,8 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.xlsx";
-                                            workbook3.xlsx.writeFile("./public/files/" + filename);
+                                            //workbook3.xlsx.writeFile("./public/files/" + filename);
+                                            workbook3.xlsx.writeFile( "./public/" + filename3).then(convertPDF(filename3));
                                         })
                                  
 // ----------------------------- Se escribe el archivo de orden de doblez ----------------------------------------------------------------------
@@ -821,21 +881,23 @@ let cotizacionController = {
                                                 }
                                             }
                         
-                                            let filename = cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.xlsx";
-                                            workbook4.xlsx.writeFile( "./public/files/" + filename);
+                                            //workbook4.xlsx.writeFile( "./public/files/" + filename);
+                                            workbook4.xlsx.writeFile( "./public/" + filename4).then(convertPDF(filename4));
                                         })
 
-// -------------------------------------------------------------------------------------------------------------------------------------                                                
+// -------------------------------------------------------------------------------------------------------------------------------------   
 
                                         res.render(path.join(__dirname, '../views/buttons_download'), 
                                         {
                                             numcot: cotizacionToDownload, 
-                                            filecotizacion: cotizacionFound.num + "_" + String(clientFound.client).replace(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".xlsx",
-                                            fileremision: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Remision.xlsx",
-                                            filedatos: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Datos.xlsx",
-                                            filecorte: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.xlsx",
-                                            filedoblez: cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.xlsx",
+                                            filecotizacion: cotizacionFound.num + "_" + String(clientFound.client).replace(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".pdf",
+                                            fileremision: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Remision.pdf",
+                                            filedatos: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Datos.pdf",
+                                            filecorte: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.pdf",
+                                            filedoblez: cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.pdf",
                                         })
+
+                                        deleteDirFilesUsingPattern(String(cotizacionFound.num));
 
                                     } else {
                                         res.redirect('/download-cotizacion');

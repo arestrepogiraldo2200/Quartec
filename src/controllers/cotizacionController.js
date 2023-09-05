@@ -443,7 +443,7 @@ let cotizacionController = {
         // Función para convertir a .pdf -------------------------------------------------------
         async function convertPDF(filenametoconvert) {
 
-            await wait(800);
+            await wait(1000);
 
             const ext = 'pdf'; // Output extension
             const inputPath =  path.join("./public", filenametoconvert);

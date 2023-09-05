@@ -443,7 +443,7 @@ let cotizacionController = {
         // Función para convertir a .pdf -------------------------------------------------------
         async function convertPDF(filenametoconvert) {
 
-            await wait(200);
+            await wait(800);
 
             const ext = 'pdf'; // Output extension
             const inputPath =  path.join("./public", filenametoconvert);
@@ -462,7 +462,7 @@ let cotizacionController = {
         // Función para borrar archivos -------------------------------------------------------
         async function deleteDirFilesUsingPattern(pattern){
 
-            await wait(1000);
+            await wait(6000);
 
             dirPath = path.join(__dirname, "../../public");
           
@@ -897,7 +897,7 @@ let cotizacionController = {
                                             filedoblez: cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.pdf",
                                         })
 
-                                        //deleteDirFilesUsingPattern(String(cotizacionFound.num));
+                                        deleteDirFilesUsingPattern(String(cotizacionFound.num));
 
                                     } else {
                                         res.redirect('/download-cotizacion');

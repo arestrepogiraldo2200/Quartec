@@ -443,7 +443,7 @@ let cotizacionController = {
         // Función para convertir a .pdf -------------------------------------------------------
         async function convertPDF(filenametoconvert) {
 
-            await wait(6000);
+            await wait(4000);
 
             const ext = 'pdf'; // Output extension
             const inputPath =  path.join("./public", filenametoconvert);
@@ -462,7 +462,7 @@ let cotizacionController = {
         // Función para borrar archivos -------------------------------------------------------
         async function deleteDirFilesUsingPattern(pattern){
 
-            await wait(8000);
+            await wait(10000);
 
             dirPath = path.join(__dirname, "../../public");
           

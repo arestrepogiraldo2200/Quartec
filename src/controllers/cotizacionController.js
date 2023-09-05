@@ -462,7 +462,7 @@ let cotizacionController = {
         // Función para borrar archivos -------------------------------------------------------
         async function deleteDirFilesUsingPattern(pattern){
 
-            await wait(2000);
+            await wait(10000);
 
             dirPath = path.join(__dirname, "../../public");
           

@@ -897,7 +897,7 @@ let cotizacionController = {
                                             filedoblez: cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.pdf",
                                         })
 
-                                        deleteDirFilesUsingPattern(String(cotizacionFound.num));
+                                        //deleteDirFilesUsingPattern(String(cotizacionFound.num));
 
                                     } else {
                                         res.redirect('/download-cotizacion');

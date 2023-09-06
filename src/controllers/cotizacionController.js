@@ -607,6 +607,10 @@ let cotizacionController = {
                                                     worksheet.getCell(`N${27+i}`).value = parseFloat(rowsFound[i][`cantidad`])*costo_unidad;
                                                 }
                                             }
+
+                                            worksheet.getCell('N91').value = { formula: 'SUM(N27:N90)', date1904: false };
+                                            worksheet.getCell('N92').value = { formula: 'N91*0.19', date1904: false };
+                                            worksheet.getCell('N93').value = { formula: 'N91+N92', date1904: false };
                         
                                             //workbook.xlsx.writeFile( "./public/files/" + filename);
                                             workbook.xlsx.writeFile( "./public/" + filename).then(convertPDF(filename));
@@ -732,6 +736,10 @@ let cotizacionController = {
                                                     worksheet1.getCell(`P${27+i}`).value = parseFloat(rowsFound[i][`cantidad`])*costo_unidad;
                                                 }
                                             }
+
+                                            worksheet1.getCell('P91').value = { formula: 'SUM(P27:P90)', date1904: false };
+                                            worksheet1.getCell('P92').value = { formula: 'P91*0.19', date1904: false };
+                                            worksheet1.getCell('P93').value = { formula: 'P91+P92', date1904: false };
                         
                                             //workbook1.xlsx.writeFile( "./public/files/" + filename);
                                             workbook1.xlsx.writeFile( "./public/" + filename1).then(convertPDF(filename1));
@@ -897,7 +905,7 @@ let cotizacionController = {
                                             filedoblez: cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.pdf",
                                         })
 
-                                        deleteDirFilesUsingPattern(String(cotizacionFound.num));
+                                        // deleteDirFilesUsingPattern(String(cotizacionFound.num));
 
                                     } else {
                                         res.redirect('/download-cotizacion');

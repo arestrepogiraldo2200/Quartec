@@ -829,7 +829,7 @@ let cotizacionController = {
                                             worksheet.getCell('N91').value = { formula: 'SUM(N27:N90)', date1904: false };
                                             worksheet.getCell('N92').value = { formula: 'N91*0.19', date1904: false };
                                             worksheet.getCell('N93').value = { formula: 'N91+N92', date1904: false };
-                                            worksheet.getCell('A93').value = numeroALetras(parseInt(total*1.19), {
+                                            worksheet.getCell('A93').value = numeroALetras(parseInt(Math.round(total*1.19)), {
                                                 plural: "PESOS",
                                                 singular: "PESO",
                                                 centPlural: "CENTAVOS",
@@ -973,7 +973,7 @@ let cotizacionController = {
                                             worksheet1.getCell('P91').value = { formula: 'SUM(P27:P90)', date1904: false };
                                             worksheet1.getCell('P92').value = { formula: 'P91*0.19', date1904: false };
                                             worksheet1.getCell('P93').value = { formula: 'P91+P92', date1904: false };
-                                            worksheet1.getCell('A93').value = numeroALetras(parseInt(total*1.19), {
+                                            worksheet1.getCell('A93').value = numeroALetras(parseInt(Math.round(total*1.19)), {
                                                 plural: "PESOS",
                                                 singular: "PESO",
                                                 centPlural: "CENTAVOS",

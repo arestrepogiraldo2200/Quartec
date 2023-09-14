@@ -22,4 +22,6 @@ router.get('/download-cotizacion-docs', cotizacionController.downloadDocs);
 router.get('/editar-numeracion', cotizacionController.numeracion);
 router.post('/editar-numeracion', cotizacionController.numeracionPost);
 
+router.get('/data', cotizacionController.data);
+
 module.exports = router;

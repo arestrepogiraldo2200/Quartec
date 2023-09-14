@@ -1182,8 +1182,79 @@ let cotizacionController = {
             if (err) throw err;
             res.redirect('/inicio');
         })
-    }
+    },
 
+    data: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+        if (!req.session.isAdmin) return res.redirect('/inicio');
+
+        db.cotizacion.findAll({raw: true }).then((cotizacionesFound) => {
+            db.cotizacion_datos.findAll({raw: true }).then((rowsFound) => {
+
+                var workbook = new Excel.Workbook();
+                workbook.xlsx.readFile('./PlantillaDatosGenerales.xlsm').then(  function() {
+
+                    let worksheet = workbook.getWorksheet('Sheet1');
+
+                    for (let i = 0; i<cotizacionesFound.length; i++){
+
+                        worksheet.getCell(`A${2+i}`).value = cotizacionesFound[i].num;
+                        worksheet.getCell(`B${2+i}`).value = cotizacionesFound[i].client;
+                        worksheet.getCell(`C${2+i}`).value = cotizacionesFound[i].fecha;
+                        worksheet.getCell(`D${2+i}`).value = cotizacionesFound[i].validez;
+                        worksheet.getCell(`E${2+i}`).value = cotizacionesFound[i].entrega;
+                        worksheet.getCell(`F${2+i}`).value = cotizacionesFound[i].condiciones;
+                        worksheet.getCell(`G${2+i}`).value = cotizacionesFound[i].estado;
+                        worksheet.getCell(`H${2+i}`).value = cotizacionesFound[i].aprobacion;
+                        worksheet.getCell(`I${2+i}`).value = cotizacionesFound[i].proyecto;
+                        worksheet.getCell(`J${2+i}`).value = cotizacionesFound[i].pago;
+                        worksheet.getCell(`K${2+i}`).value = cotizacionesFound[i].transporte;
+                        worksheet.getCell(`L${2+i}`).value = cotizacionesFound[i].materiales;
+                        worksheet.getCell(`M${2+i}`).value = cotizacionesFound[i].asesor;
+                        worksheet.getCell(`N${2+i}`).value = cotizacionesFound[i].observ1;
+                        worksheet.getCell(`O${2+i}`).value = cotizacionesFound[i].observ1;
+                        worksheet.getCell(`P${2+i}`).value = cotizacionesFound[i].aprob;
+                    }
+
+                    workbook.xlsx.writeFile( "./public/files/" + "Datos_generales.xlsx");
+                })
+
+                var workbook1 = new Excel.Workbook();
+                workbook1.xlsx.readFile('./PlantillaDatosEspecificos.xlsm').then(  function() {
+
+                    let worksheet1 = workbook1.getWorksheet('Sheet1');
+
+                    for (let i = 0; i<rowsFound.length; i++){
+
+                        worksheet1.getCell(`A${2+i}`).value = rowsFound[i].num;
+                        worksheet1.getCell(`B${2+i}`).value = rowsFound[i].cantidad;
+                        worksheet1.getCell(`C${2+i}`).value = rowsFound[i].descripcion;
+                        worksheet1.getCell(`D${2+i}`).value = rowsFound[i].precio;
+                        worksheet1.getCell(`E${2+i}`).value = rowsFound[i].material;
+                        worksheet1.getCell(`F${2+i}`).value = rowsFound[i].espesor;
+                        worksheet1.getCell(`G${2+i}`).value = rowsFound[i].perimetroautocad;
+                        worksheet1.getCell(`H${2+i}`).value = rowsFound[i].factorcorte;
+                        worksheet1.getCell(`I${2+i}`).value = rowsFound[i].perimetro;
+                        worksheet1.getCell(`J${2+i}`).value = rowsFound[i].largoautocad;
+                        worksheet1.getCell(`K${2+i}`).value = rowsFound[i].anchoautocad;
+                        worksheet1.getCell(`L${2+i}`).value = rowsFound[i].factorarea;
+                        worksheet1.getCell(`M${2+i}`).value = rowsFound[i].area;
+                        worksheet1.getCell(`N${2+i}`).value = rowsFound[i].piercing;
+                        worksheet1.getCell(`O${2+i}`).value = rowsFound[i].dobleces;
+                        worksheet1.getCell(`P${2+i}`).value = rowsFound[i].longdobleces;
+                        worksheet1.getCell(`Q${2+i}`).value = rowsFound[i].conmaterial;
+
+                    }
+
+                    workbook1.xlsx.writeFile( "./public/files/" + "Datos_especificos.xlsx");
+                })
+                
+                res.render(path.join(__dirname, '../views/data'));
+
+            }).catch((err)=>console.log(err));
+        }).catch((err)=>console.log(err));
+    }
 }
 
 module.exports = cotizacionController;

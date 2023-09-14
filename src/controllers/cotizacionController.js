@@ -1191,67 +1191,127 @@ let cotizacionController = {
 
         db.cotizacion.findAll({raw: true }).then((cotizacionesFound) => {
             db.cotizacion_datos.findAll({raw: true }).then((rowsFound) => {
+                db.corte.findAll({raw: true}).then((listadecorte)=>{
+                    db.doblez.findAll({raw: true}).then((listadedoblez)=>{
+                        db.piercing.findAll({raw: true}).then((listadepiercing)=>{
+                            db.material.findAll({raw: true}).then((listadematerial)=>{
+                                db.globalparams.findAll({raw: true }).then((paramsfound)=>{
 
-                var workbook = new Excel.Workbook();
-                workbook.xlsx.readFile('./PlantillaDatosGenerales.xlsm').then(  function() {
 
-                    let worksheet = workbook.getWorksheet('Sheet1');
+                                    var workbook = new Excel.Workbook();
+                                    workbook.xlsx.readFile('./PlantillaDatosGenerales.xlsm').then(  function() {
 
-                    for (let i = 0; i<cotizacionesFound.length; i++){
+                                        let worksheet = workbook.getWorksheet('Sheet1');
 
-                        worksheet.getCell(`A${2+i}`).value = cotizacionesFound[i].num;
-                        worksheet.getCell(`B${2+i}`).value = cotizacionesFound[i].client;
-                        worksheet.getCell(`C${2+i}`).value = cotizacionesFound[i].fecha;
-                        worksheet.getCell(`D${2+i}`).value = cotizacionesFound[i].validez;
-                        worksheet.getCell(`E${2+i}`).value = cotizacionesFound[i].entrega;
-                        worksheet.getCell(`F${2+i}`).value = cotizacionesFound[i].condiciones;
-                        worksheet.getCell(`G${2+i}`).value = cotizacionesFound[i].estado;
-                        worksheet.getCell(`H${2+i}`).value = cotizacionesFound[i].aprobacion;
-                        worksheet.getCell(`I${2+i}`).value = cotizacionesFound[i].proyecto;
-                        worksheet.getCell(`J${2+i}`).value = cotizacionesFound[i].pago;
-                        worksheet.getCell(`K${2+i}`).value = cotizacionesFound[i].transporte;
-                        worksheet.getCell(`L${2+i}`).value = cotizacionesFound[i].materiales;
-                        worksheet.getCell(`M${2+i}`).value = cotizacionesFound[i].asesor;
-                        worksheet.getCell(`N${2+i}`).value = cotizacionesFound[i].observ1;
-                        worksheet.getCell(`O${2+i}`).value = cotizacionesFound[i].observ1;
-                        worksheet.getCell(`P${2+i}`).value = cotizacionesFound[i].aprob;
-                    }
+                                        for (let i = 0; i<cotizacionesFound.length; i++){
 
-                    workbook.xlsx.writeFile( "./public/files/" + "Datos_generales.xlsx");
-                })
+                                            worksheet.getCell(`A${2+i}`).value = cotizacionesFound[i].num;
+                                            worksheet.getCell(`B${2+i}`).value = cotizacionesFound[i].client;
+                                            worksheet.getCell(`C${2+i}`).value = cotizacionesFound[i].fecha;
+                                            worksheet.getCell(`D${2+i}`).value = cotizacionesFound[i].validez;
+                                            worksheet.getCell(`E${2+i}`).value = cotizacionesFound[i].entrega;
+                                            worksheet.getCell(`F${2+i}`).value = cotizacionesFound[i].condiciones;
+                                            worksheet.getCell(`G${2+i}`).value = cotizacionesFound[i].estado;
+                                            worksheet.getCell(`H${2+i}`).value = cotizacionesFound[i].aprobacion;
+                                            worksheet.getCell(`I${2+i}`).value = cotizacionesFound[i].proyecto;
+                                            worksheet.getCell(`J${2+i}`).value = cotizacionesFound[i].pago;
+                                            worksheet.getCell(`K${2+i}`).value = cotizacionesFound[i].transporte;
+                                            worksheet.getCell(`L${2+i}`).value = cotizacionesFound[i].materiales;
+                                            worksheet.getCell(`M${2+i}`).value = cotizacionesFound[i].asesor;
+                                            worksheet.getCell(`N${2+i}`).value = cotizacionesFound[i].observ1;
+                                            worksheet.getCell(`O${2+i}`).value = cotizacionesFound[i].observ1;
+                                            worksheet.getCell(`P${2+i}`).value = cotizacionesFound[i].aprob;
+                                        }
 
-                var workbook1 = new Excel.Workbook();
-                workbook1.xlsx.readFile('./PlantillaDatosEspecificos.xlsm').then(  function() {
+                                        workbook.xlsx.writeFile( "./public/files/" + "Datos_generales.xlsx");
+                                    })
 
-                    let worksheet1 = workbook1.getWorksheet('Sheet1');
+                                    var workbook1 = new Excel.Workbook();
+                                    workbook1.xlsx.readFile('./PlantillaDatosEspecificos.xlsm').then( function() {
 
-                    for (let i = 0; i<rowsFound.length; i++){
+                                        let worksheet1 = workbook1.getWorksheet('Sheet1');
 
-                        worksheet1.getCell(`A${2+i}`).value = rowsFound[i].num;
-                        worksheet1.getCell(`B${2+i}`).value = rowsFound[i].cantidad;
-                        worksheet1.getCell(`C${2+i}`).value = rowsFound[i].descripcion;
-                        worksheet1.getCell(`D${2+i}`).value = rowsFound[i].precio;
-                        worksheet1.getCell(`E${2+i}`).value = rowsFound[i].material;
-                        worksheet1.getCell(`F${2+i}`).value = rowsFound[i].espesor;
-                        worksheet1.getCell(`G${2+i}`).value = rowsFound[i].perimetroautocad;
-                        worksheet1.getCell(`H${2+i}`).value = rowsFound[i].factorcorte;
-                        worksheet1.getCell(`I${2+i}`).value = rowsFound[i].perimetro;
-                        worksheet1.getCell(`J${2+i}`).value = rowsFound[i].largoautocad;
-                        worksheet1.getCell(`K${2+i}`).value = rowsFound[i].anchoautocad;
-                        worksheet1.getCell(`L${2+i}`).value = rowsFound[i].factorarea;
-                        worksheet1.getCell(`M${2+i}`).value = rowsFound[i].area;
-                        worksheet1.getCell(`N${2+i}`).value = rowsFound[i].piercing;
-                        worksheet1.getCell(`O${2+i}`).value = rowsFound[i].dobleces;
-                        worksheet1.getCell(`P${2+i}`).value = rowsFound[i].longdobleces;
-                        worksheet1.getCell(`Q${2+i}`).value = rowsFound[i].conmaterial;
+                                        for (let i = 0; i<rowsFound.length; i++){
 
-                    }
+                                            worksheet1.getCell(`A${2+i}`).value = rowsFound[i].num;
+                                            worksheet1.getCell(`B${2+i}`).value = rowsFound[i].cantidad;
+                                            worksheet1.getCell(`C${2+i}`).value = rowsFound[i].descripcion;
+                                            worksheet1.getCell(`D${2+i}`).value = rowsFound[i].precio;
+                                            worksheet1.getCell(`E${2+i}`).value = rowsFound[i].material;
+                                            worksheet1.getCell(`F${2+i}`).value = rowsFound[i].espesor;
+                                            worksheet1.getCell(`G${2+i}`).value = rowsFound[i].perimetroautocad;
+                                            worksheet1.getCell(`H${2+i}`).value = rowsFound[i].factorcorte;
+                                            worksheet1.getCell(`I${2+i}`).value = rowsFound[i].perimetro;
+                                            worksheet1.getCell(`J${2+i}`).value = rowsFound[i].largoautocad;
+                                            worksheet1.getCell(`K${2+i}`).value = rowsFound[i].anchoautocad;
+                                            worksheet1.getCell(`L${2+i}`).value = rowsFound[i].factorarea;
+                                            worksheet1.getCell(`M${2+i}`).value = rowsFound[i].area;
+                                            worksheet1.getCell(`N${2+i}`).value = rowsFound[i].piercing;
+                                            worksheet1.getCell(`O${2+i}`).value = rowsFound[i].dobleces;
+                                            worksheet1.getCell(`P${2+i}`).value = rowsFound[i].longdobleces;
+                                            worksheet1.getCell(`Q${2+i}`).value = rowsFound[i].conmaterial;
 
-                    workbook1.xlsx.writeFile( "./public/files/" + "Datos_especificos.xlsx");
-                })
+                                            let globs = paramsfound.filter((el) => el.num == rowsFound[i].num);
+                                            worksheet1.getCell(`R${2+i}`).value = globs[0].globalcorte;
+                                            worksheet1.getCell(`S${2+i}`).value = globs[0].globalmaterial;
+                                            worksheet1.getCell(`T${2+i}`).value = globs[0].globaldoblez;
+
+                                            if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0) && (rowsFound[i][`area`] == null || rowsFound[i][`area`] == 0) && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
+                                                // Llenado de filas de caso cobro diferente a corte/doblez
+                                                worksheet1.getCell(`U${2+i}`).value = 0;
+                                                worksheet1.getCell(`V${2+i}`).value = 0;
+                                                worksheet1.getCell(`W${2+i}`).value = 0;
+                                                worksheet1.getCell(`X${2+i}`).value = 0;
+                                                worksheet1.getCell(`Y${2+i}`).value = parseFloat(rowsFound[i][`cantidad`])*parseFloat(rowsFound[i][`precio`]) || 0;
+
+                                            } else {
+                                                // Llenado de filas caso cobro corte/doblez
+
+                                                // Costos
+                                                let corte_por_mm = rowsFound[i][`material`] != null && rowsFound[i][`espesor`] != null? listadecorte.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]] : 0;
+                                                let piercing_por_pieza = rowsFound[i][`espesor`] != null? listadepiercing.filter(element => element.width == rowsFound[i][`espesor`])[0]["piercing"] : 0;
+                                                let doblez = rowsFound[i][`espesor`] != null? listadedoblez.filter(element => element.width == rowsFound[i][`espesor`])[0]["fold"] : 0;
+                                                let material_por_mm2 = rowsFound[i][`material`] != null && rowsFound[i][`espesor`] != null? listadematerial.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]] : 0;
+                                                
+                                                // Variables
+                                                let perimetro = rowsFound[i][`perimetro`] != null? parseFloat(rowsFound[i][`perimetro`]) : 0;
+                                                let piercings = rowsFound[i][`piercings`] != null? parseFloat(rowsFound[i][`piercings`]) : 0;
+                                                let numdoblez = rowsFound[i][`dobleces`] != null? parseFloat(rowsFound[i][`dobleces`]) : 0;
+                                                let longdobleces = rowsFound[i][`longdoblez`] != null? parseFloat(rowsFound[i][`longdoblez`]) : 1;
+
+                                                let longdoblezfactor = 1;
+                                                if (longdobleces >= 1500) {
+                                                    longdoblezfactor = 2;
+                                                } 
+
+                                                let area;
+                                                if (rowsFound[i][`conmaterial`] == "No" || rowsFound[i][`conmaterial`] == null) {
+                                                    area = 0;
+                                                } else {
+                                                    area = parseFloat(rowsFound[i][`area`]);
+                                                }
+
+                                                // Costo por unidad de pieza
+                                                let costo_unidad = perimetro*corte_por_mm + piercings*piercing_por_pieza + longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez + area*material_por_mm2;
+                                                
+                                                worksheet1.getCell(`U${2+i}`).value = area*material_por_mm2;
+                                                worksheet1.getCell(`V${2+i}`).value = perimetro*corte_por_mm;
+                                                worksheet1.getCell(`W${2+i}`).value = piercings*piercing_por_pieza;
+                                                worksheet1.getCell(`X${2+i}`).value = longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez;
+                                                worksheet1.getCell(`Y${2+i}`).value = parseFloat(rowsFound[i][`cantidad`])*costo_unidad;
+                                            }
+                                        }
+
+                                        workbook1.xlsx.writeFile( "./public/files/" + "Datos_especificos.xlsx");
+                                    })
                 
-                res.render(path.join(__dirname, '../views/data'));
+                                    res.render(path.join(__dirname, '../views/data'));
 
+                                }).catch((err)=>console.log(err));
+                            }).catch((err)=>console.log(err));
+                        }).catch((err)=>console.log(err));
+                    }).catch((err)=>console.log(err));
+                }).catch((err)=>console.log(err));
             }).catch((err)=>console.log(err));
         }).catch((err)=>console.log(err));
     }

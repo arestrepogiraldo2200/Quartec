@@ -848,7 +848,7 @@
                                 value = "<%= filas[i-1].factorcorte %>"
                             <% } %>
                             ></td>
-                        <td><input readonly type="text" class ="cannotchange" id="<%= "perimetro" + String(i) %>" name="<%= "perimetro" + String(i) %>" onkeydown="return false;" 
+                        <td><input readonly type="text" class ="cannotchange" id="<%= "perimetro" + String(i) %>" name="<%= "perimetro" + String(i) %>" onkeydown="function(e) {if (e.keyCode != 9){return false;}}" 
                             <% if (filas[i-1].perimetro == 0) {%>
                                 value = ""
                             <% } else {%>
@@ -876,7 +876,7 @@
                                 value = "<%= filas[i-1].factorarea %>"
                             <% } %>
                             ></td>
-                        <td><input readonly type="text" class ="cannotchange" id="<%= "area" + String(i) %>" name="<%= "area" + String(i) %>" onkeydown="return false;"
+                        <td><input readonly type="text" class ="cannotchange" id="<%= "area" + String(i) %>" name="<%= "area" + String(i) %>" onkeydown="function(e) {if (e.keyCode != 9){return false;}}"
                             <% if (filas[i-1].area == 0) {%>
                                 value = ""
                             <% } else {%>
@@ -940,7 +940,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column3" + String(i) %>"><input readonly type="text" id="<%= "totaltodas" + String(i) %>" onkeydown="return false;"
+                            <% } %> id="<%= "column3" + String(i) %>"><input readonly type="text" id="<%= "totaltodas" + String(i) %>" onkeydown="function(e) {if (e.keyCode != 9){return false;}}"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= parseFloat(precios[i-1].total).toFixed(0) %>"
                             <% } %> ></td>
@@ -957,7 +957,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %>  id="<%= "column5" + String(i) %>"><input readonly type="text" id="<%= "calculocorte" + String(i) %>" onkeydown="return false;"
+                            <% } %>  id="<%= "column5" + String(i) %>"><input readonly type="text" id="<%= "calculocorte" + String(i) %>" onkeydown="function(e) {if (e.keyCode != 9){return false;}}"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].corte %>"  
                             <% } %>
@@ -975,7 +975,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %>  id="<%= "column7" + String(i) %>"><input readonly type="text" id="<%= "calculopiercing" + String(i) %>"  onkeydown="return false;" 
+                            <% } %>  id="<%= "column7" + String(i) %>"><input readonly type="text" id="<%= "calculopiercing" + String(i) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}" 
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].piercing %>"  
                             <% } %>></td>
@@ -992,7 +992,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column9" + String(i) %>"><input readonly type="text" id="<%= "calculodoblez" + String(i) %>"  onkeydown="return false;"
+                            <% } %> id="<%= "column9" + String(i) %>"><input readonly type="text" id="<%= "calculodoblez" + String(i) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].doblez %>"  
                             <% } %>></td>
@@ -1009,7 +1009,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column11" + String(i) %>"><input readonly type="text" id="<%= "calculomaterial" + String(i) %>"  onkeydown="return false;"
+                            <% } %> id="<%= "column11" + String(i) %>"><input readonly type="text" id="<%= "calculomaterial" + String(i) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].material %>"  
                             <% } %>></td>
@@ -1026,7 +1026,7 @@
                                 style="visibility: hidden;"
                             <% } else {%>
                                 style="visibility: visible;"
-                            <% } %> id="<%= "column13" + String(i) %>"><input readonly type="text" id="<%= "total" + String(i) %>"  onkeydown="return false;"
+                            <% } %> id="<%= "column13" + String(i) %>"><input readonly type="text" id="<%= "total" + String(i) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"
                             <% if ( typeof filas[i-1].precio != "number") {%>
                                 value = "<%= precios[i-1].totalporpieza %>"  
                             <% } %>></td>
@@ -1117,11 +1117,11 @@
                         </select></td>
                         <td><input type="number" step="0.0001" id="<%= "perimetro_autocad" + String(j) %>" name="<%= "perimetro_autocad" + String(j) %>" onchange="validateMaterialWidth(<%= String(j) %>);       requiredCutValue(<%= String(j) %>);      changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td><input type="number" step="0.0001" id="<%= "factor_corte" + String(j) %>"   value="1"   name="<%= "factor_corte" + String(j) %>" onchange="changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
-                        <td><input readonly type="text" class ="cannotchange" id="<%= "perimetro" + String(j) %>" name="<%= "perimetro" + String(j) %>" onkeydown="return false;"></td>
+                        <td><input readonly type="text" class ="cannotchange" id="<%= "perimetro" + String(j) %>" name="<%= "perimetro" + String(j) %>" onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                         <td><input type="number" step="0.0001" id="<%= "largo_autocad" + String(j) %>" name="<%= "largo_autocad" + String(j) %>" onchange="validateMaterialWidth(<%= String(j) %>);       requiredMaterialValue(<%= String(j) %>);      changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td><input type="number" step="0.0001" id="<%= "ancho_autocad" + String(j) %>" name="<%= "ancho_autocad" + String(j) %>" onchange="validateMaterialWidth(<%= String(j) %>);       requiredMaterialValue(<%= String(j) %>);      changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td><input type="number" step="0.0001" id="<%= "factor_area" + String(j) %>"    value="1"  name="<%= "factor_area" + String(j) %>" onchange="changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
-                        <td><input readonly type="text" class ="cannotchange" id="<%= "area" + String(j) %>" name="<%= "area" + String(j) %>" onkeydown="return false;"></td>
+                        <td><input readonly type="text" class ="cannotchange" id="<%= "area" + String(j) %>" name="<%= "area" + String(j) %>" onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                         <td><input type="number" id="<%= "piercings" + String(j) %>" name="<%= "piercings" + String(j) %>"  onchange="changePiercingValue(<%= String(j) %>, <%= JSON.stringify(piercing) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td><input type="number" id="<%= "dobleces" + String(j) %>" name="<%= "dobleces" + String(j) %>"  onchange="validateMaterialWidth(<%= String(j) %>);       requiredDoblezValue(<%= String(j) %>);       changeDoblezValue(<%= String(j) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td><input type="number" step="0.0001" id="<%= "longitud_doblez" + String(j) %>" name="<%= "longitud_doblez" + String(j) %>"  onchange="changeDoblezValue(<%= String(j) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(j)%>);          changePerMaterialWidth(<%= String(j)%>);" ></td>
@@ -1136,17 +1136,17 @@
                         <tr class="calculationsrow"  id="<%= "calculationsrow" + String(j) %>" style="display: none">                             
                             <td style="visibility: hidden;" id="<%= "column1" + String(j) %>"></td>
                             <td style="visibility: hidden;" id="<%= "column2" + String(j) %>">Valor total:</td>
-                            <td style="visibility: hidden;" id="<%= "column3" + String(j) %>"><input readonly type="text" id="<%= "totaltodas" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column3" + String(j) %>"><input readonly type="text" id="<%= "totaltodas" + String(j) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                             <td style="visibility: hidden;" id="<%= "column4" + String(j) %>">Valor corte:</td>
-                            <td style="visibility: hidden;" id="<%= "column5" + String(j) %>"><input readonly type="text" id="<%= "calculocorte" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column5" + String(j) %>"><input readonly type="text" id="<%= "calculocorte" + String(j) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                             <td style="visibility: hidden;" id="<%= "column6" + String(j) %>">Valor piercing:</td>
-                            <td style="visibility: hidden;" id="<%= "column7" + String(j) %>"><input readonly type="text" id="<%= "calculopiercing" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column7" + String(j) %>"><input readonly type="text" id="<%= "calculopiercing" + String(j) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                             <td style="visibility: hidden;" id="<%= "column8" + String(j) %>">Valor doblez:</td>
-                            <td style="visibility: hidden;" id="<%= "column9" + String(j) %>"><input readonly type="text" id="<%= "calculodoblez" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column9" + String(j) %>"><input readonly type="text" id="<%= "calculodoblez" + String(j) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                             <td style="visibility: hidden;" id="<%= "column10" + String(j) %>">Valor material:</td>
-                            <td style="visibility: hidden;" id="<%= "column11" + String(j) %>"><input readonly type="text" id="<%= "calculomaterial" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column11" + String(j) %>"><input readonly type="text" id="<%= "calculomaterial" + String(j) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                             <td style="visibility: hidden;" id="<%= "column12" + String(j) %>">Valor unitario:</td>
-                            <td style="visibility: hidden;" id="<%= "column13" + String(j) %>"><input readonly type="text" id="<%= "total" + String(j) %>"  onkeydown="return false;"></td>
+                            <td style="visibility: hidden;" id="<%= "column13" + String(j) %>"><input readonly type="text" id="<%= "total" + String(j) %>"  onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                             <td style="visibility: hidden;" id="<%= "column14" + String(j) %>"> </td>
                             <td style="visibility: hidden;" id="<%= "column15" + String(j) %>"> </td>
                             <td style="visibility: hidden;" id="<%= "column16" + String(j) %>"> </td>

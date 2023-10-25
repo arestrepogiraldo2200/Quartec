@@ -826,17 +826,59 @@ let cotizacionController = {
                                                 }
                                             }
 
-                                            worksheet.getCell('N91').value = { formula: 'SUM(N27:N90)', date1904: false };
-                                            worksheet.getCell('N92').value = { formula: 'N91*0.19', date1904: false };
-                                            worksheet.getCell('N93').value = { formula: 'N91+N92', date1904: false };
-                                            worksheet.getCell('A93').value = numeroALetras(parseInt(Math.round(total*1.19)), {
+
+
+                                            worksheet.getCell(`N${37+rowsFound.length}`).value = { formula: `SUM(N27:N${27+rowsFound.length})`, date1904: false };
+                                            worksheet.getCell(`N${38+rowsFound.length}`).value = { formula: `N${37+rowsFound.length}*0.19`, date1904: false };
+                                            worksheet.getCell(`N${39+rowsFound.length}`).value = { formula: `N${37+rowsFound.length}+N${38+rowsFound.length}`, date1904: false };
+
+                                            // Unmerge Cells
+                                            worksheet.unMergeCells(`B${37+rowsFound.length}:G${37+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${37+rowsFound.length}:I${37+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${37+rowsFound.length}:K${37+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${38+rowsFound.length}:G${38+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${38+rowsFound.length}:I${38+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${38+rowsFound.length}:K${38+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${39+rowsFound.length}:G${39+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${39+rowsFound.length}:I${39+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${39+rowsFound.length}:K${39+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${40+rowsFound.length}:G${40+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${40+rowsFound.length}:I${40+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${40+rowsFound.length}:K${40+rowsFound.length}`)
+                                            worksheet.unMergeCells(`L${40+rowsFound.length}:M${40+rowsFound.length}`)
+                                            worksheet.unMergeCells(`N${40+rowsFound.length}:O${40+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${41+rowsFound.length}:G${41+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${41+rowsFound.length}:I${41+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${41+rowsFound.length}:K${41+rowsFound.length}`)
+                                            worksheet.unMergeCells(`L${41+rowsFound.length}:M${41+rowsFound.length}`)
+                                            worksheet.unMergeCells(`N${41+rowsFound.length}:O${41+rowsFound.length}`)
+
+                                            // Merge cells
+                                            worksheet.mergeCells(`A${37+rowsFound.length}:K${38+rowsFound.length}`);
+                                            worksheet.mergeCells(`A${39+rowsFound.length}`, `K${39+rowsFound.length}`);
+                                            worksheet.mergeCells(`A${41+rowsFound.length}`, `O${41+rowsFound.length}`);
+                                            worksheet.mergeCells(`A${40+rowsFound.length}`, `O${40+rowsFound.length}`);
+
+                                            // Write the tail file format
+                                            worksheet.getCell(`L${37+rowsFound.length}`).value = 'SUBTOTAL';
+                                            worksheet.getCell(`L${38+rowsFound.length}`).value = 'IVA (19%)';
+                                            worksheet.getCell(`L${39+rowsFound.length}`).value = 'TOTAL';
+                                            worksheet.getCell(`L${41+rowsFound.length}`).value = 'Favor consignar en la Cuenta Corriente # 277-000027-16 de BANCOLOMBIA (A nombre de Quartec Ingenieria S.A.S.)';
+                                            worksheet.getCell(`A${39+rowsFound.length}`).value = numeroALetras(parseInt(Math.round(total*1.19)), {
                                                 plural: "PESOS",
                                                 singular: "PESO",
                                                 centPlural: "CENTAVOS",
                                                 centSingular: "CENTAVO"
                                               });
 
-                                            //worksheet.spliceRows(27 + rowsFound.length, 90 - 27 - rowsFound.length);
+                                            //   Bold style
+                                            worksheet.getCell(`L${37+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`L${38+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`L${39+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`L${41+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`A${39+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+
+                                            worksheet.spliceRows(42 + rowsFound.length, 90);
                         
                                             //workbook.xlsx.writeFile( "./public/files/" + filename);
                                             workbook.xlsx.writeFile( "./public/" + filename).then(convertPDF(filename));

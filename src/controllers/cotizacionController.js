@@ -826,8 +826,7 @@ let cotizacionController = {
                                                 }
                                             }
 
-
-
+                                            // Macros
                                             worksheet.getCell(`N${37+rowsFound.length}`).value = { formula: `SUM(N27:N${27+rowsFound.length})`, date1904: false };
                                             worksheet.getCell(`N${38+rowsFound.length}`).value = { formula: `N${37+rowsFound.length}*0.19`, date1904: false };
                                             worksheet.getCell(`N${39+rowsFound.length}`).value = { formula: `N${37+rowsFound.length}+N${38+rowsFound.length}`, date1904: false };
@@ -1012,15 +1011,67 @@ let cotizacionController = {
                                                 }
                                             }
 
-                                            worksheet1.getCell('P91').value = { formula: 'SUM(P27:P90)', date1904: false };
-                                            worksheet1.getCell('P92').value = { formula: 'P91*0.19', date1904: false };
-                                            worksheet1.getCell('P93').value = { formula: 'P91+P92', date1904: false };
-                                            worksheet1.getCell('A93').value = numeroALetras(parseInt(Math.round(total*1.19)), {
+                                            
+                                            worksheet1.getCell(`P${37+rowsFound.length}`).value = { formula: `SUM(P27:P${27+rowsFound.length})`, date1904: false };
+                                            worksheet1.getCell(`P${38+rowsFound.length}`).value = { formula: `P${37+rowsFound.length}*0.19`, date1904: false };
+                                            worksheet1.getCell(`P${39+rowsFound.length}`).value = { formula: `P${37+rowsFound.length}+P${38+rowsFound.length}`, date1904: false };
+
+                                            // Unmerge Cells
+                                            worksheet1.unMergeCells(`B${37+rowsFound.length}:G${37+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${37+rowsFound.length}:I${37+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${37+rowsFound.length}:K${37+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${37+rowsFound.length}:M${37+rowsFound.length}`)
+
+                                            worksheet1.unMergeCells(`B${38+rowsFound.length}:G${38+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${38+rowsFound.length}:I${38+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${38+rowsFound.length}:K${38+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${38+rowsFound.length}:M${38+rowsFound.length}`)
+
+                                            worksheet1.unMergeCells(`B${39+rowsFound.length}:G${39+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${39+rowsFound.length}:I${39+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${39+rowsFound.length}:K${39+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${39+rowsFound.length}:M${39+rowsFound.length}`)
+
+                                            worksheet1.unMergeCells(`B${40+rowsFound.length}:G${40+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${40+rowsFound.length}:I${40+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${40+rowsFound.length}:K${40+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${40+rowsFound.length}:M${40+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`N${40+rowsFound.length}:O${40+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`P${40+rowsFound.length}:Q${40+rowsFound.length}`)
+
+                                            worksheet1.unMergeCells(`B${41+rowsFound.length}:G${41+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${41+rowsFound.length}:I${41+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${41+rowsFound.length}:K${41+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${41+rowsFound.length}:M${41+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`N${41+rowsFound.length}:O${41+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`P${41+rowsFound.length}:Q${41+rowsFound.length}`)
+
+                                            // Merge cells
+                                            worksheet1.mergeCells(`A${37+rowsFound.length}:M${38+rowsFound.length}`);
+                                            worksheet1.mergeCells(`A${39+rowsFound.length}`, `M${39+rowsFound.length}`);
+                                            worksheet1.mergeCells(`A${41+rowsFound.length}`, `Q${41+rowsFound.length}`);
+                                            worksheet1.mergeCells(`A${40+rowsFound.length}`, `Q${40+rowsFound.length}`);
+
+                                            // Write the tail file format
+                                            worksheet1.getCell(`N${37+rowsFound.length}`).value = 'SUBTOTAL';
+                                            worksheet1.getCell(`N${38+rowsFound.length}`).value = 'IVA (19%)';
+                                            worksheet1.getCell(`N${39+rowsFound.length}`).value = 'TOTAL';
+                                            worksheet1.getCell(`N${41+rowsFound.length}`).value = 'Favor consignar en la Cuenta Corriente # 277-000027-16 de BANCOLOMBIA (A nombre de Quartec Ingenieria S.A.S.)';
+                                            worksheet1.getCell(`A${39+rowsFound.length}`).value = numeroALetras(parseInt(Math.round(total*1.19)), {
                                                 plural: "PESOS",
                                                 singular: "PESO",
                                                 centPlural: "CENTAVOS",
                                                 centSingular: "CENTAVO"
                                               });
+
+                                            //   Bold style
+                                            worksheet1.getCell(`N${37+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`N${38+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`N${39+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`N${41+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`A${39+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+
+                                            worksheet1.spliceRows(42 + rowsFound.length, 90);
 
                                             //workbook1.xlsx.writeFile( "./public/files/" + filename);
                                             workbook1.xlsx.writeFile( "./public/" + filename1).then(convertPDF(filename1));

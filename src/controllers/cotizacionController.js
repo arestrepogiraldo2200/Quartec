@@ -827,43 +827,49 @@ let cotizacionController = {
                                             }
 
                                             // Macros
-                                            worksheet.getCell(`N${37+rowsFound.length}`).value = { formula: `SUM(N27:N${27+rowsFound.length})`, date1904: false };
-                                            worksheet.getCell(`N${38+rowsFound.length}`).value = { formula: `N${37+rowsFound.length}*0.19`, date1904: false };
-                                            worksheet.getCell(`N${39+rowsFound.length}`).value = { formula: `N${37+rowsFound.length}+N${38+rowsFound.length}`, date1904: false };
+                                            worksheet.getCell(`N${28+rowsFound.length}`).value = { formula: `SUM(N27:N${27+rowsFound.length})`, date1904: false };
+                                            worksheet.getCell(`N${29+rowsFound.length}`).value = { formula: `N${28+rowsFound.length}*0.19`, date1904: false };
+                                            worksheet.getCell(`N${30+rowsFound.length}`).value = { formula: `N${28+rowsFound.length}+N${29+rowsFound.length}`, date1904: false };
 
                                             // Unmerge Cells
-                                            worksheet.unMergeCells(`B${37+rowsFound.length}:G${37+rowsFound.length}`)
-                                            worksheet.unMergeCells(`H${37+rowsFound.length}:I${37+rowsFound.length}`)
-                                            worksheet.unMergeCells(`J${37+rowsFound.length}:K${37+rowsFound.length}`)
-                                            worksheet.unMergeCells(`B${38+rowsFound.length}:G${38+rowsFound.length}`)
-                                            worksheet.unMergeCells(`H${38+rowsFound.length}:I${38+rowsFound.length}`)
-                                            worksheet.unMergeCells(`J${38+rowsFound.length}:K${38+rowsFound.length}`)
-                                            worksheet.unMergeCells(`B${39+rowsFound.length}:G${39+rowsFound.length}`)
-                                            worksheet.unMergeCells(`H${39+rowsFound.length}:I${39+rowsFound.length}`)
-                                            worksheet.unMergeCells(`J${39+rowsFound.length}:K${39+rowsFound.length}`)
-                                            worksheet.unMergeCells(`B${40+rowsFound.length}:G${40+rowsFound.length}`)
-                                            worksheet.unMergeCells(`H${40+rowsFound.length}:I${40+rowsFound.length}`)
-                                            worksheet.unMergeCells(`J${40+rowsFound.length}:K${40+rowsFound.length}`)
-                                            worksheet.unMergeCells(`L${40+rowsFound.length}:M${40+rowsFound.length}`)
-                                            worksheet.unMergeCells(`N${40+rowsFound.length}:O${40+rowsFound.length}`)
-                                            worksheet.unMergeCells(`B${41+rowsFound.length}:G${41+rowsFound.length}`)
-                                            worksheet.unMergeCells(`H${41+rowsFound.length}:I${41+rowsFound.length}`)
-                                            worksheet.unMergeCells(`J${41+rowsFound.length}:K${41+rowsFound.length}`)
-                                            worksheet.unMergeCells(`L${41+rowsFound.length}:M${41+rowsFound.length}`)
-                                            worksheet.unMergeCells(`N${41+rowsFound.length}:O${41+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${27+rowsFound.length}:G${27+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${27+rowsFound.length}:I${27+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${27+rowsFound.length}:K${27+rowsFound.length}`)
+                                            worksheet.unMergeCells(`L${27+rowsFound.length}:M${27+rowsFound.length}`)
+                                            worksheet.unMergeCells(`N${27+rowsFound.length}:O${27+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${28+rowsFound.length}:G${28+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${28+rowsFound.length}:I${28+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${28+rowsFound.length}:K${28+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${29+rowsFound.length}:G${29+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${29+rowsFound.length}:I${29+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${29+rowsFound.length}:K${29+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${30+rowsFound.length}:G${30+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${30+rowsFound.length}:I${30+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${30+rowsFound.length}:K${30+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${31+rowsFound.length}:G${31+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${31+rowsFound.length}:I${31+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${31+rowsFound.length}:K${31+rowsFound.length}`)
+                                            worksheet.unMergeCells(`L${31+rowsFound.length}:M${31+rowsFound.length}`)
+                                            worksheet.unMergeCells(`N${31+rowsFound.length}:O${31+rowsFound.length}`)
+                                            worksheet.unMergeCells(`B${32+rowsFound.length}:G${32+rowsFound.length}`)
+                                            worksheet.unMergeCells(`H${32+rowsFound.length}:I${32+rowsFound.length}`)
+                                            worksheet.unMergeCells(`J${32+rowsFound.length}:K${32+rowsFound.length}`)
+                                            worksheet.unMergeCells(`L${32+rowsFound.length}:M${32+rowsFound.length}`)
+                                            worksheet.unMergeCells(`N${32+rowsFound.length}:O${32+rowsFound.length}`)
 
                                             // Merge cells
-                                            worksheet.mergeCells(`A${37+rowsFound.length}:K${38+rowsFound.length}`);
-                                            worksheet.mergeCells(`A${39+rowsFound.length}`, `K${39+rowsFound.length}`);
-                                            worksheet.mergeCells(`A${41+rowsFound.length}`, `O${41+rowsFound.length}`);
-                                            worksheet.mergeCells(`A${40+rowsFound.length}`, `O${40+rowsFound.length}`);
+                                            worksheet.mergeCells(`A${27+rowsFound.length}:O${27+rowsFound.length}`);
+                                            worksheet.mergeCells(`A${28+rowsFound.length}:K${29+rowsFound.length}`);
+                                            worksheet.mergeCells(`A${30+rowsFound.length}`, `K${30+rowsFound.length}`);
+                                            worksheet.mergeCells(`A${32+rowsFound.length}`, `O${32+rowsFound.length}`);
+                                            worksheet.mergeCells(`A${31+rowsFound.length}`, `O${31+rowsFound.length}`);
 
                                             // Write the tail file format
-                                            worksheet.getCell(`L${37+rowsFound.length}`).value = 'SUBTOTAL';
-                                            worksheet.getCell(`L${38+rowsFound.length}`).value = 'IVA (19%)';
-                                            worksheet.getCell(`L${39+rowsFound.length}`).value = 'TOTAL';
-                                            worksheet.getCell(`L${41+rowsFound.length}`).value = 'Favor consignar en la Cuenta Corriente # 277-000027-16 de BANCOLOMBIA (A nombre de Quartec Ingenieria S.A.S.)';
-                                            worksheet.getCell(`A${39+rowsFound.length}`).value = numeroALetras(parseInt(Math.round(total*1.19)), {
+                                            worksheet.getCell(`L${28+rowsFound.length}`).value = 'SUBTOTAL';
+                                            worksheet.getCell(`L${29+rowsFound.length}`).value = 'IVA (19%)';
+                                            worksheet.getCell(`L${30+rowsFound.length}`).value = 'TOTAL';
+                                            worksheet.getCell(`L${32+rowsFound.length}`).value = 'Favor consignar en la Cuenta Corriente # 277-000027-16 de BANCOLOMBIA (A nombre de Quartec Ingenieria S.A.S.)';
+                                            worksheet.getCell(`A${30+rowsFound.length}`).value = numeroALetras(parseInt(Math.round(total*1.19)), {
                                                 plural: "PESOS",
                                                 singular: "PESO",
                                                 centPlural: "CENTAVOS",
@@ -871,13 +877,13 @@ let cotizacionController = {
                                               });
 
                                             //   Bold style
-                                            worksheet.getCell(`L${37+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
-                                            worksheet.getCell(`L${38+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
-                                            worksheet.getCell(`L${39+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
-                                            worksheet.getCell(`L${41+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
-                                            worksheet.getCell(`A${39+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`L${28+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`L${29+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`L${30+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`L${32+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet.getCell(`A${30+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
 
-                                            worksheet.spliceRows(42 + rowsFound.length, 90);
+                                            worksheet.spliceRows(33 + rowsFound.length, 90);
                         
                                             //workbook.xlsx.writeFile( "./public/files/" + filename);
                                             workbook.xlsx.writeFile( "./public/" + filename).then(convertPDF(filename));
@@ -1012,52 +1018,61 @@ let cotizacionController = {
                                             }
 
                                             
-                                            worksheet1.getCell(`P${37+rowsFound.length}`).value = { formula: `SUM(P27:P${27+rowsFound.length})`, date1904: false };
-                                            worksheet1.getCell(`P${38+rowsFound.length}`).value = { formula: `P${37+rowsFound.length}*0.19`, date1904: false };
-                                            worksheet1.getCell(`P${39+rowsFound.length}`).value = { formula: `P${37+rowsFound.length}+P${38+rowsFound.length}`, date1904: false };
+                                            worksheet1.getCell(`P${28+rowsFound.length}`).value = { formula: `SUM(P27:P${27+rowsFound.length})`, date1904: false };
+                                            worksheet1.getCell(`P${29+rowsFound.length}`).value = { formula: `P${28+rowsFound.length}*0.19`, date1904: false };
+                                            worksheet1.getCell(`P${30+rowsFound.length}`).value = { formula: `P${28+rowsFound.length}+P${29+rowsFound.length}`, date1904: false };
 
                                             // Unmerge Cells
-                                            worksheet1.unMergeCells(`B${37+rowsFound.length}:G${37+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`H${37+rowsFound.length}:I${37+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`J${37+rowsFound.length}:K${37+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`L${37+rowsFound.length}:M${37+rowsFound.length}`)
 
-                                            worksheet1.unMergeCells(`B${38+rowsFound.length}:G${38+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`H${38+rowsFound.length}:I${38+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`J${38+rowsFound.length}:K${38+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`L${38+rowsFound.length}:M${38+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`B${27+rowsFound.length}:G${27+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${27+rowsFound.length}:I${27+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${27+rowsFound.length}:K${27+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${27+rowsFound.length}:M${27+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`N${27+rowsFound.length}:O${27+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`P${27+rowsFound.length}:Q${27+rowsFound.length}`)
 
-                                            worksheet1.unMergeCells(`B${39+rowsFound.length}:G${39+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`H${39+rowsFound.length}:I${39+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`J${39+rowsFound.length}:K${39+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`L${39+rowsFound.length}:M${39+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`B${28+rowsFound.length}:G${28+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${28+rowsFound.length}:I${28+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${28+rowsFound.length}:K${28+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${28+rowsFound.length}:M${28+rowsFound.length}`)
 
-                                            worksheet1.unMergeCells(`B${40+rowsFound.length}:G${40+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`H${40+rowsFound.length}:I${40+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`J${40+rowsFound.length}:K${40+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`L${40+rowsFound.length}:M${40+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`N${40+rowsFound.length}:O${40+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`P${40+rowsFound.length}:Q${40+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`B${29+rowsFound.length}:G${29+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${29+rowsFound.length}:I${29+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${29+rowsFound.length}:K${29+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${29+rowsFound.length}:M${29+rowsFound.length}`)
 
-                                            worksheet1.unMergeCells(`B${41+rowsFound.length}:G${41+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`H${41+rowsFound.length}:I${41+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`J${41+rowsFound.length}:K${41+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`L${41+rowsFound.length}:M${41+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`N${41+rowsFound.length}:O${41+rowsFound.length}`)
-                                            worksheet1.unMergeCells(`P${41+rowsFound.length}:Q${41+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`B${30+rowsFound.length}:G${30+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${30+rowsFound.length}:I${30+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${30+rowsFound.length}:K${30+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${30+rowsFound.length}:M${30+rowsFound.length}`)
+
+                                            worksheet1.unMergeCells(`B${31+rowsFound.length}:G${31+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${31+rowsFound.length}:I${31+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${31+rowsFound.length}:K${31+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${31+rowsFound.length}:M${31+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`N${31+rowsFound.length}:O${31+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`P${31+rowsFound.length}:Q${31+rowsFound.length}`)
+
+                                            worksheet1.unMergeCells(`B${32+rowsFound.length}:G${32+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`H${32+rowsFound.length}:I${32+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`J${32+rowsFound.length}:K${32+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`L${32+rowsFound.length}:M${32+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`N${32+rowsFound.length}:O${32+rowsFound.length}`)
+                                            worksheet1.unMergeCells(`P${32+rowsFound.length}:Q${32+rowsFound.length}`)
 
                                             // Merge cells
-                                            worksheet1.mergeCells(`A${37+rowsFound.length}:M${38+rowsFound.length}`);
-                                            worksheet1.mergeCells(`A${39+rowsFound.length}`, `M${39+rowsFound.length}`);
-                                            worksheet1.mergeCells(`A${41+rowsFound.length}`, `Q${41+rowsFound.length}`);
-                                            worksheet1.mergeCells(`A${40+rowsFound.length}`, `Q${40+rowsFound.length}`);
+                                            worksheet1.mergeCells(`A${27+rowsFound.length}`, `Q${27+rowsFound.length}`);
+                                            worksheet1.mergeCells(`A${28+rowsFound.length}:M${29+rowsFound.length}`);
+                                            worksheet1.mergeCells(`A${30+rowsFound.length}`, `M${30+rowsFound.length}`);
+                                            worksheet1.mergeCells(`A${32+rowsFound.length}`, `Q${32+rowsFound.length}`);
+                                            worksheet1.mergeCells(`A${31+rowsFound.length}`, `Q${31+rowsFound.length}`);
 
                                             // Write the tail file format
-                                            worksheet1.getCell(`N${37+rowsFound.length}`).value = 'SUBTOTAL';
-                                            worksheet1.getCell(`N${38+rowsFound.length}`).value = 'IVA (19%)';
-                                            worksheet1.getCell(`N${39+rowsFound.length}`).value = 'TOTAL';
-                                            worksheet1.getCell(`N${41+rowsFound.length}`).value = 'Favor consignar en la Cuenta Corriente # 277-000027-16 de BANCOLOMBIA (A nombre de Quartec Ingenieria S.A.S.)';
-                                            worksheet1.getCell(`A${39+rowsFound.length}`).value = numeroALetras(parseInt(Math.round(total*1.19)), {
+                                            worksheet1.getCell(`N${28+rowsFound.length}`).value = 'SUBTOTAL';
+                                            worksheet1.getCell(`N${29+rowsFound.length}`).value = 'IVA (19%)';
+                                            worksheet1.getCell(`N${30+rowsFound.length}`).value = 'TOTAL';
+                                            worksheet1.getCell(`N${32+rowsFound.length}`).value = 'Favor consignar en la Cuenta Corriente # 277-000027-16 de BANCOLOMBIA (A nombre de Quartec Ingenieria S.A.S.)';
+                                            worksheet1.getCell(`A${30+rowsFound.length}`).value = numeroALetras(parseInt(Math.round(total*1.19)), {
                                                 plural: "PESOS",
                                                 singular: "PESO",
                                                 centPlural: "CENTAVOS",
@@ -1065,13 +1080,13 @@ let cotizacionController = {
                                               });
 
                                             //   Bold style
-                                            worksheet1.getCell(`N${37+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
-                                            worksheet1.getCell(`N${38+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
-                                            worksheet1.getCell(`N${39+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
-                                            worksheet1.getCell(`N${41+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
-                                            worksheet1.getCell(`A${39+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`N${28+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`N${29+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`N${30+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`N${32+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
+                                            worksheet1.getCell(`A${30+rowsFound.length}`).font = { name: 'Calibri', size: 12, bold: true};
 
-                                            worksheet1.spliceRows(42 + rowsFound.length, 90);
+                                            worksheet1.spliceRows(33 + rowsFound.length, 90);
 
                                             //workbook1.xlsx.writeFile( "./public/files/" + filename);
                                             workbook1.xlsx.writeFile( "./public/" + filename1).then(convertPDF(filename1));
@@ -1136,19 +1151,21 @@ let cotizacionController = {
                                                     break;
                                                 } else if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && rowsFound[i][`perimetro`] == null && rowsFound[i][`area`] == null){
                                                     // Llenado de filas de caso cobro diferente a corte/doblez
-                                                    worksheet2.getCell(`A${21+i}`).value = i+1;
-                                                    worksheet2.getCell(`B${21+i}`).value = rowsFound[i][`descripcion`] + ".";
-                                                    worksheet2.getCell(`H${21+i}`).value = rowsFound[i][`cantidad`];
-                                                    worksheet2.getCell(`J${21+i}`).value = "Und";
+                                                    worksheet2.getCell(`A${28+i}`).value = i+1;
+                                                    worksheet2.getCell(`B${28+i}`).value = rowsFound[i][`descripcion`] + ".";
+                                                    worksheet2.getCell(`H${28+i}`).value = rowsFound[i][`cantidad`];
+                                                    worksheet2.getCell(`J${28+i}`).value = "Und";
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
-                                                    worksheet2.getCell(`A${21+i}`).value = i+1;
-                                                    worksheet2.getCell(`B${21+i}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
-                                                    worksheet2.getCell(`H${21+i}`).value = rowsFound[i][`cantidad`];
-                                                    worksheet2.getCell(`J${21+i}`).value = "Und";
+                                                    worksheet2.getCell(`A${28+i}`).value = i+1;
+                                                    worksheet2.getCell(`B${28+i}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
+                                                    worksheet2.getCell(`H${28+i}`).value = rowsFound[i][`cantidad`];
+                                                    worksheet2.getCell(`J${28+i}`).value = "Und";
                                                 }
                                             }
                         
+                                            worksheet2.spliceRows(29 + rowsFound.length, 90);
+
                                             //workbook2.xlsx.writeFile( "./public/files/" + filename);
                                             workbook2.xlsx.writeFile( "./public/" + filename2).then(convertPDF(filename2));
                                         })
@@ -1174,19 +1191,21 @@ let cotizacionController = {
                                                     continue;
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
-                                                    worksheet3.getCell(`A${8+j}`).value = j;
-                                                    worksheet3.getCell(`B${8+j}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
+                                                    worksheet3.getCell(`A${25+j}`).value = j;
+                                                    worksheet3.getCell(`B${25+j}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
                                                     if (rowsFound[i][`conmaterial`] == 'Sí'){
-                                                        worksheet3.getCell(`F${8+j}`).value = "Q.I.";
+                                                        worksheet3.getCell(`F${25+j}`).value = "Q.I.";
                                                     } else {
-                                                        worksheet3.getCell(`F${8+j}`).value = "Cliente";
+                                                        worksheet3.getCell(`F${25+j}`).value = "Cliente";
                                                     }
-                                                    worksheet3.getCell(`G${8+j}`).value = rowsFound[i][`cantidad`];
-                                                    worksheet3.getCell(`H${8+j}`).value = rowsFound[i][`perimetro`];
+                                                    worksheet3.getCell(`G${25+j}`).value = rowsFound[i][`cantidad`];
+                                                    worksheet3.getCell(`H${25+j}`).value = rowsFound[i][`perimetro`];
                                                     j += 1;
                                                 }
                                             }
-                        
+
+                                            worksheet3.spliceRows(27 + rowsFound.length, 90);
+
                                             //workbook3.xlsx.writeFile("./public/files/" + filename);
                                             workbook3.xlsx.writeFile( "./public/" + filename3).then(convertPDF(filename3));
                                         })
@@ -1212,14 +1231,16 @@ let cotizacionController = {
                                                     continue;
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
-                                                    worksheet4.getCell(`A${8+j}`).value = j;
-                                                    worksheet4.getCell(`B${8+j}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
-                                                    worksheet4.getCell(`F${8+j}`).value = rowsFound[i][`dobleces`];
-                                                    worksheet4.getCell(`G${8+j}`).value = rowsFound[i][`longdoblez`];
-                                                    worksheet4.getCell(`H${8+j}`).value = rowsFound[i][`cantidad`];
+                                                    worksheet4.getCell(`A${17+j}`).value = j;
+                                                    worksheet4.getCell(`B${17+j}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
+                                                    worksheet4.getCell(`F${17+j}`).value = rowsFound[i][`dobleces`];
+                                                    worksheet4.getCell(`G${17+j}`).value = rowsFound[i][`longdoblez`];
+                                                    worksheet4.getCell(`H${17+j}`).value = rowsFound[i][`cantidad`];
                                                     j += 1;
                                                 }
                                             }
+
+                                            worksheet4.spliceRows(19 + rowsFound.length, 90);
                         
                                             //workbook4.xlsx.writeFile( "./public/files/" + filename);
                                             workbook4.xlsx.writeFile( "./public/" + filename4).then(convertPDF(filename4));

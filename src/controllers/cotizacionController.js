@@ -15,6 +15,11 @@ const fsp = require('fs').promises;
 const libre = require('libreoffice-convert');
 libre.convertAsync = require('util').promisify(libre.convert);
 
+// Para editar el .docx y convertir de docx a pdf
+const docxConverter = require('docx-pdf');
+const PizZip = require("pizzip");
+const Docxtemplater = require("docxtemplater");
+
 let cotizacionController = {
 
     main: (req,res) => {
@@ -485,7 +490,7 @@ let cotizacionController = {
 
         // Función para pasar de números a palabras -------------------------------------------------------
 
-          var numeroALetras = (function() {
+        var numeroALetras = (function() {
             // Código basado en el comentario de @sapienman
             // Código basado en https://gist.github.com/alfchee/e563340276f89b22042a
             function Unidades(num) {
@@ -691,9 +696,8 @@ let cotizacionController = {
                     return MilesMillones(data.enteros) + ' ' + data.letrasMonedaPlural + ' ' + data.letrasCentavos;
             };
         
-        })();
-        
-                  
+        })();   
+            
         db.cotizacion.findOne({raw: true, where: { num: cotizacionToDownload } }).then((cotizacionFound) => {
             db.cotizacion_datos.findAll({raw: true, where: { num: cotizacionToDownload } }).then((rowsFound) => {
                 db.clientes.findOne({raw: true, where: { client: cotizacionFound.client } }).then((clientFound)=>{
@@ -712,7 +716,8 @@ let cotizacionController = {
                                         let filename2 = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Remision.xlsx";
                                         let filename3 = cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.xlsx";
                                         let filename4 = cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.xlsx";
-                                        
+                                        let filename5 = "COT"+cotizacionFound.num + "_" + String(clientFound.client).replace(" ","_") +  "_" +  cotizacionFound.proyecto.replace(" ","_") + ".docx";
+
                 // ----------------------------- Se escribe el archivo de cotizacion ----------------------------------------------------------------------
 
                                         var workbook = new Excel.Workbook();
@@ -1017,7 +1022,6 @@ let cotizacionController = {
                                                 }
                                             }
 
-                                            
                                             worksheet1.getCell(`P${28+rowsFound.length}`).value = { formula: `SUM(P27:P${27+rowsFound.length})`, date1904: false };
                                             worksheet1.getCell(`P${29+rowsFound.length}`).value = { formula: `P${28+rowsFound.length}*0.19`, date1904: false };
                                             worksheet1.getCell(`P${30+rowsFound.length}`).value = { formula: `P${28+rowsFound.length}+P${29+rowsFound.length}`, date1904: false };
@@ -1246,6 +1250,87 @@ let cotizacionController = {
                                             workbook4.xlsx.writeFile( "./public/" + filename4).then(convertPDF(filename4));
                                         })
 
+// ----------------------------- Se escribe el archivo de cotización en formato de carta ----------------------------------------------------------------------
+
+                                        const content = fs.readFileSync(
+                                            path.resolve(__dirname, "../../PlantillaCotizacionTipoCarta.docx"),
+                                            "binary"
+                                        );
+
+                                        const zip = new PizZip(content);
+
+                                        const doc = new Docxtemplater(zip, {
+                                            paragraphLoop: true,
+                                            linebreaks: true,
+                                        });
+
+                                        let fechacarta = cotizacionFound.fecha.split('-')
+                                        let meses = ["null", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+
+                                        total = 0;
+
+                                        for(let i = 0; i < rowsFound.length ; i++){
+
+                                            if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0) && (rowsFound[i][`area`] == null || rowsFound[i][`area`] == 0) && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
+                                                total += parseFloat(rowsFound[i][`cantidad`])*parseFloat(rowsFound[i][`precio`]) || 0;
+
+                                            } else {
+                                                // Costos
+                                                let corte_por_mm = rowsFound[i][`material`] != null && rowsFound[i][`espesor`] != null? listadecorte.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]] : 0;
+                                                let piercing_por_pieza = rowsFound[i][`espesor`] != null? listadepiercing.filter(element => element.width == rowsFound[i][`espesor`])[0]["piercing"] : 0;
+                                                let doblez = rowsFound[i][`espesor`] != null? listadedoblez.filter(element => element.width == rowsFound[i][`espesor`])[0]["fold"] : 0;
+                                                let material_por_mm2 = rowsFound[i][`material`] != null && rowsFound[i][`espesor`] != null? listadematerial.filter(element => element.width == rowsFound[i][`espesor`])[0][rowsFound[i][`material`]] : 0;
+                                                
+                                                // Variables
+                                                let perimetro = rowsFound[i][`perimetro`] != null? parseFloat(rowsFound[i][`perimetro`]) : 0;
+                                                let piercings = rowsFound[i][`piercings`] != null? parseFloat(rowsFound[i][`piercings`]) : 0;
+                                                let numdoblez = rowsFound[i][`dobleces`] != null? parseFloat(rowsFound[i][`dobleces`]) : 0;
+                                                let longdobleces = rowsFound[i][`longdoblez`] != null? parseFloat(rowsFound[i][`longdoblez`]) : 1;
+
+                                                let longdoblezfactor = 1;
+                                                if (longdobleces >= 1500) {
+                                                    longdoblezfactor = 2;
+                                                } 
+
+                                                let area;
+                                                if (rowsFound[i][`conmaterial`] == "No" || rowsFound[i][`conmaterial`] == null) {
+                                                    area = 0;
+                                                } else {
+                                                    area = parseFloat(rowsFound[i][`area`]);
+                                                }
+
+                                                // Costo por unidad de pieza
+                                                let costo_unidad = perimetro*corte_por_mm + piercings*piercing_por_pieza + longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez + area*material_por_mm2;
+                                                total += parseFloat(rowsFound[i][`cantidad`])*costo_unidad;
+                                            }
+                                        }
+
+                                        doc.render({
+                                            fecha: fechacarta[2] + " de " + meses[fechacarta[1]]+ " de " + fechacarta[0],
+                                            cliente: clientFound.client,
+                                            contacto: clientFound.name,
+                                            proyecto: cotizacionFound.proyecto,
+                                            total: String(parseInt(total)),
+                                            totalletras: numeroALetras(parseInt(total)),
+                                            validez: cotizacionFound.validez,
+                                            entrega: cotizacionFound.entrega,
+                                            condiciones: "- "+cotizacionFound.condiciones + "\n- " + cotizacionFound.pago + "\n- " + cotizacionFound.transporte + "\n- " + cotizacionFound.materiales,
+                                        });
+
+                                        const buf = doc.getZip().generate({
+                                            type: "nodebuffer",
+                                            // compression: DEFLATE adds a compression step.
+                                            // For a 50MB output document, expect 500ms additional CPU time
+                                            compression: "DEFLATE",
+                                        });
+
+                                        fs.writeFileSync(path.resolve(__dirname, "../../public/files/"+filename5), buf);
+
+                                        // docxConverter(path.resolve(__dirname, "../../public/files/output.docx"),path.resolve(__dirname, "../../public/files/output.pdf"), (err, result) => {
+                                        //     if (err) console.log(err);
+                                        //     else console.log(result); // writes to file for us
+                                        //   });
+
 // -------------------------------------------------------------------------------------------------------------------------------------   
 
                                         res.render(path.join(__dirname, '../views/buttons_download'), 
@@ -1256,6 +1341,7 @@ let cotizacionController = {
                                             filedatos: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_Datos.pdf",
                                             filecorte: cotizacionFound.num + "_" + cotizacionFound.proyecto.replace(" ","_") + "_OrdenCorte.pdf",
                                             filedoblez: cotizacionFound.num + "_" +cotizacionFound.proyecto.replace(" ","_") + "_OrdenDoblez.pdf",
+                                            filecotizacioncarta: filename5
                                         })
 
                                         deleteDirFilesUsingPattern(String(cotizacionFound.num));

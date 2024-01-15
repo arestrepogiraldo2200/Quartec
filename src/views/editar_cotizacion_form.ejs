@@ -55,10 +55,13 @@
 
             let globdoblez = document.getElementById('globdoblez').value || 1;
 
-            let longdoblezfactor = 1;
-            if (longdobleces >= 1500) {
-                longdoblezfactor = 2;
+            let longdoblezfactor = 1.0;
+            if (1000 <= longdobleces) {
+                longdoblezfactor = 1.5;
             } 
+            if (1500 <= longdobleces){
+                longdoblezfactor = 2.0;
+            }
             
             let costoporpieza = longdoblezfactor*numdobleces*costodoblez*globdoblez;
 

@@ -57,9 +57,11 @@
 
 
             let longdoblezfactor = 1;
-            if (longdobleces >= 1500) {
+            if (1000 <= longdobleces < 1500) {
+                longdoblezfactor = 1.5;
+            } else if (longdobleces >= 1500){
                 longdoblezfactor = 2;
-            } 
+            }
             
             let costoporpieza = longdoblezfactor*numdobleces*costodoblez*globdoblez;
 

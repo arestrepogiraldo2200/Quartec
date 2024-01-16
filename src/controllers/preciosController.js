@@ -15,8 +15,8 @@ let preciosController = {
                 db.piercing.findAll({raw: true}).then((listadepiercing)=>{
                     db.material.findAll({raw: true}).then((listadematerial)=>{
 
-                        console.log("CORTE: ",listadecorte)
-                        console.log("MATERIAL:",listadematerial)
+                        //console.log("CORTE: ",listadecorte)
+                        //console.log("MATERIAL:",listadematerial)
 
                         res.render(path.join(__dirname, '../views/precios'), {listaDeCorte: listadecorte, listaDeDoblez: listadedoblez, listaDePiercing: listadepiercing, listaDeMaterial: listadematerial} );
 
@@ -85,10 +85,31 @@ let preciosController = {
         // }
                 
         let updateData = {};
-        updateData[req.body.materialcambio] = req.body.preciocambio/req.body.areacambio;
+        let factor = 1;
 
+        if (req.body.espesorcambio == "Cal. 26 (0.4 mm)" || req.body.espesorcambio == "Cal. 24 (0.6 mm)" ||  req.body.espesorcambio == "Cal. 23 (0.7 mm)" ||  req.body.espesorcambio == "Cal. 20 (0.9 mm)" ||  req.body.espesorcambio == "Cal. 19 (1 mm)" ||   req.body.espesorcambio == "Cal. 18 (1.2 mm)" ||  req.body.espesorcambio == "Cal. 16 (1.5 mm)" ||  req.body.espesorcambio == "Cal. 14 (1.9 mm)" ||  req.body.espesorcambio == "Cal. 13 (2.2 mm)" ||  req.body.espesorcambio == "Cal. 12 (2.6 mm)" ||  req.body.espesorcambio == "Cal. 11 (3.0 mm)" ||  req.body.espesorcambio =="Cal. 1/8" || req.body.espesorcambio == "Cal. 1/16") {
+            factor = 1.3;
+        }
+
+        if (req.body.espesorcambio == "Cal. 10 (3.4 mm)" || req.body.espesorcambio == "Cal. 9 (3.8 mm)" ||  req.body.espesorcambio == "Cal. 8 (4.2 mm)" ||  req.body.espesorcambio == "Cal. 7 (4.5 mm)" ||  req.body.espesorcambio == "Cal. 6 (4.9 mm)" ||   req.body.espesorcambio == "Cal. 5 (5.3 mm)" ||  req.body.espesorcambio == "Cal. 4 (5.7 mm)" ||  req.body.espesorcambio == "Cal. 3 (6.0 mm)" || req.body.espesorcambio == "Cal. 1/4" || req.body.espesorcambio == "Cal. 3/16") {
+            factor = 1.5;
+        }
+
+        if (req.body.espesorcambio == "Cal. 3/8" || req.body.espesorcambio == "Cal. 5/16") {
+            factor = 1.7;
+        }
+        
+        if (req.body.espesorcambio == "Cal. 3/8" || req.body.espesorcambio == "Cal. 5/16") {
+            factor = 1.7;
+        }
+        
+        if (req.body.espesorcambio == "Cal. 1/2" || req.body.espesorcambio == "Cal. 5/8") {
+            factor = 2.0;
+        }
+
+
+        updateData[req.body.materialcambio] = factor*req.body.preciocambio/req.body.areacambio;
         db.material.update(updateData,{ where:{width: req.body.espesorcambio }}).then(() => {}).catch((err)=>console.log(err));
-       
         res.redirect("/inicio");
     }
 }

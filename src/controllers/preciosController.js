@@ -103,7 +103,7 @@ let preciosController = {
             factor = 1.7;
         }
         
-        if (req.body.espesorcambio == "Cal. 1/2" || req.body.espesorcambio == "Cal. 5/8") {
+        if (req.body.espesorcambio == "Cal. 1/2" || req.body.espesorcambio == "Cal. 5/8" || req.body.espesorcambio == "Cal. 3/4") {
             factor = 2.0;
         }
 

@@ -194,6 +194,25 @@ let cotizacionController = {
 
                     }).catch((err) => console.log(err));
 
+
+                    // // Se eliminan entradas en la base de datos de grupos de cotizaciones ----------------------------------------------------------
+                    // db.grupos.destroy({
+                    //     where :{
+                    //         grupo: req.body.num
+                    //     }
+                    //   }).then( () => {
+                                    
+                    // // Se escriben los datos generales
+                    //     db.grupos.create(
+                    //         {        
+                    //             grupo: req.body.num,
+                    //             cotizacion: req.body.num,
+                    //         },
+                    //         ).then(() => {}).catch((err) => console.log(err));
+                    // }).catch((err) => console.log(err));
+
+                    // ----------------------------------------------------------
+
                     res.redirect('/inicio');
 
             } else {
@@ -1446,7 +1465,7 @@ let cotizacionController = {
                                             worksheet1.getCell(`K${2+i}`).value = rowsFound[i].anchoautocad;
                                             worksheet1.getCell(`L${2+i}`).value = rowsFound[i].factorarea;
                                             worksheet1.getCell(`M${2+i}`).value = rowsFound[i].area;
-                                            worksheet1.getCell(`N${2+i}`).value = rowsFound[i].piercing;
+                                            worksheet1.getCell(`N${2+i}`).value = rowsFound[i].piercings;
                                             worksheet1.getCell(`O${2+i}`).value = rowsFound[i].dobleces;
                                             worksheet1.getCell(`P${2+i}`).value = rowsFound[i].longdobleces;
                                             worksheet1.getCell(`Q${2+i}`).value = rowsFound[i].conmaterial;

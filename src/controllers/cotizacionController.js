@@ -98,6 +98,12 @@ let cotizacionController = {
                      aprobado = 0;
                  }
 
+// ----------------------------- Function to wait------------------------------------------------------------------
+
+                 function wait(milliseconds) {
+                    return new Promise(resolve => setTimeout(resolve, milliseconds));
+                  }
+
 // ----------------------------- Se eliminan las entradas ya existentes en la base de datos y se escriben las nuevas------------------------------------------------------------------
 
                 // Se eliminan entradas en la base de datos cotizacion
@@ -127,7 +133,7 @@ let cotizacionController = {
                                 observ2: req.body.observ2 || null,
                                 aprob: aprobado,
                             },
-                            ).then(() => {}).catch((err) => console.log(err));
+                            ).then(() => {wait(10)}).catch((err) => console.log(err));
                     }).catch((err) => console.log(err));
 
 
@@ -168,7 +174,10 @@ let cotizacionController = {
                             // Caso interpretado como fila vacía
                             if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''  && req.body[`perimetro${i}`] == '' ){
                                 break;
-                            }                                         
+                            }     
+                            
+                            console.log(req.body[`cantidad${i}`])
+                            
                             // Se escriben los datos
                             db.cotizacion_datos.create(
                                 {        

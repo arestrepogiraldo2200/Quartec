@@ -24,4 +24,6 @@ router.post('/editar-numeracion', cotizacionController.numeracionPost);
 
 router.get('/data', cotizacionController.data);
 
+router.get('/estado-cotizacion', cotizacionController.estado);
+
 module.exports = router;

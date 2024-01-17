@@ -31,11 +31,11 @@
 
     <a href="/inicio"><img src="/images/logo.png" alt="logo"></a>
 
-    <h1 class = "title">Registrar aprobación de cotización</h1>
+    <h1 class = "title">Registrar aprobación o desaprobación de cotización</h1>
 
     <div class="formcontainer">
 
-        <form action="/register-cotizacion" method ="post"  onsubmit="return confirm('Está seguro que quiere registrar la cotización como aprobada?');">
+        <form action="/register-cotizacion" method ="post"  onsubmit="return confirm('Está seguro que quiere registrar la cotización?');">
 
             <div class="inputcontainer">
                 <label for="text">Cotizacion</label>
@@ -47,8 +47,17 @@
                     </datalist>
            </div>
 
+        <div class="inputcontainer">
+            <label for="text">Estado</label>
+            <select type="text" id="estado" name="estado" required>
+                <option value=""></option>
+                <option value="Aprobado">Aprobada</option>
+                <option value="No aprobado">No aprobada</option>
+            </select>
+        </div>
+
            <div class="inputcontainer">
-                <label for="fecha_aprobacion">Fecha de aprobación</label>
+                <label for="fecha_aprobacion">Fecha de aprobación o desaprobación</label>
                 <input type="date" id="fecha_aprobacion" name="fecha_aprobacion" onkeydown="return false" required/>
             </div>   
 

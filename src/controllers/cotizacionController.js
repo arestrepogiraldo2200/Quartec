@@ -397,8 +397,8 @@ let cotizacionController = {
         if (!req.session.isAuthenticated) return res.redirect('/');
 
         db.cotizacion.update({
-            estado: "Aprobado",
-            aprob: 1,
+            estado: req.body.estado,
+            aprob: req.body.estado == "Aprobado"? 1 : 0,
             aprobacion: req.body.fecha_aprobacion,
         },
         {
@@ -1533,6 +1533,21 @@ let cotizacionController = {
                 }).catch((err)=>console.log(err));
             }).catch((err)=>console.log(err));
         }).catch((err)=>console.log(err));
+    },
+
+
+    estado: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+
+
+        db.cotizacion.findAll({raw: true }).then((cotizacionesFound) => {
+                
+            res.render(path.join(__dirname, '../views/estado_cotizaciones'), {cotizaciones : cotizacionesFound.slice(-100)});
+
+        }).catch((err)=>console.log(err));
+    
+
     }
 }
 

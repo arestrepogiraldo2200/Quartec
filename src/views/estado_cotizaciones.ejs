@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado cotizaciones</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+    <div class = "logoutcontainer">
+
+        <div class = "iconcontainer">
+
+            <a href="/editar-datos">
+                <div class="editar-datos">
+                    <i class='fas fa-edit'></i>
+                </div>
+            </a>
+
+            <a href="/logout">
+                <div class="log-in">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <a href="/inicio"><img src="/images/logo.png" alt="logo"></a>
+
+    <h1 class = "title">Estado cotizaciones</h1>
+
+    <div class="inputcontainer tabladatos">
+                    
+        <table>
+            <tr>
+            <th>Número de cotización</th>
+            <th>Proyecto</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Fecha de aprobación o desaprobación</th>
+            <th>Asesor</th>
+            </tr>
+
+            <% for (let i = 1; i <= cotizaciones.length-1; i++){ %>
+
+                <% if (cotizaciones[i].estado == "Aprobado") { %>
+                    <tr style ="background-color: rgb(211, 255, 168);">
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
+                    </tr>
+
+                <% } else if (cotizaciones[i].estado == "No aprobado") {%>
+                    <tr style ="background-color: rgb(255, 182, 182);">
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
+                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
+                    </tr>
+
+                <% } else { %>
+                <tr>
+                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
+                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
+                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
+                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
+                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
+                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
+                </tr>
+                <% } %>
+
+            <% } %>
+        </table>
+
+    </div>   
+
+    </div>
+</body>
+</html>

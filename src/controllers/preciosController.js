@@ -31,7 +31,7 @@ let preciosController = {
         if (!req.session.isAuthenticated) return res.redirect('/');
         if (!req.session.isAdmin) return res.redirect('/inicio');
 
-        let numcalibres = 26;  // <<< ========
+        let numcalibres = 28;  // <<< ======== Cambiar cada vez que se añada un calibre   ========>>>>>>>>
 
         // Edit the cut prices --------------------------------------------------------------------------------------------------
         for (let i = 0; i < numcalibres; i++){

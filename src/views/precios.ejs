@@ -217,7 +217,7 @@
                 <input type="number" list = "cl" step="0.0001" id = "valoresnumericosinput1" style = "display: none;"  placeholder="mm²"  name="areacambio"  min="0.0001">
                 <datalist id="cl">
                     <option value="2000000">1000mmx2000mm</option>
-                    <option value="2976800">4'x8'</option>
+                    <option value="2972897">4'x8'</option>
                     <option value="4645152">5'x10'</option>
                 </datalist>
             </div>
@@ -265,6 +265,186 @@
                         <% } %>
                     </table>
             </div>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="inputcontainer precios_title">
+                <h2>Factores de desperdicio</h2>
+            </div>
+
+
+            <div class="inputcontainer precios precios_area">
+                    
+                <table class="datos_piercing datos_desperdicio">
+                    <tr>
+                        <th style="display: none;">Id</th>
+                        <th>Calibres</th>
+                        <th>Factor</th>
+                    </tr>
+
+                            <tr>
+                                <td class="cell"><input readonly type="text" value="Cal. 26 (0.4 mm) - Cal. 11 (3.0 mm), Cal. 1/8, Cal. 1/16"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number" value="1.3"    onkeydown="return false;"    required></td>
+                            </tr>
+
+                            <tr>
+                                <td class="cell"><input readonly type="text" value="Cal. 10 (3.4 mm) - Cal. 3 (6.0 mm),  Cal. 1/4, Cal. 3/16"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number" value="1.5"    onkeydown="return false;"    required></td>
+                            </tr>
+
+                            <tr>
+                                <td class="cell"><input readonly type="text" value="Cal. 3/8, Cal. 5/16"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number" value="1.7"    onkeydown="return false;"    required></td>
+                            </tr>
+
+                            <tr>
+                                <td class="cell"><input readonly type="text" value="Cal. 1/2, Cal. 5/8, Cal. 3/4"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number" value="2.0"    onkeydown="return false;"    required></td>
+                            </tr>
+
+                    </table>
+            </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="inputcontainer precios_title">
+                <h2>Precios de láminas 4'x8'</h2>
+            </div>
+
+
+            <div class="inputcontainer precios precios_area">
+                    
+                <table class="datos_material">
+                    <tr>
+                        <th style="display: none;">Id</th>
+                        <th>Calibre</th>
+                        <th>$ COP Ac. H.R.</th>
+                        <th>$ COP Ac. C.R.</th>
+                        <th>$ COP Ac. 1070</th>
+                        <th>$ COP Ac. Inox. 304</th>
+                        <th>$ COP Ac. Inox. 316</th>
+                        <th>$ COP Ac. Inox. 430</th>
+                        <th>$ COP Galv.</th>
+                        <th>$ COP Alum.</th>
+                        <th>$ COP Bronce</th>
+                        <th>$ COP Cobre</th>
+                        <th>$ COP Latón</th>
+                        </tr>
+    
+                        <% for (let i = 0; i < listaDeMaterial.length; i++){ 
+                            
+                        let factor = 1;
+
+                        if (listaDeMaterial[i].width == "Cal. 26 (0.4 mm)" || listaDeMaterial[i].width == "Cal. 24 (0.6 mm)" ||  listaDeMaterial[i].width == "Cal. 23 (0.7 mm)" ||  listaDeMaterial[i].width == "Cal. 20 (0.9 mm)" ||  listaDeMaterial[i].width == "Cal. 19 (1 mm)" ||   listaDeMaterial[i].width == "Cal. 18 (1.2 mm)" ||  listaDeMaterial[i].width == "Cal. 16 (1.5 mm)" ||  listaDeMaterial[i].width == "Cal. 14 (1.9 mm)" ||  listaDeMaterial[i].width == "Cal. 13 (2.2 mm)" ||  listaDeMaterial[i].width == "Cal. 12 (2.6 mm)" ||  listaDeMaterial[i].width == "Cal. 11 (3.0 mm)" ||  listaDeMaterial[i].width =="Cal. 1/8" || listaDeMaterial[i].width == "Cal. 1/16") {
+                            factor = 1.3;
+                        }
+
+                        if (listaDeMaterial[i].width == "Cal. 10 (3.4 mm)" || listaDeMaterial[i].width == "Cal. 9 (3.8 mm)" ||  listaDeMaterial[i].width == "Cal. 8 (4.2 mm)" ||  listaDeMaterial[i].width == "Cal. 7 (4.5 mm)" ||  listaDeMaterial[i].width == "Cal. 6 (4.9 mm)" ||   listaDeMaterial[i].width == "Cal. 5 (5.3 mm)" ||  listaDeMaterial[i].width == "Cal. 4 (5.7 mm)" ||  listaDeMaterial[i].width == "Cal. 3 (6.0 mm)" || listaDeMaterial[i].width == "Cal. 1/4" || listaDeMaterial[i].width == "Cal. 3/16") {
+                            factor = 1.5;
+                        }
+
+                        if (listaDeMaterial[i].width == "Cal. 3/8" || listaDeMaterial[i].width == "Cal. 5/16") {
+                            factor = 1.7;
+                        }
+                        
+                        if (listaDeMaterial[i].width == "Cal. 3/8" || listaDeMaterial[i].width == "Cal. 5/16") {
+                            factor = 1.7;
+                        }
+                        
+                        if (listaDeMaterial[i].width == "Cal. 1/2" || listaDeMaterial[i].width == "Cal. 5/8" || listaDeMaterial[i].width == "Cal. 3/4") {
+                            factor = 2.0;
+                        }
+
+                        %>
+
+                            <tr>
+                                <td class="cell" style="display: none;"><input type="number" name="<%= "material_id" + String(i) %>" value="<%= listaDeMaterial[i].id %>" required></td>
+                                <td class="cell"><input readonly type="text" value="<%= listaDeMaterial[i].width %>"  onkeydown="return false;"></td>
+                                <td class="cell"><input readonly type="number" value="<%= parseInt(2972897*listaDeMaterial[i]['Ac. H.R']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number" value="<%= parseInt(2972897*listaDeMaterial[i]['Ac. C.R']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Ac. 1070']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Ac. Inox. 304']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Ac. Inox. 316']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Ac. Inox. 430']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Galv.']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Alum.']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Bronce']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Cobre']/factor) %>"    onkeydown="return false;"    required></td>
+                                <td class="cell"><input readonly type="number"  value="<%= parseInt(2972897*listaDeMaterial[i]['Latón']/factor) %>"    onkeydown="return false;"    required></td>
+                            </tr>
+                        <% } %>
+                    </table>
+            </div>  
+
+
+
+
+
+
+
+
 
             <input type="submit" value="Editar" class="send_precios">
         </form>

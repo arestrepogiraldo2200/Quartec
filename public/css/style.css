@@ -217,6 +217,11 @@ input::-webkit-inner-spin-button {
   width: 50%;
 }
 
+
+.datos_desperdicio{
+  width: 80%;
+}
+
 .datos_corte, .datos_piercing, .datos_doblez{
   margin-bottom: 50px;
 }

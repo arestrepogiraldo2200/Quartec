@@ -239,7 +239,7 @@ let cotizacionController = {
         if (!req.session.isAuthenticated) return res.redirect('/');
 
         db.cotizacion.findAll({raw: true}).then((listadecotizaciones)=>{
-            res.render(path.join(__dirname, '../views/select_cotizacion'), {cotizaciones : listadecotizaciones});    
+            res.render(path.join(__dirname, '../views/select_cotizacion'), {cotizaciones : listadecotizaciones.reverse()});    
         }).catch((err)=>console.log(err));
         
     },
@@ -396,7 +396,7 @@ let cotizacionController = {
         if (!req.session.isAuthenticated) return res.redirect('/');
 
         db.cotizacion.findAll({raw: true}).then((listadecotizaciones)=>{
-            res.render(path.join(__dirname, '../views/aprobacion_cotizacion'), {cotizaciones : listadecotizaciones});    
+            res.render(path.join(__dirname, '../views/aprobacion_cotizacion'), {cotizaciones : listadecotizaciones.reverse()});    
         }).catch((err)=>console.log(err));
 
     },
@@ -420,7 +420,7 @@ let cotizacionController = {
         if (!req.session.isAuthenticated) return res.redirect('/');
 
         db.cotizacion.findAll({raw: true}).then((listadecotizaciones)=>{
-            res.render(path.join(__dirname, '../views/select_download'), {cotizaciones : listadecotizaciones});    
+            res.render(path.join(__dirname, '../views/select_download'), {cotizaciones : listadecotizaciones.reverse()});    
         }).catch((err)=>console.log(err));
 
     },
@@ -822,7 +822,7 @@ let cotizacionController = {
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
                                                     worksheet.getCell(`A${27+i}`).value = i+1;
-                                                    worksheet.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
+                                                    worksheet.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ". " + rowsFound[i][`material`] + ". " + rowsFound[i][`espesor`] + ".";
                                                     worksheet.getCell(`H${27+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet.getCell(`J${27+i}`).value = "Und";
 
@@ -1009,7 +1009,7 @@ let cotizacionController = {
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
                                                     worksheet1.getCell(`A${27+i}`).value = i+1;
-                                                    worksheet1.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
+                                                    worksheet1.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ". " + rowsFound[i][`material`] + ". " + rowsFound[i][`espesor`] + ".";
                                                     worksheet1.getCell(`E${27+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet1.getCell(`F${27+i}`).value = "Und";
 
@@ -1171,7 +1171,7 @@ let cotizacionController = {
                                 
                                             // Datos generales
                                             worksheet2.getCell('J9').value = cotizacionFound.num;
-                                            worksheet2.getCell('J13').value = fecha;
+                                            worksheet2.getCell('J13').value = fecha_aprobacion;
                                             worksheet2.getCell('J15').value = req.session.name;
                                             worksheet2.getCell('C18').value = cotizacionFound.proyecto;
         
@@ -1190,7 +1190,7 @@ let cotizacionController = {
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
                                                     worksheet2.getCell(`A${28+i}`).value = i+1;
-                                                    worksheet2.getCell(`B${28+i}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
+                                                    worksheet2.getCell(`B${28+i}`).value = rowsFound[i][`descripcion`] + ". " + rowsFound[i][`material`] + ". " + rowsFound[i][`espesor`] + ".";
                                                     worksheet2.getCell(`H${28+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet2.getCell(`J${28+i}`).value = "Und";
                                                 }
@@ -1209,9 +1209,18 @@ let cotizacionController = {
         
                                             let worksheet3 = workbook3.getWorksheet('Orden de Trabajo CORTE');
 
+                                            let fecha_aprobacion;
+                                            if (cotizacionFound.aprobacion != null){
+                                                let fecha_aprobacionsplit = cotizacionFound.aprobacion.split("-");
+                                                fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
+                                            } else {
+                                                fecha_aprobacion = "";
+                                            }
+
                                             worksheet3.getCell('E1').value = cotizacionFound.num;
                                             worksheet3.getCell('B4').value = clientFound.client;
                                             worksheet3.getCell('B5').value = cotizacionFound.proyecto;
+                                            worksheet3.getCell('B6').value = fecha_aprobacion;
 
                                             // índice para el llenado de filas
                                             let j = 1;
@@ -1224,7 +1233,7 @@ let cotizacionController = {
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
                                                     worksheet3.getCell(`A${25+j}`).value = j;
-                                                    worksheet3.getCell(`B${25+j}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
+                                                    worksheet3.getCell(`B${25+j}`).value = rowsFound[i][`descripcion`] + ". " + rowsFound[i][`material`] + ". " + rowsFound[i][`espesor`] + ".";
                                                     if (rowsFound[i][`conmaterial`] == 'Sí'){
                                                         worksheet3.getCell(`F${25+j}`).value = "Q.I.";
                                                     } else {
@@ -1249,9 +1258,18 @@ let cotizacionController = {
         
                                             let worksheet4 = workbook4.getWorksheet('Orden de Trabajo DOBLEZ');
 
+                                            let fecha_aprobacion;
+                                            if (cotizacionFound.aprobacion != null){
+                                                let fecha_aprobacionsplit = cotizacionFound.aprobacion.split("-");
+                                                fecha_aprobacion = fecha_aprobacionsplit[2]+"/"+fecha_aprobacionsplit[1]+"/"+fecha_aprobacionsplit[0];
+                                            } else {
+                                                fecha_aprobacion = "";
+                                            }
+
                                             worksheet4.getCell('E1').value = cotizacionFound.num;
                                             worksheet4.getCell('B4').value = clientFound.client;
                                             worksheet4.getCell('B5').value = cotizacionFound.proyecto;
+                                            worksheet4.getCell('B6').value = fecha_aprobacion;
 
                                             // índice para el llenado de filas
                                             let j = 1;
@@ -1264,7 +1282,7 @@ let cotizacionController = {
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
                                                     worksheet4.getCell(`A${17+j}`).value = j;
-                                                    worksheet4.getCell(`B${17+j}`).value = rowsFound[i][`descripcion`] + ". Material: " + rowsFound[i][`material`] + ". Espesor: " + rowsFound[i][`espesor`] + ".";
+                                                    worksheet4.getCell(`B${17+j}`).value = rowsFound[i][`descripcion`] + ". " + rowsFound[i][`material`] + ". " + rowsFound[i][`espesor`] + ".";
                                                     worksheet4.getCell(`F${17+j}`).value = rowsFound[i][`dobleces`];
                                                     worksheet4.getCell(`G${17+j}`).value = rowsFound[i][`longdoblez`];
                                                     worksheet4.getCell(`H${17+j}`).value = rowsFound[i][`cantidad`];
@@ -1552,7 +1570,7 @@ let cotizacionController = {
 
         db.cotizacion.findAll({raw: true }).then((cotizacionesFound) => {
                 
-            res.render(path.join(__dirname, '../views/estado_cotizaciones'), {cotizaciones : cotizacionesFound.slice(-100)});
+            res.render(path.join(__dirname, '../views/estado_cotizaciones'), {cotizaciones : cotizacionesFound.slice(-100).reverse()});
 
         }).catch((err)=>console.log(err));
     

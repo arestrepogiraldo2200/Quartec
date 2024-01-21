@@ -133,7 +133,7 @@ let cotizacionController = {
                                 observ2: req.body.observ2 || null,
                                 aprob: aprobado,
                             },
-                            ).then(() => {wait(10)}).catch((err) => console.log(err));
+                            ).then(() => {wait(100)}).catch((err) => console.log(err));
                     }).catch((err) => console.log(err));
 
 

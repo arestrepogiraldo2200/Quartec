@@ -133,7 +133,7 @@ let cotizacionController = {
                                 observ2: req.body.observ2 || null,
                                 aprob: aprobado,
                             },
-                            ).then(() => {wait(100)}).catch((err) => console.log(err));
+                            ).then(() => {wait(50)}).catch((err) => console.log(err));
                     }).catch((err) => console.log(err));
 
 
@@ -198,7 +198,7 @@ let cotizacionController = {
                                     dobleces: req.body[`dobleces${i}`] || null,
                                     longdoblez: req.body[`longitud_doblez${i}`] || null,
                                     conmaterial: req.body[`con_material${i}`] || null
-                                }).then(() => {}).catch((err) => console.log(err));
+                                }).then(() => {wait(50)}).catch((err) => console.log(err));
                         }
 
                     }).catch((err) => console.log(err));

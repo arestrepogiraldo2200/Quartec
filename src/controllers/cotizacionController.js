@@ -66,7 +66,15 @@ let cotizacionController = {
     createFile: (req,res) => {
 
         if (!req.session.isAuthenticated) return res.redirect('/');
-      
+
+        // ----------------------------- Function to wait------------------------------------------------------------------
+
+        function wait(milliseconds) {
+            return new Promise(resolve => setTimeout(resolve, milliseconds));
+          }
+
+        // ----------------------------------------------------------------------------------------------------------------
+        
         db.clientes.findOne({raw: true, where: { client: req.body.selectclient } }).then((clientFound) => {
 
             // console.log("REQ:",req.body);
@@ -98,12 +106,6 @@ let cotizacionController = {
                      aprobado = 0;
                  }
 
-// ----------------------------- Function to wait------------------------------------------------------------------
-
-                 function wait(milliseconds) {
-                    return new Promise(resolve => setTimeout(resolve, milliseconds));
-                  }
-
 // ----------------------------- Se eliminan las entradas ya existentes en la base de datos y se escriben las nuevas------------------------------------------------------------------
 
                 // Se eliminan entradas en la base de datos cotizacion
@@ -133,9 +135,8 @@ let cotizacionController = {
                                 observ2: req.body.observ2 || null,
                                 aprob: aprobado,
                             },
-                            ).then(() => {wait(50)}).catch((err) => console.log(err));
+                            ).then(() => {}).catch((err) => console.log(err));
                     }).catch((err) => console.log(err));
-
 
                     // Se eliminan entradas en la base de datos de parámetros globales -----------------------------------------------------
                     db.globalparams.destroy({
@@ -162,7 +163,7 @@ let cotizacionController = {
                             num: req.body.num
                         }
                       }).then( () => {
-                        
+
                         // console.log(req.body);
 
                         // Información del formulario
@@ -175,10 +176,17 @@ let cotizacionController = {
                             if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''  && req.body[`perimetro${i}`] == '' ){
                                 break;
                             }     
+
+                            // console.log(req.body[`descrip${i}`]);
                             
-                            console.log(req.body[`cantidad${i}`])
+                            // console.log(req.body[`cantidad${i}`])
                             
                             // Se escriben los datos
+
+
+                            setTimeout(() => {                  
+
+
                             db.cotizacion_datos.create(
                                 {        
                                     num: req.body.num,
@@ -198,7 +206,12 @@ let cotizacionController = {
                                     dobleces: req.body[`dobleces${i}`] || null,
                                     longdoblez: req.body[`longitud_doblez${i}`] || null,
                                     conmaterial: req.body[`con_material${i}`] || null
-                                }).then(() => {wait(50)}).catch((err) => console.log(err));
+                                }).then(() => {}).catch((err) => console.log(err));  
+                            
+                            
+                            }, 100) 
+                        
+                        
                         }
 
                     }).catch((err) => console.log(err));
@@ -266,6 +279,8 @@ let cotizacionController = {
                             db.piercing.findAll({raw: true}).then((listadepiercing)=>{
                                 db.material.findAll({raw: true}).then((listadematerial)=>{
                                     db.globalparams.findAll({raw: true, where: { num: cotizacionToEdit }}).then((paramsfound)=>{
+
+                                    // console.log(rowsFound);
 
                                     if (cotizacionFound){
                                         ls.remove("cotizacionToEdit");

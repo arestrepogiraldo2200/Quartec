@@ -6,21 +6,21 @@ require('dotenv').config();
 module.exports = {
   "development": {
     "username": process.env.USERNAMELOCAL,
-    "password": process.env.PASSWORDLOCAL,
+    "password": process.env.USERNAMELOCAL,
     "database": process.env.DATABASELOCAL,
     "host": process.env.HOSTLOCAL,
     "dialect": "mysql"
   },
   "test": {
     "username": process.env.USERNAMELOCAL,
-    "password": process.env.PASSWORDLOCAL,
+    "password": process.env.USERNAMELOCAL,
     "database": process.env.DATABASELOCAL,
     "host": process.env.HOSTLOCAL,
     "dialect": "mysql"
   },
   "production": {
     "username": process.env.USERNAMELOCAL,
-    "password": process.env.PASSWORDLOCAL,
+    "password": process.env.USERNAMELOCAL,
     "database": process.env.DATABASELOCAL,
     "host": process.env.HOSTLOCAL,
     "dialect": "mysql"

@@ -152,6 +152,11 @@ th{
   background: #f2f2f2;
 }
 
+.myTablesearch{
+  position: sticky;
+}
+
+
 tr:nth-child(even) {
   background-color: #dddddd;
 }
@@ -340,7 +345,6 @@ input::-webkit-inner-spin-button {
 input[type=checkbox] {
 	zoom: 1.5;
 }
-
 
 
 

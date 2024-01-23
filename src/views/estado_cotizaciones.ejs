@@ -9,6 +9,35 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <script src="https://kit.fontawesome.com/81cd34b36e.js" crossorigin="anonymous"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script  type="text/javascript">
+
+        function myFunction(num) {
+
+          // Declare variables
+          var input, filter, table, tr, td, tdd, i, txtValue;
+          input = document.getElementById("myInput"+String(num));
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+        
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 1; i < tr.length; i++) {
+
+            td = tr[i].getElementsByTagName("td")[num-1].getAttribute("data-bind");
+            console.log("LOG::::",td);
+
+            if (td) {
+              txtValue = td;
+              
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+    </script>
 </head>
 <body>
     <div class = "logoutcontainer">
@@ -34,51 +63,63 @@
     <h1 class = "title">Estado cotizaciones</h1>
 
     <div class="inputcontainer tabladatos">
-                    
+
+        <table class="myTablesearch">
+            <tr style ="background-color: rgb(255, 235, 216);">
+                <td style="width: 13%;"><input type="text" id="myInput1" onkeyup="myFunction(1)" placeholder="Filtrar" ></td>
+                <td style="width: 13%;"><input type="text" id="myInput2" onkeyup="myFunction(2)" placeholder="Filtrar" ></td>
+                <td style="width: 13%;"><input type="text" id="myInput3" onkeyup="myFunction(3)" placeholder="Filtrar" ></td>
+                <td style="width: 13%;"><input type="text" id="myInput4" onkeyup="myFunction(4)" placeholder="Filtrar" ></td>
+                <td style="width: 13%;"><input type="text" id="myInput5" onkeyup="myFunction(5)" placeholder="Filtrar" ></td>
+                <td style="width: 21%;"><input type="text" id="myInput6" onkeyup="myFunction(6)" placeholder="Filtrar" ></td>
+                <td style="width: 13%;"><input type="text" id="myInput7" onkeyup="myFunction(7)" placeholder="Filtrar" ></td>
+            </tr>
         <table>
-            <tr>
-            <th>Número de cotización</th>
-            <th>Cliente</th>
-            <th>Proyecto</th>
-            <th>Fecha</th>
-            <th>Estado</th>
-            <th>Fecha de aprobación o desaprobación</th>
-            <th>Asesor</th>
+  
+        <table id="myTable">
+            <tr class="header">
+                <th>Número de cotización</th>
+                <th>Cliente</th>
+                <th>Proyecto</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Fecha de aprobación o desaprobación</th>
+                <th>Asesor</th>
             </tr>
 
             <% for (let i = 0; i <= cotizaciones.length-1; i++){ %>
 
                 <% if (cotizaciones[i].estado == "Aprobado") { %>
                     <tr style ="background-color: rgb(211, 255, 168);">
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].client %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
+                        <td data-bind="<%= cotizaciones[i].num %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
+                        <td data-bind="<%=cotizaciones[i].client %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].client %>"></td>
+                        <td data-bind="<%=cotizaciones[i].proyecto %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
+                        <td data-bind="<%=cotizaciones[i].fecha %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
+                        <td data-bind="<%=cotizaciones[i].estado %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
+                        <td data-bind="<%=cotizaciones[i].aprobacion %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
+                        <td data-bind="<%=cotizaciones[i].asesor %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
                     </tr>
 
                 <% } else if (cotizaciones[i].estado == "No aprobado") {%>
                     <tr style ="background-color: rgb(255, 182, 182);">
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].client %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
-                        <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
+                        <td data-bind="<%= cotizaciones[i].num %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
+                        <td data-bind="<%=cotizaciones[i].client %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].client %>"></td>
+                        <td data-bind="<%=cotizaciones[i].proyecto %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
+                        <td data-bind="<%=cotizaciones[i].fecha %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
+                        <td data-bind="<%=cotizaciones[i].estado %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
+                        <td data-bind="<%=cotizaciones[i].aprobacion %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
+                        <td data-bind="<%=cotizaciones[i].asesor %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
                     </tr>
 
                 <% } else { %>
                 <tr>
-                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
-                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].client %>"></td>
-                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
-                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
-                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
-                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
-                    <td ><input readonly type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
+                    <td data-bind="<%= cotizaciones[i].num %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].num %>"></td>
+                    <td data-bind="<%=cotizaciones[i].client %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].client %>"></td>
+                    <td data-bind="<%=cotizaciones[i].proyecto %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].proyecto %>"></td>
+                    <td data-bind="<%=cotizaciones[i].fecha %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].fecha %>"></td>
+                    <td data-bind="<%=cotizaciones[i].estado %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].estado %>"></td>
+                    <td data-bind="<%=cotizaciones[i].aprobacion %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].aprobacion %>"></td>
+                    <td data-bind="<%=cotizaciones[i].asesor %>"><input type="text" onkeydown="return false" value="<%= cotizaciones[i].asesor %>"></td>
                 </tr>
                 <% } %>
 

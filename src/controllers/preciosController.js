@@ -111,6 +111,26 @@ let preciosController = {
         updateData[req.body.materialcambio] = factor*req.body.preciocambio/req.body.areacambio;
         db.material.update(updateData,{ where:{width: req.body.espesorcambio }}).then(() => {}).catch((err)=>console.log(err));
         res.redirect("/inicio");
+    },
+
+    seePrices: (req,res) => {
+
+        if (!req.session.isAuthenticated) return res.redirect('/');
+
+        db.corte.findAll({raw: true}).then((listadecorte)=>{
+            db.doblez.findAll({raw: true}).then((listadedoblez)=>{
+                db.piercing.findAll({raw: true}).then((listadepiercing)=>{
+                    db.material.findAll({raw: true}).then((listadematerial)=>{
+
+                        //console.log("CORTE: ",listadecorte)
+                        //console.log("MATERIAL:",listadematerial)
+
+                        res.render(path.join(__dirname, '../views/see_precios'), {listaDeCorte: listadecorte, listaDeDoblez: listadedoblez, listaDePiercing: listadepiercing, listaDeMaterial: listadematerial} );
+
+                    }).catch((err)=>console.log(err));
+                }).catch((err)=>console.log(err));
+            }).catch((err)=>console.log(err));
+         }).catch((err)=>console.log(err));
     }
 }
 

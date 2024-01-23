@@ -1585,7 +1585,7 @@ let cotizacionController = {
 
         db.cotizacion.findAll({raw: true }).then((cotizacionesFound) => {
                 
-            res.render(path.join(__dirname, '../views/estado_cotizaciones'), {cotizaciones : cotizacionesFound.slice(-100).reverse()});
+            res.render(path.join(__dirname, '../views/estado_cotizaciones'), {cotizaciones : cotizacionesFound.slice(-200).reverse()});
 
         }).catch((err)=>console.log(err));
     

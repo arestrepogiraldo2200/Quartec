@@ -166,6 +166,8 @@ let cotizacionController = {
 
                         // console.log(req.body);
 
+                        let data_rows = []
+
                         // Información del formulario
                         for(let i = 1; i <= 60; i++){
 
@@ -175,7 +177,27 @@ let cotizacionController = {
                             // Caso interpretado como fila vacía
                             if (req.body[`cantidad${i}`] == '' && req.body[`descrip${i}`] == '' && req.body[`material${i}`] == '' && req.body[`precio${i}`] == '' && req.body[`espesor${i}`] == ''  && req.body[`perimetro${i}`] == '' ){
                                 break;
-                            }     
+                            }    
+                            
+                            data_rows.push({        
+                                "num": req.body.num,
+                                "cantidad": req.body[`cantidad${i}`] || null,
+                                "descripcion": req.body[`descrip${i}`] || null,
+                                "precio": req.body[`precio${i}`] || null,
+                                "material": req.body[`material${i}`] || null,
+                                "espesor": req.body[`espesor${i}`] || null,
+                                "perimetroautocad":  req.body[`perimetro_autocad${i}`] || null,
+                                "factorcorte": req.body[`factor_corte${i}`] || null,
+                                "perimetro": req.body[`perimetro${i}`] || null,
+                                "largoautocad": req.body[`largo_autocad${i}`] || null,                        
+                                "anchoautocad": req.body[`ancho_autocad${i}`] || null,
+                                "factorarea": req.body[`factor_area${i}`] || null,
+                                "area":  req.body[`area${i}`] || null,
+                                "piercings": req.body[`piercings${i}`] || null,
+                                "dobleces": req.body[`dobleces${i}`] || null,
+                                "longdoblez": req.body[`longitud_doblez${i}`] || null,
+                                "conmaterial": req.body[`con_material${i}`] || null
+                            })
 
                             // console.log(req.body[`descrip${i}`]);
                             
@@ -184,35 +206,40 @@ let cotizacionController = {
                             // Se escriben los datos
 
 
-                            setTimeout(() => {                  
+                            // setTimeout(() => {                  
 
 
-                            db.cotizacion_datos.create(
-                                {        
-                                    num: req.body.num,
-                                    cantidad: req.body[`cantidad${i}`] || null,
-                                    descripcion: req.body[`descrip${i}`] || null,
-                                    precio: req.body[`precio${i}`] || null,
-                                    material: req.body[`material${i}`] || null,
-                                    espesor: req.body[`espesor${i}`] || null,
-                                    perimetroautocad:  req.body[`perimetro_autocad${i}`] || null,
-                                    factorcorte: req.body[`factor_corte${i}`] || null,
-                                    perimetro: req.body[`perimetro${i}`] || null,
-                                    largoautocad: req.body[`largo_autocad${i}`] || null,                        
-                                    anchoautocad: req.body[`ancho_autocad${i}`] || null,
-                                    factorarea: req.body[`factor_area${i}`] || null,
-                                    area:  req.body[`area${i}`] || null,
-                                    piercings: req.body[`piercings${i}`] || null,
-                                    dobleces: req.body[`dobleces${i}`] || null,
-                                    longdoblez: req.body[`longitud_doblez${i}`] || null,
-                                    conmaterial: req.body[`con_material${i}`] || null
-                                }).then(() => {}).catch((err) => console.log(err));  
+                            // db.cotizacion_datos.create(
+                            //     {        
+                            //         num: req.body.num,
+                            //         cantidad: req.body[`cantidad${i}`] || null,
+                            //         descripcion: req.body[`descrip${i}`] || null,
+                            //         precio: req.body[`precio${i}`] || null,
+                            //         material: req.body[`material${i}`] || null,
+                            //         espesor: req.body[`espesor${i}`] || null,
+                            //         perimetroautocad:  req.body[`perimetro_autocad${i}`] || null,
+                            //         factorcorte: req.body[`factor_corte${i}`] || null,
+                            //         perimetro: req.body[`perimetro${i}`] || null,
+                            //         largoautocad: req.body[`largo_autocad${i}`] || null,                        
+                            //         anchoautocad: req.body[`ancho_autocad${i}`] || null,
+                            //         factorarea: req.body[`factor_area${i}`] || null,
+                            //         area:  req.body[`area${i}`] || null,
+                            //         piercings: req.body[`piercings${i}`] || null,
+                            //         dobleces: req.body[`dobleces${i}`] || null,
+                            //         longdoblez: req.body[`longitud_doblez${i}`] || null,
+                            //         conmaterial: req.body[`con_material${i}`] || null
+                            //     }).then(() => {}).catch((err) => console.log(err));  
                             
-                            
-                            }, 500) 
-                        
-                        
+                            // }, 500) 
+
+
+
                         }
+
+                        console.log(data_rows);
+                        db.cotizacion_datos.bulkCreate(data_rows, {returning: true}).then(() => {}).catch((err) => console.log(err));
+
+
 
                     }).catch((err) => console.log(err));
 

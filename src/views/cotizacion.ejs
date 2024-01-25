@@ -94,7 +94,7 @@
             let conmaterial = document.getElementById('con_material'+item);
             let costoporpieza = costomaterialmm2*area; 
 
-            costomaterial.value = conmaterial.value.toFixed(0) == "Sí"? costoporpieza.toFixed(0) : 0;
+            costomaterial.value = conmaterial.value == "Sí"? costoporpieza.toFixed(0) : 0;
         }
 
         function changeTotalValue(item){

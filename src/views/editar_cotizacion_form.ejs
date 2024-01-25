@@ -20,7 +20,7 @@
             let globalcut = document.getElementById('globcorte').value || 1;
             let perimetro = perimetroautocad*factorcorte*globalcut;
 
-            perimetroxfactor.value = perimetro.toFixed(2);
+            perimetroxfactor.value = perimetro.toFixed(0);
 
             //  Cálculo del costo del corte por pieza 
             let espesorform = document.getElementById('espesor'+item).value;
@@ -29,7 +29,7 @@
             let costocorte = document.getElementById('calculocorte'+item);
             let costoporpieza = costocortepormm*perimetro;
 
-            costocorte.value = costoporpieza.toFixed(2) || 0;
+            costocorte.value = costoporpieza.toFixed(0) || 0;
         }
 
         function changePiercingValue(item, piercingvalues){
@@ -41,7 +41,7 @@
             let numpiercings = parseFloat(document.getElementById('piercings'+item).value) || 0;
             let costoporpieza = costopiercing*numpiercings;
 
-            costopiercings.value = costoporpieza.toFixed(2) || 0;
+            costopiercings.value = costoporpieza.toFixed(0) || 0;
         }
 
         function changeDoblezValue(item, doblezgvalues){
@@ -65,7 +65,7 @@
             
             let costoporpieza = longdoblezfactor*numdobleces*costodoblez*globdoblez;
 
-            costodobleces.value = costoporpieza.toFixed(2) || 0;
+            costodobleces.value = costoporpieza.toFixed(0) || 0;
         }
 
         function changeAreaValue(item, materialvalues){
@@ -83,7 +83,7 @@
                 area = (largoautocad+5)*(anchoautocad+5)*factorarea*globmaterial;
             }
 
-            areaxfactor.value = area.toFixed(3);
+            areaxfactor.value = area.toFixed(0);
 
             //  Cálculo del costo del material por pieza 
             let espesorform = document.getElementById('espesor'+item).value;
@@ -93,7 +93,7 @@
             let conmaterial = document.getElementById('con_material'+item);
             let costoporpieza = costomaterialmm2*area; 
 
-            costomaterial.value = conmaterial.value == "Sí"? costoporpieza.toFixed(2) : 0;
+            costomaterial.value = conmaterial.value == "Sí"? costoporpieza.toFixed(0) : 0;
         }
 
         function changeTotalValue(item){
@@ -105,7 +105,7 @@
 
             let valortotal = document.getElementById('total'+item);
             let suma = valorcorte + valorpiercing + valordoblez + valormaterial;
-            valortotal.value = suma.toFixed(2);
+            valortotal.value = suma.toFixed(0);
         }
 
         function changeTotalTotal(){
@@ -210,7 +210,7 @@
                         suma += ( parseFloat(calculocorte) + parseFloat(calculopiercing) )*parseFloat(cantidad);
                     }
                 }
-                casillamaterial.value = "Total corte, "+ materialform + " " + espesorform + ": $ " + String(suma.toFixed(1)); 
+                casillamaterial.value = "Total corte, "+ materialform + " " + espesorform + ": $ " + String(suma.toFixed(0)); 
             }
         }
         // function to delete non existing material and width
@@ -281,7 +281,7 @@
                 let perimetroxfactor = document.getElementById('perimetro'+String(i));
                 let perimetro = perimetroautocad*factorcorte*globalcut;
 
-                perimetroxfactor.value = perimetro.toFixed(2);
+                perimetroxfactor.value = perimetro.toFixed(0);
 
                  //  Cálculo del costo del corte por pieza 
                 let espesorform = document.getElementById('espesor'+String(i)).value;
@@ -290,7 +290,7 @@
                 let costocorte = document.getElementById('calculocorte'+String(i));
                 let costoporpieza = costocortepormm*perimetro;
 
-                costocorte.value = costoporpieza.toFixed(2) || 0;
+                costocorte.value = costoporpieza.toFixed(0) || 0;
 
                 changeTotalValue(i);
                 changeTotalPiezas(i);
@@ -331,7 +331,7 @@
                     area = (largoautocad+5)*(anchoautocad+5)*factorarea*globmaterial;
                 }
 
-                areaxfactor.value = area.toFixed(3);
+                areaxfactor.value = area.toFixed(0);
 
                 //  Cálculo del costo del material por pieza 
                 let espesorform = document.getElementById('espesor'+String(i)).value;
@@ -341,7 +341,7 @@
                 let conmaterial = document.getElementById('con_material'+String(i));
                 let costoporpieza = costomaterialmm2*area; 
 
-                costomaterial.value = conmaterial.value == "Sí"? costoporpieza.toFixed(2) : 0;
+                costomaterial.value = conmaterial.value == "Sí"? costoporpieza.toFixed(0) : 0;
 
                 changeTotalValue(i);
                 changeTotalPiezas(i);
@@ -416,7 +416,7 @@
                 
                 let costoporpieza = longdoblezfactor*numdobleces*costodoblez*globdoblez;
 
-                costodobleces.value = costoporpieza.toFixed(2) || 0;
+                costodobleces.value = costoporpieza.toFixed(0) || 0;
 
                 changeTotalValue(i);
                 changeTotalPiezas(i);

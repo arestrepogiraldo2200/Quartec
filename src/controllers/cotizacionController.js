@@ -209,7 +209,7 @@ let cotizacionController = {
                                 }).then(() => {}).catch((err) => console.log(err));  
                             
                             
-                            }, 100) 
+                            }, 500) 
                         
                         
                         }
@@ -329,11 +329,11 @@ let cotizacionController = {
 
                                                 preciosarray.push({
                                                     total: totalpiezastodas.toFixed(0),
-                                                    corte: porpiezacorte,
-                                                    piercing: porpiezapiercing,
-                                                    doblez: porpiezadoblez,
-                                                    material: porpiezamaterial,   
-                                                    totalporpieza: totalporpieza                                                                               
+                                                    corte: porpiezacorte.toFixed(0),
+                                                    piercing: porpiezapiercing.toFixed(0),
+                                                    doblez: porpiezadoblez.toFixed(0),
+                                                    material: porpiezamaterial.toFixed(0),   
+                                                    totalporpieza: totalporpieza.toFixed(0)                                                                               
                                                 });
 
                                                 preciospormaterial.push({

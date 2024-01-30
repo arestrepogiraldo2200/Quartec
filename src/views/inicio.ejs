@@ -29,31 +29,60 @@
         </div>
     </div>
 
+   
     <img src="/images/logo.png" alt="logo"><br>
-    <a href="/crear-cliente"><button><i class="fa-solid fa-user-plus" style="margin-right: 10px;"></i>Añadir cliente nuevo</button></a><br>
-    <a href="/editar-cliente"><button><i class="fa-solid fa-user-pen" style="margin-right: 10px;"></i>Editar datos de cliente</button></a><br>
 
-    <% if (isAdmin == 1) { %>
-    <a href="/eliminar-cliente"><button><i class="fa-solid fa-user-minus" style="margin-right: 10px;"></i>Eliminar cliente</button></a><br>
-    <a href="/crear-asesor"><button><i class="fa-solid fa-plus" style="margin-right: 10px;"></i>Añadir asesor</button></a><br>
-    <a href="/eliminar-asesor"><button><i class="fa-solid fa-minus" style="margin-right: 10px;"></i>Eliminar asesor</button></a><br>
-    <a href="/editar-precios"><button><i class="fa-solid fa-file-invoice-dollar" style="margin-right: 10px;"></i>Editar precios</button></a><br>
-    <% } %>
+    <div class="rowcontainer">
+        <div class="row">
+            <a href="/crear-cliente"><button><i class="fa-solid fa-user-plus" style="margin-right: 10px;"></i>Añadir cliente nuevo</button></a><br>
+            <a href="/cotizacion"><button><i class="fa-solid fa-file" style="margin-right: 10px;"></i>Iniciar cotización</button></a><br>
+        </div>
+        
+        <div class="row">
+            <a href="/editar-cliente"><button><i class="fa-solid fa-user-pen" style="margin-right: 10px;"></i>Editar datos de cliente</button></a><br>
+            <a href="/edit-cotizacion"><button><i class="fa-solid fa-file-pen" style="margin-right: 10px;"></i>Editar cotización</button></a><br>
+
+        </div>
     
-    <a href="/cotizacion"><button><i class="fa-solid fa-file" style="margin-right: 10px;"></i>Iniciar cotización</button></a><br>
-    <a href="/edit-cotizacion"><button><i class="fa-solid fa-file-pen" style="margin-right: 10px;"></i>Editar cotización</button></a><br>
-    <a href="/register-cotizacion"><button><i class="fa-solid fa-file-circle-check" style="margin-right: 10px;"></i>Registrar aprobación de cotización</button></a><br>
-    <a href="/estado-cotizacion"><button><i class="fa-solid fa-list" style="margin-right: 10px;"></i>Estado de cotizaciones</button></a><br>
-    <a href="/download-cotizacion"><button><i class="fa-solid fa-file-arrow-down" style="margin-right: 10px;"></i>Descargar documentos de cotización</button></a><br>
-    <% if (isAdmin == 0) { %>
-        <a href="/ver-precios"><button><i class="fa-solid fa-table-cells" style="margin-right: 10px;"></i>Visualizar tabla de precios</button></a><br>
-    <% } %>
+        <div class="row">
+            <a href="/estado-cotizacion"><button><i class="fa-solid fa-list" style="margin-right: 10px;"></i>Estado de cotizaciones</button></a><br>  
+            <a href="/register-cotizacion"><button><i class="fa-solid fa-file-circle-check" style="margin-right: 10px;"></i>Registrar aprobación de cotización</button></a><br>
+        </div>
+
+        <div class="row">
+            <% if (isAdmin == 0) { %>
+                <a href="/ver-precios"><button><i class="fa-solid fa-table-cells" style="margin-right: 10px;"></i>Visualizar tabla de precios</button></a><br>
+            <% } %>
+
+            <a href="/download-cotizacion"><button><i class="fa-solid fa-file-arrow-down" style="margin-right: 10px;"></i>Descargar documentos de cotización</button></a><br>
+
+            <% if (isAdmin == 1) { %>
+                <a href="/editar-numeracion"><button><i class="fa-solid fa-diagram-next" style="margin-right: 10px;"></i>Ingrese número inicial consecutivo cotizaciones</button></a><br>
+            <% } %>
+        </div>
 
 
-    <% if (isAdmin == 1) { %>
-        <a href="/editar-numeracion"><button><i class="fa-solid fa-diagram-next" style="margin-right: 10px;"></i>Ingrese número inicial consecutivo cotizaciones</button></a><br>
-        <a href="/data"><button><i class="fa-solid fa-database" style="margin-right: 10px;"></i>Descargar datos</button></a><br>
-    <% } %>
+
+        <% if (isAdmin == 1) { %>
+
+            <div class="row">
+
+
+                <a href="/eliminar-cliente"><button><i class="fa-solid fa-user-minus" style="margin-right: 10px;"></i>Eliminar cliente</button></a><br>
+                <a href="/crear-asesor"><button><i class="fa-solid fa-plus" style="margin-right: 10px;"></i>Añadir asesor</button></a><br>
+
+            </div>
+
+            <div class="row">
+                <a href="/eliminar-asesor"><button><i class="fa-solid fa-minus" style="margin-right: 10px;"></i>Eliminar asesor</button></a><br>
+                <a href="/editar-precios"><button><i class="fa-solid fa-file-invoice-dollar" style="margin-right: 10px;"></i>Editar precios</button></a><br>
+            </div>
+        <% } %>
+
+        <% if (isAdmin == 1) { %>
+                <a href="/data"><button><i class="fa-solid fa-database" style="margin-right: 10px;"></i>Descargar datos</button></a><br>
+        <% } %>
+    </div>
 
 </body>
 </html>

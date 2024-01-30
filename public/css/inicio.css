@@ -11,22 +11,26 @@ img{
   }
 
   button {
-    width: 30%;
+    width: 300px;
+    height: 60px;
     background-color: #d88a56;
     color: white;
     padding: 10px 20px;
+    padding-right: 20px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 18px;
+    margin-right: 20px;
   }
   
   button:hover {
     background-color: #db9e4f;
-    width:30%;
-  }
+    width: 300px;
+    height: 60px;
+}
 
   .log-in{
     align-items: right;
@@ -55,6 +59,21 @@ img{
   *{
     font-family: Arial, Helvetica, sans-serif;
   }
+
+.row{
+  width:30%;
+  margin-left: 31%;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rowcontainer{
+  justify-content: center;
+}
+
+
+
 
 
 

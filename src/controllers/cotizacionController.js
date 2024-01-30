@@ -1394,7 +1394,7 @@ let cotizacionController = {
                                         }
 
                                         doc.render({
-                                            fecha: fechacarta[2] + " de " + meses[fechacarta[1]]+ " de " + fechacarta[0],
+                                            fecha: fechacarta[2] + " de " + meses[parseInt(fechacarta[1])]+ " de " + fechacarta[0],
                                             cliente: clientFound.client,
                                             contacto: clientFound.name,
                                             proyecto: cotizacionFound.proyecto,
@@ -1403,6 +1403,7 @@ let cotizacionController = {
                                             validez: cotizacionFound.validez,
                                             entrega: cotizacionFound.entrega,
                                             condiciones: "- "+cotizacionFound.condiciones + "\n- " + cotizacionFound.pago + "\n- " + cotizacionFound.transporte + "\n- " + cotizacionFound.materiales,
+                                            cotizacion: String(cotizacionFound.num) + "  " + cotizacionFound.proyecto,
                                         });
 
                                         const buf = doc.getZip().generate({

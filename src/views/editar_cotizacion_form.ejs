@@ -465,6 +465,53 @@
             document.getElementById('eliminar'+String(i)).checked = false;
         }
 
+        var globalinitial;
+        window.onload = function() {
+            globalinitial = document.getElementById('globunit').value;
+        }
+
+        function changeglobalUnit(){
+
+            let globalunit = document.getElementById('globunit').value || 1;
+
+            for (let i = 1; i <= 60; i++){
+
+                let espesorformrec = document.getElementById('espesor'+String(i)).value;
+                let materialformrec = document.getElementById('material'+String(i)).value;
+                let cantidad = document.getElementById('cantidad'+String(i)).value;
+                let descrip = document.getElementById('descrip'+String(i)).value;
+                let precio = document.getElementById('precio'+String(i)).value;
+
+                if (espesorformrec == "" && materialformrec=="" && cantidad =="" && descrip =="" && precio ==""){
+                    break;
+                }    
+
+                if (espesorformrec != "" && materialformrec!=""){
+                    continue;
+                }   
+
+                let newprice = precio*globalunit/globalinitial;
+                document.getElementById('precio'+String(i)).value = newprice.toFixed(0) || 0;
+            }
+
+            globalinitial = globalunit;
+            changeTotalTotal()
+
+        }
+
+
+        function changeindividualUnit(i){
+
+            let globalunit = document.getElementById('globunit').value || 1;
+            let precio = document.getElementById('precio'+String(i)).value;
+
+            let newprice = precio*globalunit;
+            document.getElementById('precio'+String(i)).value = newprice.toFixed(0) || 0;
+
+            changeTotalTotal();
+
+        }
+
     </script>
 </head>
 <body>
@@ -758,6 +805,11 @@
                 <input type="number" step="0.0001" id="globdoblez" name="globdoblez" value="<%=globalparams[0].globaldoblez%>" min ="0.0001" class="globalfactor"  onchange="changeglobalDoblez(<%= JSON.stringify(doblez) %>);" required>
             </div>   
 
+            <div class="inputcontainer">
+                <label for="factorglobalitems">Factor global precio unitario:</label>
+                <input type="number" step="0.0001" id="globunit" name="globunit" value="<%=globalparams[0].globalunit%>" min ="0.0001" class="globalfactor" onchange="changeglobalUnit();" required>
+            </div>  
+
             <div class="inputcontainer tabladatos">
                     
                 <table>
@@ -793,7 +845,7 @@
                             <% } else {%>
                                 value = "<%= filas[i-1].precio %>"
                             <% } %>
-                            onchange="uncheck(<%= String(i)%>);          changeTotalTotal();"></td>
+                            onchange="uncheck(<%= String(i)%>);     changeindividualUnit(<%= String(i)%>);     changeTotalTotal();"></td>
                         <td width = "110px"><select  id="<%= "material" + String(i) %>"   name="<%= "material" + String(i) %>"     onchange="uncheck(<%= String(i)%>);          changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(i)%>);   changePerMaterialWidth(<%= String(i)%>);     cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
                             <option value = "<%= filas[i-1].material %>" selected><%= filas[i-1].material %></option>
                             <option value=""></option>
@@ -1082,7 +1134,7 @@
                         <td class="item"><%= j %></td>
                         <td width = "50px"><input type="number" id="<%= "cantidad" + String(j) %>" name="<%= "cantidad" + String(j) %>"  onchange="uncheck(<%= String(j)%>);          changeTotalTotal();   changeTotalPiezas(<%= String(j)%>);            changePerMaterialWidth(<%= String(j)%>);"></td>
                         <td width = "220px"><input type="text" id="<%= "descrip" + String(j) %>" name="<%= "descrip" + String(j) %>"></td>
-                        <td width = "80px"><input type="number" id="<%= "precio" + String(j) %>" name="<%= "precio" + String(j) %>"  onchange="uncheck(<%= String(j)%>);          changeTotalTotal();"></td>
+                        <td width = "80px"><input type="number" id="<%= "precio" + String(j) %>" name="<%= "precio" + String(j) %>"  onchange="uncheck(<%= String(j)%>);      changeindividualUnit(<%= String(j)%>);      changeTotalTotal();"></td>
                         <td width = "110px"><select id="<%= "material" + String(j) %>" name="<%= "material" + String(j) %>" onchange="uncheck(<%= String(j)%>);          changeCutValue(<%= String(j) %>, <%= JSON.stringify(corte) %>);   changeAreaValue(<%= String(j) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(j) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(j)%>);         changePerMaterialWidth(<%= String(j)%>);       cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
                             <option value=""></option>
                             <option value="Ac. Inox. 304">Ac. Inox. 304</option>

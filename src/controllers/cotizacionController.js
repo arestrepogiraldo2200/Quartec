@@ -151,7 +151,8 @@ let cotizacionController = {
                                 num: req.body.num,
                                 globalcorte: req.body.globcorte,
                                 globalmaterial: req.body.globmaterial,
-                                globaldoblez:  req.body.globdoblez
+                                globaldoblez:  req.body.globdoblez,
+                                globalunit:  req.body.globunit
                             },
                             ).then(() => {}).catch((err) => console.log(err));
                     }).catch((err) => console.log(err));
@@ -236,7 +237,7 @@ let cotizacionController = {
 
                         }
 
-                        console.log(data_rows);
+                        // console.log(data_rows);
                         db.cotizacion_datos.bulkCreate(data_rows, {returning: true}).then(() => {}).catch((err) => console.log(err));
 
 
@@ -1544,14 +1545,15 @@ let cotizacionController = {
                                             worksheet1.getCell(`R${2+i}`).value = globs[0].globalcorte;
                                             worksheet1.getCell(`S${2+i}`).value = globs[0].globalmaterial;
                                             worksheet1.getCell(`T${2+i}`).value = globs[0].globaldoblez;
+                                            worksheet1.getCell(`U${2+i}`).value = globs[0].globalunit || 0;
 
                                             if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0) && (rowsFound[i][`area`] == null || rowsFound[i][`area`] == 0) && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
                                                 // Llenado de filas de caso cobro diferente a corte/doblez
-                                                worksheet1.getCell(`U${2+i}`).value = 0;
                                                 worksheet1.getCell(`V${2+i}`).value = 0;
                                                 worksheet1.getCell(`W${2+i}`).value = 0;
                                                 worksheet1.getCell(`X${2+i}`).value = 0;
-                                                worksheet1.getCell(`Y${2+i}`).value = parseFloat(rowsFound[i][`cantidad`])*parseFloat(rowsFound[i][`precio`]) || 0;
+                                                worksheet1.getCell(`Y${2+i}`).value = 0;
+                                                worksheet1.getCell(`Z${2+i}`).value = parseFloat(rowsFound[i][`cantidad`])*parseFloat(rowsFound[i][`precio`]) || 0;
 
                                             } else {
                                                 // Llenado de filas caso cobro corte/doblez
@@ -1583,11 +1585,11 @@ let cotizacionController = {
                                                 // Costo por unidad de pieza
                                                 let costo_unidad = perimetro*corte_por_mm + piercings*piercing_por_pieza + longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez + area*material_por_mm2;
                                                 
-                                                worksheet1.getCell(`U${2+i}`).value = area*material_por_mm2;
-                                                worksheet1.getCell(`V${2+i}`).value = perimetro*corte_por_mm;
-                                                worksheet1.getCell(`W${2+i}`).value = piercings*piercing_por_pieza;
-                                                worksheet1.getCell(`X${2+i}`).value = longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez;
-                                                worksheet1.getCell(`Y${2+i}`).value = parseFloat(rowsFound[i][`cantidad`])*costo_unidad;
+                                                worksheet1.getCell(`V${2+i}`).value = area*material_por_mm2;
+                                                worksheet1.getCell(`W${2+i}`).value = perimetro*corte_por_mm;
+                                                worksheet1.getCell(`X${2+i}`).value = piercings*piercing_por_pieza;
+                                                worksheet1.getCell(`Y${2+i}`).value = longdoblezfactor*numdoblez*doblez*paramsfound[0].globaldoblez;
+                                                worksheet1.getCell(`Z${2+i}`).value = parseFloat(rowsFound[i][`cantidad`])*costo_unidad;
                                             }
                                         }
 

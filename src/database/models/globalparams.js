@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         globalcorte: {type: DataTypes.FLOAT},
         globalmaterial: {type: DataTypes.FLOAT},
         globaldoblez: {type: DataTypes.FLOAT},
-
+        globalunit: {type: DataTypes.FLOAT},
     };
 
     let config = {

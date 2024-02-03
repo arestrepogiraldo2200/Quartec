@@ -414,6 +414,7 @@
 
                 changeTotalValue(i);
                 changeTotalPiezas(i);
+                changePerWidth(i); 
             }
 
             changeTotalTotal()
@@ -451,6 +452,7 @@
             changeTotalValue(i);
             changeTotalPiezas(i);
             cleaniseMaterialWidth(piercingvalues);
+            cleaniselWidth(piercingvalues)
             changeTotalTotal();
         }
 
@@ -458,6 +460,8 @@
             document.getElementById('eliminar'+String(i)).checked = false;
         }
 
+
+        // Factor global por precio unitario =====================================================================================================
 
         var globalinitial;
         window.onload = function() {
@@ -505,6 +509,70 @@
             changeTotalTotal();
 
         }
+        
+        //=====================================================================================================
+
+        // function to show per width
+        function changePerWidth(item){
+
+            // Get the values of width the inserted item
+            let espesorform = document.getElementById('espesor'+item).value;
+            let materialform = document.getElementById('material'+item).value;
+            let espesorformnotspaces = espesorform.replace(/\s/g, '');
+
+            if (espesorform == "" || materialform == ""){
+                ;
+            } else {
+
+                document.getElementById("contenedortotalesgrosor").style.display = "block";               
+
+                let casillaespesor = document.getElementById(espesorformnotspaces);
+                casillaespesor.style.display = "block";
+                let suma = 0;
+
+                for (let i = 1; i <= 60; i++){
+
+                    let espesorformrec = document.getElementById('espesor'+String(i));
+                    let calculodoblez =  document.getElementById("calculodoblez" +String(i)).value || 0;
+                    let cantidad = document.getElementById('cantidad'+String(i)).value || 0;
+
+                    if (espesorformrec.value == espesorform ){
+                        suma += ( parseFloat(calculodoblez) )*parseFloat(cantidad);
+                    }
+                }
+                casillaespesor.value = "Total doblez, " + espesorform + ": $ " + String(suma.toFixed(0)); 
+            }
+        }
+
+        // function to delete non existing widths after a change
+        function cleaniselWidth(piercingvalues){
+
+            for(let i = 0; i < piercingvalues.length; i++){
+
+                let espesorformnotspaces = piercingvalues[i].width.replace(/\s/g, '');
+
+                for (let k = 1; k <= 60; k++){
+
+                    let centinel = 0;
+                    let espesorformrec = document.getElementById('espesor'+String(k)).value;
+
+                    if (espesorformrec == NaN ){
+                        continue;
+                    }
+
+                    if (espesorformrec == piercingvalues[i].width){
+                        centinel = 1;
+                        break;
+                    }
+
+                    if (k==60 && centinel == 0){
+
+                        document.getElementById(espesorformnotspaces).style.display = "none";
+                    }
+                }
+            }
+        }
+        
 
     </script>
 </head>
@@ -818,10 +886,10 @@
                     <% for (let i = 1; i <= 60; i++){ %>
                         <tr>
                         <td class="item"><%= i %></td>
-                        <td width = "50px"><input type="number" id="<%= "cantidad" + String(i) %>" name="<%= "cantidad" + String(i) %>"  onchange="uncheck(<%= String(i)%>);    changeTotalTotal();   changeTotalPiezas(<%= String(i)%>);         changePerMaterialWidth(<%= String(i)%>);"></td>
+                        <td width = "50px"><input type="number" id="<%= "cantidad" + String(i) %>" name="<%= "cantidad" + String(i) %>"  onchange="uncheck(<%= String(i)%>);    changeTotalTotal();   changeTotalPiezas(<%= String(i)%>);         changePerMaterialWidth(<%= String(i)%>);      changePerWidth(<%= String(i)%>);     "></td>
                         <td width = "220px"><input type="text" id="<%= "descrip" + String(i) %>" name="<%= "descrip" + String(i) %>"></td>
                         <td width = "80px"><input type="number" id="<%= "precio" + String(i) %>" name="<%= "precio" + String(i) %>"  onchange="uncheck(<%= String(i)%>);    changeindividualUnit(<%= String(i)%>);   changeTotalTotal();"></td>
-                        <td width = "110px"><select id="<%= "material" + String(i) %>" name="<%= "material" + String(i) %>" onchange="uncheck(<%= String(i)%>);        changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(i)%>);         changePerMaterialWidth(<%= String(i)%>);   cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>); ">
+                        <td width = "110px"><select id="<%= "material" + String(i) %>" name="<%= "material" + String(i) %>" onchange="uncheck(<%= String(i)%>);        changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();       changeTotalPiezas(<%= String(i)%>);         changePerMaterialWidth(<%= String(i)%>);   cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);    changePerWidth(<%= String(i)%>);         cleaniselWidth(<%= JSON.stringify(piercing) %>); ">
                             <option value=""></option>
                             <option value="Ac. Inox. 304">Ac. Inox. 304</option>
                             <option value="Ac. Inox. 316">Ac. Inox. 316</option>
@@ -835,7 +903,7 @@
                             <option value="Cobre">Cobre</option>
                             <option value="Latón">Latón</option>
                         </select></td>
-                        <td width = "120px"><select id="<%= "espesor" + String(i) %>" name="<%= "espesor" + String(i) %>" onchange="uncheck(<%= String(i)%>);       DisplayCalculationsRow(<%= String(i) %>);    changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changePiercingValue(<%= String(i) %>, <%= JSON.stringify(piercing) %>);     changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);         changePerMaterialWidth(<%= String(i)%>);       cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);">
+                        <td width = "120px"><select id="<%= "espesor" + String(i) %>" name="<%= "espesor" + String(i) %>" onchange="uncheck(<%= String(i)%>);       DisplayCalculationsRow(<%= String(i) %>);    changeCutValue(<%= String(i) %>, <%= JSON.stringify(corte) %>);   changePiercingValue(<%= String(i) %>, <%= JSON.stringify(piercing) %>);     changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);         changePerMaterialWidth(<%= String(i)%>);       cleaniseMaterialWidth(<%= JSON.stringify(piercing) %>);      changePerWidth(<%= String(i)%>);      cleaniselWidth(<%= JSON.stringify(piercing) %>);     ">
                             <option value=""></option>
                             <option value="Cal. 26 (0.4 mm)">Cal. 26 (0.4 mm)</option>
                             <option value="Cal. 24 (0.6 mm)">Cal. 24 (0.6 mm)</option>
@@ -874,8 +942,8 @@
                         <td><input type="number" step="0.0001" id="<%= "factor_area" + String(i) %>"   value="1"   name="<%= "factor_area" + String(i) %>" onchange="changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);        changePerMaterialWidth(<%= String(i)%>);"></td>
                         <td><input type="text" readonly class ="cannotchange" id="<%= "area" + String(i) %>" name="<%= "area" + String(i) %>" onkeydown="function(e) {if (e.keyCode != 9){return false;}}"></td>
                         <td><input type="number" id="<%= "piercings" + String(i) %>" name="<%= "piercings" + String(i) %>"  onchange="changePiercingValue(<%= String(i) %>, <%= JSON.stringify(piercing) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();     changeTotalPiezas(<%= String(i)%>);        changePerMaterialWidth(<%= String(i)%>);"></td>
-                        <td><input type="number" id="<%= "dobleces" + String(i) %>" name="<%= "dobleces" + String(i) %>"  onchange="validateMaterialWidth(<%= String(i) %>);       requiredDoblezValue(<%= String(i) %>);   changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(i)%>);        changePerMaterialWidth(<%= String(i)%>);         requiredDoblezValue(<%= String(i) %>);"></td>
-                        <td><input type="number" step="0.0001" id="<%= "longitud_doblez" + String(i) %>" name="<%= "longitud_doblez" + String(i) %>"  onchange="changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);        changePerMaterialWidth(<%= String(i)%>);" ></td>
+                        <td><input type="number" id="<%= "dobleces" + String(i) %>" name="<%= "dobleces" + String(i) %>"  onchange="validateMaterialWidth(<%= String(i) %>);       requiredDoblezValue(<%= String(i) %>);   changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();    changeTotalPiezas(<%= String(i)%>);        changePerMaterialWidth(<%= String(i)%>);         requiredDoblezValue(<%= String(i) %>);      changePerWidth(<%= String(i)%>);         "></td>
+                        <td><input type="number" step="0.0001" id="<%= "longitud_doblez" + String(i) %>" name="<%= "longitud_doblez" + String(i) %>"  onchange="changeDoblezValue(<%= String(i) %>, <%= JSON.stringify(doblez) %>);   changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);        changePerMaterialWidth(<%= String(i)%>);                   changePerWidth(<%= String(i)%>); " ></td>
                         <td><select id="<%= "con_material" + String(i) %>" name="<%= "con_material" + String(i) %>" onchange="changeAreaValue(<%= String(i) %>, <%= JSON.stringify(material) %>);  changeTotalValue(<%= String(i) %>);   changeTotalTotal();      changeTotalPiezas(<%= String(i)%>);        changePerMaterialWidth(<%= String(i)%>);">
                             <option value=""></option>
                             <option value="Sí">Sí</option>
@@ -908,23 +976,36 @@
                 </table>
             </div>   
 
-            <div class="inputcontainer totalespormaterial" style="display: none;" id = "contenedortotales">
+            <div class="totalescontainer">
 
-                <% for(let i = 0; i < piercing.length; i++){ %>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.H.R<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. H.R <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.C.R<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. C.R <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.1070<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, 1070 <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.304<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 304 <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.316<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 316 <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.430<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 430 <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Galv.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Galv. <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Alum.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Alum. <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Bronce<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Bronce <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Cobre<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Cobre <%= piercing[i].width %> : "/>
-                    <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Latón<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Latón <%= piercing[i].width %> : "/>
-                <% } %>
-            </div>  
-            
+                <!-- Totalizador corte ---------------------------------------------------------------- -->
+                <div class="inputcontainer totalespormaterial" style="display: none;" id = "contenedortotales">
+
+                    <% for(let i = 0; i < piercing.length; i++){ %>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.H.R<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. H.R <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.C.R<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. C.R <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.1070<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, 1070 <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.304<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 304 <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.316<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 316 <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.430<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 430 <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Galv.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Galv. <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Alum.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Alum. <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Bronce<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Bronce <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Cobre<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Cobre <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Latón<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Latón <%= piercing[i].width %> : "/>
+                    <% } %>
+                </div>  
+                
+                <!-- Totalizador doblez ---------------------------------------------------------------- -->
+                <div class="inputcontainer totalesporgrosor" style="display: none;" id = "contenedortotalesgrosor">
+                    
+                    <% for(let i = 0; i < piercing.length; i++){ %>
+                        <input readonly type="text" class="TOTALPORGROSOR" id="<%= piercing[i].width.replace(/\s/g, '') %>" style="display: none;" onkeydown="return false" value="Total doblez <%= piercing[i].width %> : "/>
+                    <% } %>
+                </div>  
+
+            </div>
+
             <div class="inputcontainer">
                 <input type="text" class="TOTAL" id="TOTAL" onkeydown="return false" value="Total: $"/>
             </div>  

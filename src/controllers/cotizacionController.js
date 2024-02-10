@@ -1272,7 +1272,23 @@ let cotizacionController = {
                                             for(let i = 0; i < rowsFound.length ; i++){
         
                                                 if (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0){
-                                                    continue;
+
+                                                    let firstentry = rowsFound[i][`descripcion`].split(" ")[0]
+    
+                                                    if (firstentry == "CC" || firstentry == "CD"){
+                                                          // Llenado de filas caso cobro corte/doblez
+                                                          worksheet3.getCell(`A${25+j}`).value = j;
+                                                          worksheet3.getCell(`B${25+j}`).value = rowsFound[i][`descripcion`] + ".";
+                                                          worksheet3.getCell(`F${25+j}`).value = " ";
+                                                          worksheet3.getCell(`G${25+j}`).value = rowsFound[i][`cantidad`];
+                                                          worksheet3.getCell(`H${25+j}`).value = " ";
+                                                          j += 1;
+
+                                                    } else {
+                                                        continue;
+                                                    } 
+
+
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
                                                     worksheet3.getCell(`A${25+j}`).value = j;
@@ -1321,7 +1337,21 @@ let cotizacionController = {
                                             for(let i = 0; i < rowsFound.length ; i++){
         
                                                 if (rowsFound[i][`dobleces`]== null || rowsFound[i][`dobleces`]== 0){
-                                                    continue;
+
+                                                    let firstentry = rowsFound[i][`descripcion`].split(" ")[0];
+
+                                                    if (firstentry == "DD" || firstentry == "CD"){
+                                                        // Llenado de filas caso cobro corte/doblez
+                                                        worksheet4.getCell(`A${17+j}`).value = j;
+                                                        worksheet4.getCell(`B${17+j}`).value = rowsFound[i][`descripcion`] + ".";
+                                                        worksheet4.getCell(`F${17+j}`).value = " ";
+                                                        worksheet4.getCell(`G${17+j}`).value = " ";
+                                                        worksheet4.getCell(`H${17+j}`).value = rowsFound[i][`cantidad`];
+                                                        j += 1;
+
+                                                    } else {
+                                                        continue;
+                                                    }
                                                 } else {
                                                     // Llenado de filas caso cobro corte/doblez
                                                     worksheet4.getCell(`A${17+j}`).value = j;

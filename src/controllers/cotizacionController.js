@@ -855,7 +855,14 @@ let cotizacionController = {
                                                 if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0) && (rowsFound[i][`area`] == null || rowsFound[i][`area`] == 0) && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
                                                     // Llenado de filas de caso cobro diferente a corte/doblez
                                                     worksheet.getCell(`A${27+i}`).value = i+1;
-                                                    worksheet.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ".";
+
+                                                    let descr = rowsFound[i][`descripcion`];
+                                                    if (descr.split(" ")[0] == "CD" || descr.split(" ")[0] == "CC" || descr.split(" ")[0] == "DD"){
+                                                        worksheet.getCell(`B${27+i}`).value = descr.substr(descr. indexOf(" ") + 1) + ".";
+                                                    } else {
+                                                        worksheet.getCell(`B${27+i}`).value = descr + ".";
+                                                    }
+                                                    worksheet.getCell(`B${27+i}`).value = descr.substr(descr. indexOf(" ") + 1) + ".";
                                                     worksheet.getCell(`H${27+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet.getCell(`L${27+i}`).value = rowsFound[i][`precio`];
                                                     worksheet.getCell(`N${27+i}`).value = parseFloat(rowsFound[i][`cantidad`])*parseFloat(rowsFound[i][`precio`]);
@@ -1039,7 +1046,14 @@ let cotizacionController = {
                                                 if (rowsFound[i][`material`] == null && rowsFound[i][`espesor`] == null && (rowsFound[i][`perimetro`] == null || rowsFound[i][`perimetro`] == 0) && (rowsFound[i][`area`] == null || rowsFound[i][`area`] == 0) && rowsFound[i][`dobleces`] == null && rowsFound[i][`longdoblez`] == null){
                                                     // Llenado de filas de caso cobro diferente a corte/doblez
                                                     worksheet1.getCell(`A${27+i}`).value = i+1;
-                                                    worksheet1.getCell(`B${27+i}`).value = rowsFound[i][`descripcion`] + ".";
+
+                                                    let descr = rowsFound[i][`descripcion`];
+                                                    if (descr.split(" ")[0] == "CD" || descr.split(" ")[0] == "CC" || descr.split(" ")[0] == "DD"){
+                                                        worksheet1.getCell(`B${27+i}`).value = descr.substr(descr. indexOf(" ") + 1) + ".";
+                                                    } else {
+                                                        worksheet1.getCell(`B${27+i}`).value = descr + ".";
+                                                    }
+
                                                     worksheet1.getCell(`E${27+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet1.getCell(`F${27+i}`).value = "Und";
                                                     worksheet1.getCell(`H${27+i}`).value = rowsFound[i][`precio`];

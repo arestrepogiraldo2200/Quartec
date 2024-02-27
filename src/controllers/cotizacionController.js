@@ -1420,10 +1420,15 @@ let cotizacionController = {
                                                 let numdoblez = rowsFound[i][`dobleces`] != null? parseFloat(rowsFound[i][`dobleces`]) : 0;
                                                 let longdobleces = rowsFound[i][`longdoblez`] != null? parseFloat(rowsFound[i][`longdoblez`]) : 1;
 
+
                                                 let longdoblezfactor = 1;
+                                                if (longdobleces >= 1000) {
+                                                    longdoblezfactor = 1.5;
+                                                }
                                                 if (longdobleces >= 1500) {
                                                     longdoblezfactor = 2;
                                                 } 
+
 
                                                 let area;
                                                 if (rowsFound[i][`conmaterial`] == "No" || rowsFound[i][`conmaterial`] == null) {
@@ -1615,6 +1620,9 @@ let cotizacionController = {
                                                 let longdobleces = rowsFound[i][`longdoblez`] != null? parseFloat(rowsFound[i][`longdoblez`]) : 1;
 
                                                 let longdoblezfactor = 1;
+                                                if (longdobleces >= 1000) {
+                                                    longdoblezfactor = 1.5;
+                                                }
                                                 if (longdobleces >= 1500) {
                                                     longdoblezfactor = 2;
                                                 } 

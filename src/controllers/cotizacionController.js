@@ -350,7 +350,18 @@ let cotizacionController = {
 
                                                 let porpiezacorte = perimetro*costocortepormm;
                                                 let porpiezapiercing = costopiercing*numpiercings;
-                                                let porpiezadoblez = longdoblez > 1500? 2*costodoblez*numdobleces*paramsfound[0].globaldoblez : costodoblez*numdobleces*paramsfound[0].globaldoblez;
+
+
+                                                let porpiezadoblez;
+
+                                                if (longdoblez >= 1000 && longdoblez < 1500) {
+                                                    porpiezadoblez = 1.5*costodoblez*numdobleces*paramsfound[0].globaldoblez
+                                                } else if (longdoblez >= 1500) {
+                                                    porpiezadoblez = 2*costodoblez*numdobleces*paramsfound[0].globaldoblez
+                                                } else{
+                                                    porpiezadoblez = costodoblez*numdobleces*paramsfound[0].globaldoblez
+                                                }
+
                                                 let porpiezamaterial = conmaterial=="Sí"? area*costomaterialmm2 : 0;
                                                 let totalporpieza = porpiezacorte + porpiezapiercing + porpiezadoblez + porpiezamaterial;
                                                 let totalpiezastodas = cantidad*totalporpieza

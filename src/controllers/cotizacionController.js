@@ -889,6 +889,9 @@ let cotizacionController = {
                                                     let longdobleces = rowsFound[i][`longdoblez`] != null? parseFloat(rowsFound[i][`longdoblez`]) : 1;
 
                                                     let longdoblezfactor = 1;
+                                                    if (longdobleces >= 1000) {
+                                                        longdoblezfactor = 1.5;
+                                                    }
                                                     if (longdobleces >= 1500) {
                                                         longdoblezfactor = 2;
                                                     } 
@@ -1083,6 +1086,9 @@ let cotizacionController = {
                                                     let longdobleces = rowsFound[i][`longdoblez`] != null? parseFloat(rowsFound[i][`longdoblez`]) : 1;
 
                                                     let longdoblezfactor = 1;
+                                                    if (longdobleces >= 1000) {
+                                                        longdoblezfactor = 1.5;
+                                                    }
                                                     if (longdobleces >= 1500) {
                                                         longdoblezfactor = 2;
                                                     } 

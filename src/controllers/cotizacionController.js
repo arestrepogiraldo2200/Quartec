@@ -873,7 +873,6 @@ let cotizacionController = {
                                                     } else {
                                                         worksheet.getCell(`B${27+i}`).value = descr + ".";
                                                     }
-                                                    worksheet.getCell(`B${27+i}`).value = descr.substr(descr. indexOf(" ") + 1) + ".";
                                                     worksheet.getCell(`H${27+i}`).value = rowsFound[i][`cantidad`];
                                                     worksheet.getCell(`L${27+i}`).value = rowsFound[i][`precio`];
                                                     worksheet.getCell(`N${27+i}`).value = parseFloat(rowsFound[i][`cantidad`])*parseFloat(rowsFound[i][`precio`]);

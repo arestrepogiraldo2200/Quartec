@@ -423,37 +423,51 @@
 
         function Eliminar(i, piercingvalues){
 
-            document.getElementById('cantidad'+String(i)).value = "";
-            document.getElementById('descrip'+String(i)).value = "";
-            document.getElementById('precio'+String(i)).value = "";
-            document.getElementById('material'+String(i)).value = "";
-            document.getElementById('espesor'+String(i)).value = "";
-            document.getElementById('perimetro_autocad'+String(i)).value = "";
-            document.getElementById('factor_corte'+String(i)).value = 1;
-            document.getElementById('perimetro'+String(i)).value = "";
-            document.getElementById('largo_autocad'+String(i)).value = "";
-            document.getElementById('ancho_autocad'+String(i)).value = "";
-            document.getElementById('factor_area'+String(i)).value = 1;
-            document.getElementById('area'+String(i)).value = "";
-            document.getElementById('piercings'+String(i)).value = "";
-            document.getElementById('dobleces'+String(i)).value = "";
-            document.getElementById('longitud_doblez'+String(i)).value = "";
-            document.getElementById('con_material'+String(i)).value = "";
+            let checkvalue = document.getElementById('eliminar'+String(i)).checked;
 
-            document.getElementById('totaltodas'+String(i)).value = 0.0;
-            document.getElementById('calculocorte'+String(i)).value = 0.0;
-            document.getElementById('calculopiercing'+String(i)).value = 0.0;
-            document.getElementById('calculodoblez'+String(i)).value = 0.0;
-            document.getElementById('calculomaterial'+String(i)).value = 0.0;
-            document.getElementById('total'+String(i)).value = 0.0;
+            if (checkvalue) {
 
-            document.getElementById('calculationsrow'+String(i)).style.display = "none";
+                if (confirm("Está seguro de que quiere eliminar la fila")){
+              
+                    document.getElementById('cantidad'+String(i)).value = "";
+                    document.getElementById('descrip'+String(i)).value = "";
+                    document.getElementById('precio'+String(i)).value = "";
+                    document.getElementById('material'+String(i)).value = "";
+                    document.getElementById('espesor'+String(i)).value = "";
+                    document.getElementById('perimetro_autocad'+String(i)).value = "";
+                    document.getElementById('factor_corte'+String(i)).value = 1;
+                    document.getElementById('perimetro'+String(i)).value = "";
+                    document.getElementById('largo_autocad'+String(i)).value = "";
+                    document.getElementById('ancho_autocad'+String(i)).value = "";
+                    document.getElementById('factor_area'+String(i)).value = 1;
+                    document.getElementById('area'+String(i)).value = "";
+                    document.getElementById('piercings'+String(i)).value = "";
+                    document.getElementById('dobleces'+String(i)).value = "";
+                    document.getElementById('longitud_doblez'+String(i)).value = "";
+                    document.getElementById('con_material'+String(i)).value = "";
 
-            changeTotalValue(i);
-            changeTotalPiezas(i);
-            cleaniseMaterialWidth(piercingvalues);
-            cleaniselWidth(piercingvalues)
-            changeTotalTotal();
+                    document.getElementById('totaltodas'+String(i)).value = 0.0;
+                    document.getElementById('calculocorte'+String(i)).value = 0.0;
+                    document.getElementById('calculopiercing'+String(i)).value = 0.0;
+                    document.getElementById('calculodoblez'+String(i)).value = 0.0;
+                    document.getElementById('calculomaterial'+String(i)).value = 0.0;
+                    document.getElementById('total'+String(i)).value = 0.0;
+                    document.getElementById('calculationsrow'+String(i)).style.display = "none";
+
+                    changeTotalValue(i);
+                    changeTotalPiezas(i);
+                    cleaniseMaterialWidth(piercingvalues);
+                    cleaniselWidth(piercingvalues)
+                    changeTotalTotal();
+                }
+                else{
+                    document.getElementById('eliminar'+String(i)).checked = false;
+                }
+
+            }
+            else if (!checkvalue){
+                document.getElementById('eliminar'+String(i)).checked = false;
+            }
         }
 
         function uncheck(i){
@@ -573,6 +587,10 @@
             }
         }
         
+    // Today's date code
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById('fecha').valueAsDate = new Date();
+    });
 
     </script>
 </head>
@@ -949,7 +967,7 @@
                             <option value="Sí">Sí</option>
                             <option value="No">No</option>
                         </select></td>
-                        <td><input type="checkbox" id="<%= "eliminar" + String(i) %>" name="<%= "eliminar" + String(i) %>" onchange="Eliminar(<%= String(i) %>, <%= JSON.stringify(piercing) %>);" ></td>
+                        <td style="background-color:rgb(250, 204, 176);"><input type="checkbox" id="<%= "eliminar" + String(i) %>" name="<%= "eliminar" + String(i) %>" onchange="Eliminar(<%= String(i) %>, <%= JSON.stringify(piercing) %>);" ></td>
                         </tr>
 
                         <tr class="calculationsrow"  id="<%= "calculationsrow" + String(i) %>" style="display: none"> 

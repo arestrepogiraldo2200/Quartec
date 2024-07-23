@@ -674,6 +674,7 @@
                     <option value="30 días">30 días</option>
                 </datalist> -->
                 <select type="text" id="validez" name="validez" list = "valid" required>
+                    <option value = "<%=cotizaciongeneral.validez%>" selected><%=cotizaciongeneral.validez%></option>
                     <option value=""></option>
                     <option value="1 día">1 día</option>
                     <option value="2 días">2 días</option>
@@ -753,6 +754,7 @@
                     <option value="30 días hábiles">30 días hábiles</option>
                 </datalist> -->
                 <select type="text" id="entrega" name="entrega" list = "deliv" required>
+                    <option value = "<%=cotizaciongeneral.entrega %>" selected><%=cotizaciongeneral.entrega %></option>
                     <option value=""></option>
                     <option value="1 día hábil">1 día hábil</option>
                     <option value="2 días hábiles">2 días hábiles</option>
@@ -827,6 +829,7 @@
                     <option value="Contra entrega">Contra entrega</option>
                 </datalist> -->
                 <select type="text" list = "cond" name="selectcondiciones" required>
+                    <option  value = "<%=cotizaciongeneral.condiciones %>" selected><%=cotizaciongeneral.condiciones %></option>
                     <option value=""></option>
                     <option value="Contado">Contado</option>
                     <option value="Anticipo y crédito">Anticipo y crédito</option>
@@ -882,6 +885,7 @@
                     <option value="Forma de Pago: Crédito a 30 días.">Forma de Pago: Crédito a 30 días.</option>
                 </datalist> -->
                 <select type="text" list = "payment" name="forma_pago" required>
+                    <option  value = "<%=cotizaciongeneral.pago %>" selected><%=cotizaciongeneral.pago %></option>
                     <option value=""></option>
                     <option value="Forma de Pago: Contra Entrega.">Forma de Pago: Contra Entrega.</option>
                     <option value="Forma de Pago: 10% Anticipo y 90% Contra Entrega.">Forma de Pago: 10% Anticipo y 90% Contra Entrega.</option>

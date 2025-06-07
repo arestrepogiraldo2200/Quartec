@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         "Ac. Inox. 304": {type: DataTypes.FLOAT},
         "Ac. Inox. 316": {type: DataTypes.FLOAT},
         "Ac. Inox. 430": {type: DataTypes.FLOAT},
+        "Ac. Inox. Sat. 304": {type: DataTypes.FLOAT},
         "Galv.": {type: DataTypes.FLOAT},
         "Alum.": {type: DataTypes.FLOAT},
         "Bronce": {type: DataTypes.FLOAT},

@@ -215,7 +215,7 @@
         // function to delete non existing material and width
         function cleaniseMaterialWidth(piercingvalues){
 
-            let listmaterial = ["Ac. H.R", "Ac. C.R", "Ac. 1070", "Ac. Inox. 304", "Ac. Inox. 316", "Ac. Inox. 430", "Galv.", "Alum.", "Bronce", "Cobre", "Latón"];
+            let listmaterial = ["Ac. H.R", "Ac. C.R", "Ac. 1070", "Ac. Inox. 304", "Ac. Inox. 316", "Ac. Inox. 430", "Ac. Inox. Sat. 304", "Galv.", "Alum.", "Bronce", "Cobre", "Latón"];
 
             for(let i = 0; i < piercingvalues.length; i++){
                 for(let j = 0; j < listmaterial.length; j++){
@@ -990,6 +990,7 @@
                             <option value="Ac. Inox. 304">Ac. Inox. 304</option>
                             <option value="Ac. Inox. 316">Ac. Inox. 316</option>
                             <option value="Ac. Inox. 430">Ac. Inox. 430</option>
+                            <option value="Ac. Inox. Sat. 304">Ac. Inox. Sat. 304</option>
                             <option value="Ac. 1070">Ac. 1070</option>
                             <option value="Ac. H.R">Ac. H.R</option>
                             <option value="Ac. C.R">Ac. C.R</option>
@@ -1084,6 +1085,7 @@
                         <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.304<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 304 <%= piercing[i].width %> : "/>
                         <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.316<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 316 <%= piercing[i].width %> : "/>
                         <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.430<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. 430 <%= piercing[i].width %> : "/>
+                        <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Ac.Inox.Sat.304<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Ac. Inox. Sat. 304 <%= piercing[i].width %> : "/>
                         <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Galv.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Galv. <%= piercing[i].width %> : "/>
                         <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Alum.<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Alum. <%= piercing[i].width %> : "/>
                         <input readonly type="text" class="TOTALPORMATERIALGROSOR" id="Bronce<%=piercing[i].width.replace(/\s/g, '')%>" style="display: none;" onkeydown="return false" value="Total corte, Bronce <%= piercing[i].width %> : "/>

@@ -43,6 +43,7 @@ let preciosController = {
                 "Ac. Inox. 304": req.body[`corte_precio_304${i}`],
                 "Ac. Inox. 316": req.body[`corte_precio_316${i}`],
                 "Ac. Inox. 430": req.body[`corte_precio_430${i}`],
+                "Ac. Inox. Sat. 304": req.body[`corte_precio_Sat304${i}`],
                 "Galv.": req.body[`corte_precio_Galv${i}`],
                 "Alum.": req.body[`corte_precio_Alum${i}`],
                 "Bronce": req.body[`corte_precio_Bronce${i}`],
